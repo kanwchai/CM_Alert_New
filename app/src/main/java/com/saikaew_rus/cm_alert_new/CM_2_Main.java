@@ -61,7 +61,12 @@ public class CM_2_Main extends AppCompatActivity {
                 String birthUser = mTextDate.getText().toString();
                 String diverUser = mTextDate_2.getText().toString();
 
-                c
+                ContentValues val_1 = new ContentValues();
+                val_1.put(TB_9_USER.User_Name, nameUser);
+                val_1.put(TB_9_USER.User_Birth, birthUser);
+                val_1.put(TB_9_USER.User_Due_Date_Driving, diverUser);
+                mDb.insert(TB_9_USER.TABLE, null, val_1);
+
                 Intent go = new Intent(getApplicationContext(), CM_3_Car.class);
                 startActivity(go);
                 finish();
