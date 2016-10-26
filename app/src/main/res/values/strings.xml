@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CM Alert_New</string>
+
+    <!--Date Picker-->
+    <string name="date_selected"></string>
+    <!--End Date Picker-->
+
+</resources>

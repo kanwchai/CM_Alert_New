@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.saikaew_rus.cm_alert_new">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".CM_1_Load"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CM_2_Main"
+            android:label="User"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CM_3_Car"
+            android:label="Car" />
+        <activity
+            android:name=".CM_4_Plus_Car"
+            android:label="Car Data" />
+        <activity
+            android:name=".CM_9_Add_Parts"
+            android:label="Add Parts" />
+        <activity
+            android:name=".CM_10_Add_Partstwo"
+            android:label="Add Parts" />
+        <activity
+            android:name=".CM_8_History"
+            android:label="Maintenance History" />
+        <activity
+            android:name=".CM_6_Travel"
+            android:label="Travel" />
+    </application>
+
+</manifest>
