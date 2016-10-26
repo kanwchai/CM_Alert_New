@@ -20,9 +20,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String CREATE_TB_1_CAR = "CREATE TABLE " + TB_1_CAR.TABLE + " ("
                 + TB_1_CAR.Car_Id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TB_1_CAR.Type_Car_Id + " TEXT,"
-                + TB_1_CAR.Car_Register + " DATE,"
-                + TB_1_CAR.Car_Tax_Date + " DATE)";
+                + TB_1_CAR.Type_Car_Id + " INTEGER,"
+                + TB_1_CAR.Car_Register + " TEXT,"
+                + TB_1_CAR.Car_Tax_Date + " TEXT)";
 
         String CREATE_TB_2_DUE_OF_PART_FIX = "CREATE TABLE " + TB_2_DUE_OF_PART_FIX.TABLE + " ("
                 + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -43,9 +43,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " INTEGER ,"
                 + TB_4_HISTORYS_OF_CAR.Car_Id + " INTEGER ,"
                 + TB_4_HISTORYS_OF_CAR.Changed_Date + " TEXT,"
-                + TB_4_HISTORYS_OF_CAR.Changed_Kilo + " INTEGER ,"
+                + TB_4_HISTORYS_OF_CAR.Changed_Kilo + " REAL ,"
                 + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + " TEXT,"
-                + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + " INTEGER)";
+                + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + " REAL)";
 
         String CREATE_TB_5_PARTS = "CREATE TABLE " + TB_5_PARTS.TABLE + " ("
                 + TB_5_PARTS.Part_Id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
