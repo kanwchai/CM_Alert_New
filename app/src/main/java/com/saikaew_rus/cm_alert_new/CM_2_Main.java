@@ -1,8 +1,6 @@
 package com.saikaew_rus.cm_alert_new;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,9 +16,6 @@ import java.util.Date;
 
 public class CM_2_Main extends AppCompatActivity {
 
-    DBHelper mHelper;
-    SQLiteDatabase mDb;
-
     private DatePickerDialog mDatePicker;
     private DatePickerDialog mDatePicker_2;
 
@@ -33,6 +28,9 @@ public class CM_2_Main extends AppCompatActivity {
     private TextView mTextDate_2;
 
     private EditText mTextName;
+
+    Button bSave;
+    Button button1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,32 +47,30 @@ public class CM_2_Main extends AppCompatActivity {
 
         mTextName = (EditText) findViewById(R.id.editText);
 
-        mHelper = new DBHelper(this);
-        mDb = mHelper.getWritableDatabase();
+        bSave = (Button) findViewById(R.id.button);
 
-        Button button;
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Repo_9_USER repo = new Repo_9_USER(this);
+        final TB_9_USER user = new TB_9_USER();
+
+        bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameUser = mTextName.getText().toString();
-                String birthUser = mTextDate.getText().toString();
-                String diverUser = mTextDate_2.getText().toString();
+                user.user_Name = mTextName.getText().toString();
+                user.user_Birth = mTextDate.getText().toString();
+                user.user_Due_Date_Driving = mTextDate_2.getText().toString();
+                repo.insert(user);
 
-                ContentValues val_1 = new ContentValues();
-                val_1.put(TB_9_USER.User_Name, nameUser);
-                val_1.put(TB_9_USER.User_Birth, birthUser);
-                val_1.put(TB_9_USER.User_Due_Date_Driving, diverUser);
-                mDb.insert(TB_9_USER.TABLE, null, val_1);
+//                Toast.makeText(this, "เพิ่มข้อมูลผู้ใช้แล้ว", Toast.LENGTH_SHORT).show();
 
-                Intent go = new Intent(getApplicationContext(), CM_3_Car.class);
-                startActivity(go);
+                Intent go1 = new Intent(getApplicationContext(), CM_3_Car.class);
+                startActivity(go1);
                 finish();
             }
         });
 
-        Button button1;
+
         button1 = (Button) findViewById(R.id.button2);
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,18 +79,6 @@ public class CM_2_Main extends AppCompatActivity {
                 finish();
             }
         });
-
-        mDatePicker = DatePickerDialog.newInstance(onDateSetListener,
-                mCalendar.get(Calendar.YEAR),       // ปี
-                mCalendar.get(Calendar.MONTH),      // เดือน
-                mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
-                false);
-
-        mDatePicker_2 = DatePickerDialog.newInstance(onDateSetListener_2,
-                mCalendar.get(Calendar.YEAR),       // ปี
-                mCalendar.get(Calendar.MONTH),      // เดือน
-                mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
-                false);
 
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +95,19 @@ public class CM_2_Main extends AppCompatActivity {
                 mDatePicker_2.show(getSupportFragmentManager(), "datePicker");
             }
         });
+
+        mDatePicker = DatePickerDialog.newInstance(onDateSetListener,
+                mCalendar.get(Calendar.YEAR),       // ปี
+                mCalendar.get(Calendar.MONTH),      // เดือน
+                mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
+                false);
+
+        mDatePicker_2 = DatePickerDialog.newInstance(onDateSetListener_2,
+                mCalendar.get(Calendar.YEAR),       // ปี
+                mCalendar.get(Calendar.MONTH),      // เดือน
+                mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
+                false);
+
     }
 
     private DatePickerDialog.OnDateSetListener onDateSetListener =
@@ -132,14 +129,13 @@ public class CM_2_Main extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
 
-//                    DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
                     SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
                     mCalendar.set(year, month, day);
                     Date date = mCalendar.getTime();
-//                    String textDate = dateFormat.format(date);
                     String textDate = dfm.format(date);
                     mTextDate_2.setText(textDate);
 
                 }
             };
+
 }

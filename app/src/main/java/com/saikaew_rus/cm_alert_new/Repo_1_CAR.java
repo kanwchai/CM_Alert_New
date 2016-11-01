@@ -59,12 +59,7 @@ public class Repo_1_CAR {
     public ArrayList<HashMap<String, String>> getCarList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT  " +
-                TB_1_CAR.Car_Id + "," +
-                TB_1_CAR.Type_Car_Id + "," +
-                TB_1_CAR.Car_Tax_Date + "," +
-                TB_1_CAR.Car_Register +
-                " FROM " + TB_1_CAR.TABLE;
+        String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE;
 
         // TB_1_CAR car = new TB_1_CAR();
         ArrayList<HashMap<String, String>> carList = new ArrayList<HashMap<String, String>>();
@@ -92,14 +87,8 @@ public class Repo_1_CAR {
 
     public TB_1_CAR getCarById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT  " +
-                TB_1_CAR.Car_Id + "," +
-                TB_1_CAR.Type_Car_Id + "," +
-                TB_1_CAR.Car_Register + "," +
-                TB_1_CAR.Car_Tax_Date +
-                " FROM " + TB_1_CAR.TABLE
-                + " WHERE " +
-                TB_1_CAR.Car_Id + "=?";// It's a good practice to use parameter ?, instead of concatenate string
+        String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?";
+        // It's a good practice to use parameter ?, instead of concatenate string
 
         int iCount = 0;
         TB_1_CAR car = new TB_1_CAR();

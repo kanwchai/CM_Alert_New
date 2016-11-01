@@ -65,15 +65,7 @@ public class Repo_4_HISTORYS_OF_CAR {
     public ArrayList<HashMap<String, String>> getCarList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT  " +
-                TB_4_HISTORYS_OF_CAR.History_Id + "," +
-                TB_4_HISTORYS_OF_CAR.Fix_Due_Id + "," +
-                TB_4_HISTORYS_OF_CAR.Car_Id + "," +
-                TB_4_HISTORYS_OF_CAR.Changed_Date + "," +
-                TB_4_HISTORYS_OF_CAR.Changed_Kilo + "," +
-                TB_4_HISTORYS_OF_CAR.Next_Changed_Date +
-                TB_4_HISTORYS_OF_CAR.Next_Changed_Date +
-                " FROM " + TB_4_HISTORYS_OF_CAR.TABLE;
+        String selectQuery = "SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE;
 
         // TB_4_HISTORYS_OF_CAR his_car = new TB_4_HISTORYS_OF_CAR();
         ArrayList<HashMap<String, String>> his_carList = new ArrayList<HashMap<String, String>>();
@@ -105,9 +97,8 @@ public class Repo_4_HISTORYS_OF_CAR {
 
     public TB_4_HISTORYS_OF_CAR getHis_CarById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE
-                + " WHERE " +
-                TB_4_HISTORYS_OF_CAR.History_Id + "=?";// It's a good practice to use parameter ?, instead of concatenate string
+        String selectQuery = "SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " WHERE " + TB_4_HISTORYS_OF_CAR.History_Id + "=?";
+        // It's a good practice to use parameter ?, instead of concatenate string
 
         int iCount = 0;
         TB_4_HISTORYS_OF_CAR his_car = new TB_4_HISTORYS_OF_CAR();
@@ -123,7 +114,6 @@ public class Repo_4_HISTORYS_OF_CAR {
                 his_car.changed_Kilo = cursor.getDouble(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Kilo));
                 his_car.next_Changed_Date = cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Date));
                 his_car.next_Changed_Kilo = cursor.getDouble(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo));
-
             } while (cursor.moveToNext());
         }
 

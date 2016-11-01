@@ -12,4 +12,7 @@ public class TB_5_PARTS {
     public static final String Part_Name = "Part_Name";
 
     //property help us to keep data
+    public int part_Id;
+    public String part_Name;
+
 }

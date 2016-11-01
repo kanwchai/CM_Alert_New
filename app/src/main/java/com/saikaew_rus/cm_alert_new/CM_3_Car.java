@@ -1,19 +1,14 @@
 package com.saikaew_rus.cm_alert_new;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CM_3_Car extends AppCompatActivity {
-
-    DBHelper mHelper;
-    SQLiteDatabase mDB;
-    Cursor mCursor;
+public class CM_3_Car extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +16,14 @@ public class CM_3_Car extends AppCompatActivity {
 
         setContentView(R.layout.activity_3_car);
 
-        mHelper = new DBHelper(this);
-        mDB = mHelper.getWritableDatabase();
-        mCursor = mDB.rawQuery("SELECT * FROM " + DBHelper.getTB_User(), null);
+        Repo_9_USER repo = new Repo_9_USER(this);
+        TB_9_USER user = new TB_9_USER();
 
-        mCursor.moveToFirst();
-        if (mCursor.getCount() > 0) {
+        user = repo.getUserById(1);
+
+        if (repo.getUserList().size() > 0) {
             TextView showName = (TextView) findViewById(R.id.textView4);
-            showName.setText(mCursor.getString(mCursor.getColumnIndex(DBHelper.getUser_Name())));
+            showName.setText(user.user_Name);
         }
 
         ImageButton imBT;
@@ -37,9 +32,22 @@ public class CM_3_Car extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CM_3_Car.this, CM_4_Plus_Car.class);
+                intent.putExtra("setUser_Id",1);
                 startActivity(intent);
             }
         });
 
+        ImageView fixUser = (ImageView) findViewById(R.id.imageView);
+        fixUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent go1 = new Intent(getApplicationContext(), CM_5_User_Data.class);
+                startActivity(go1);
+                finish();
+            }
+        });
+
     }
+
 }

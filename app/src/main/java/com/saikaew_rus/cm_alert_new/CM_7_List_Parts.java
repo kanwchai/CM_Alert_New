@@ -8,6 +8,6 @@ public class CM_7_List_Parts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_7_list__parts);
+        setContentView(R.layout.activity_7_list_parts);
     }
 }

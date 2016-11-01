@@ -14,4 +14,8 @@ public class TB_9_USER {
     public static final String User_Due_Date_Driving = "User_Due_Date_Driving";
 
     //property help us to keep data
+    public int user_Id;
+    public String user_Name;
+    public String user_Birth;
+    public String user_Due_Date_Driving;
 }

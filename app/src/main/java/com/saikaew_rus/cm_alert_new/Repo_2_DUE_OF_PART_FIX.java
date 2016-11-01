@@ -61,13 +61,7 @@ public class Repo_2_DUE_OF_PART_FIX {
     public ArrayList<HashMap<String, String>> getCarList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT  " +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "," +
-                TB_2_DUE_OF_PART_FIX.Part_Id + "," +
-                TB_2_DUE_OF_PART_FIX.Car_Id + "," +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + "," +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Date +
-                " FROM " + TB_2_DUE_OF_PART_FIX.TABLE;
+        String selectQuery = "SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE;
 
         // TB_2_DUE_OF_PART_FIX due_fix = new TB_2_DUE_OF_PART_FIX();
         ArrayList<HashMap<String, String>> due_fixList = new ArrayList<HashMap<String, String>>();
@@ -97,15 +91,8 @@ public class Repo_2_DUE_OF_PART_FIX {
 
     public TB_2_DUE_OF_PART_FIX getDue_FixById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT  " +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "," +
-                TB_2_DUE_OF_PART_FIX.Part_Id + "," +
-                TB_2_DUE_OF_PART_FIX.Car_Id + "," +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + "," +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Date +
-                " FROM " + TB_2_DUE_OF_PART_FIX.TABLE
-                + " WHERE " +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "=?";// It's a good practice to use parameter ?, instead of concatenate string
+        String selectQuery = "SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + " WHERE " + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "=?";
+        // It's a good practice to use parameter ?, instead of concatenate string
 
         int iCount = 0;
         TB_2_DUE_OF_PART_FIX due_fix = new TB_2_DUE_OF_PART_FIX();

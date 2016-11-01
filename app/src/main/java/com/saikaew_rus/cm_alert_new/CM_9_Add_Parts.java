@@ -11,7 +11,7 @@ public class CM_9_Add_Parts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_9_add__parts);
+        setContentView(R.layout.activity_9_add_parts);
 
         Button button;
         button = (Button) findViewById(R.id.button5);

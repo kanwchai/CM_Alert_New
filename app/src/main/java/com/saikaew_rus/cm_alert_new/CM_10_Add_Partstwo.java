@@ -8,6 +8,6 @@ public class CM_10_Add_Partstwo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_10_add__partstwo);
+        setContentView(R.layout.activity_10_add_partstwo);
     }
 }
