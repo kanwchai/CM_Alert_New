@@ -32,7 +32,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TB_2_DUE_OF_PART_FIX.Car_Id + " INTEGER REFERENCES " +
                 TB_1_CAR.TABLE + "(" + TB_1_CAR.Car_Id + ") ON UPDATE CASCADE, "
                 + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " INTEGER, "
-                + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " INTEGER)";
+                + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " INTEGER,"
+                + TB_2_DUE_OF_PART_FIX.Fix_Due_Status + " TEXT)";
 
         String CREATE_TB_3_DUE_OF_PART_STANDART = "CREATE TABLE " + TB_3_DUE_OF_PART_STANDART.TABLE + "("
                 + TB_3_DUE_OF_PART_STANDART.St_Due_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -41,7 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TB_3_DUE_OF_PART_STANDART.Type_Car_Id + " INTEGER REFERENCES " +
                 TB_8_TYPE_OF_CAR.TABLE + "(" + TB_8_TYPE_OF_CAR.Type_Car_Id + ") ON UPDATE CASCADE, "
                 + TB_3_DUE_OF_PART_STANDART.St_Due_Date + " INTEGER, "
-                + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + " INTEGER)";
+                + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + " INTEGER, "
+                + TB_3_DUE_OF_PART_STANDART.St_Due_Status + " TEXT)";
 
         String CREATE_TB_4_HISTORYS_OF_CAR = "CREATE TABLE " + TB_4_HISTORYS_OF_CAR.TABLE + "("
                 + TB_4_HISTORYS_OF_CAR.History_Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
