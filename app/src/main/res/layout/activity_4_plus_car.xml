@@ -53,25 +53,28 @@
             android:layout_marginTop="20dp">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/ngv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:text="NGV" />
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/ngv" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/lpg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:text="LPG" />
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/lpg" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/hyb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:text="HYBRID" />
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/hyb" />
         </RadioGroup>
 
     </LinearLayout>

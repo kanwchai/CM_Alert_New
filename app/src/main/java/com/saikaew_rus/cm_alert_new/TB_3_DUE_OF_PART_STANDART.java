@@ -13,6 +13,7 @@ public class TB_3_DUE_OF_PART_STANDART {
     public static final String Type_Car_Id = "Type_Car_Id";
     public static final String St_Due_Kilo = "St_Due_Kilo";
     public static final String St_Due_Date = "St_Due_Date";
+    public static final String St_Due_Status = "St_Due_Status";
 
     //property help us to keep data
     public int st_Due_Id;
@@ -20,4 +21,5 @@ public class TB_3_DUE_OF_PART_STANDART {
     public int type_Car_Id;
     public double st_Due_Kilo;
     public String st_Due_Date;
+    public String st_Due_Status;
 }

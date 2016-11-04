@@ -14,8 +14,8 @@ public class TB_1_CAR {
     public static final String Car_Tax_Date = "Car_Tax_Date";
 
     //property help us to keep data
-    public int car_id;
-    public int type_car_id;
-    public String car_register;
-    public String car_tax_date;
+    public int car_Id;
+    public int type_Car_Id;
+    public String car_Register;
+    public String car_Tax_Date;
 }

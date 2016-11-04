@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,22 +24,23 @@ public class Repo_1_CAR {
         //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TB_1_CAR.Type_Car_Id, car.type_car_id);
-        values.put(TB_1_CAR.Car_Register, car.car_register);
-        values.put(TB_1_CAR.Car_Tax_Date, car.car_tax_date);
+        values.put(TB_1_CAR.Type_Car_Id, car.type_Car_Id);
+        values.put(TB_1_CAR.Car_Register, car.car_Register);
+        values.put(TB_1_CAR.Car_Tax_Date, car.car_Tax_Date);
 
         // Inserting Row
-        long car_id = db.insert(TB_1_CAR.TABLE, null, values);
+        long car_Id = db.insert(TB_1_CAR.TABLE, null, values);
         // Closing database connection
+        Log.d("Insert:","Inserting " + car_Id);
         db.close();
-        return (int) car_id;
+        return (int) car_Id;
     }
 
-    public void delete(int car_id) {
+    public void delete(int car_Id) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        db.delete(TB_1_CAR.TABLE, TB_1_CAR.Car_Id + "=?", new String[]{String.valueOf(car_id)});
+        db.delete(TB_1_CAR.TABLE, TB_1_CAR.Car_Id + "=?", new String[]{String.valueOf(car_Id)});
         db.close();
     }
 
@@ -47,12 +49,12 @@ public class Repo_1_CAR {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(TB_1_CAR.Type_Car_Id, car.type_car_id);
-        values.put(TB_1_CAR.Car_Register, car.car_register);
-        values.put(TB_1_CAR.Car_Tax_Date, car.car_tax_date);
+        values.put(TB_1_CAR.Type_Car_Id, car.type_Car_Id);
+        values.put(TB_1_CAR.Car_Register, car.car_Register);
+        values.put(TB_1_CAR.Car_Tax_Date, car.car_Tax_Date);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(TB_1_CAR.TABLE, values, TB_1_CAR.Car_Id + "=?", new String[]{String.valueOf(car.car_id)});
+        db.update(TB_1_CAR.TABLE, values, TB_1_CAR.Car_Id + "=?", new String[]{String.valueOf(car.car_Id)});
         db.close(); // Closing database connection
     }
 
@@ -73,9 +75,8 @@ public class Repo_1_CAR {
                 car.put("id", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Id)));
                 car.put("type", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Car_Id)));
                 car.put("register", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register)));
-                car.put("date", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
+                car.put("tax_date", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
                 carList.add(car);
-
             } while (cursor.moveToNext());
         }
 
@@ -97,10 +98,10 @@ public class Repo_1_CAR {
 
         if (cursor.moveToFirst()) {
             do {
-                car.car_id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Car_Id));
-                car.type_car_id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Type_Car_Id));
-                car.car_register = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register));
-                car.car_tax_date = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date));
+                car.car_Id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Car_Id));
+                car.type_Car_Id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Type_Car_Id));
+                car.car_Register = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register));
+                car.car_Tax_Date = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date));
 
             } while (cursor.moveToNext());
         }

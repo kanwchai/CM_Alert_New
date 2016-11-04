@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin_lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg0">
+    android:background="@drawable/bg_3_11_59">
 
     <ImageView
+        android:id="@+id/logo_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/car_r"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_marginBottom="50dp" />
+        android:src="@drawable/logo_3_11_59"
+        android:layout_marginTop="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

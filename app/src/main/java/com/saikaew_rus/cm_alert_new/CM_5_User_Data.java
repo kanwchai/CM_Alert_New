@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,7 +30,9 @@ public class CM_5_User_Data extends AppCompatActivity {
 
     private EditText mTextName;
 
-    private int setUser_Id;
+
+    private Repo_9_USER repo;
+    private TB_9_USER user;
 
     Button bSave;
     Button button1;
@@ -51,28 +54,43 @@ public class CM_5_User_Data extends AppCompatActivity {
 
         bSave = (Button) findViewById(R.id.button);
 
-        final Repo_9_USER repo = new Repo_9_USER(this);
-        TB_9_USER user = new TB_9_USER();
-        final TB_9_USER finalUser = user;
+        repo = new Repo_9_USER(this);
+        user = new TB_9_USER();
 
-        Intent intent = getIntent();
-        setUser_Id = intent.getIntExtra("student_Id", 1);
-        user = repo.getUserById(setUser_Id);
+        user = repo.getUserById(1);
 
         mTextName.setText(user.user_Name);
+
+//*****************************  Convert Format Date  *****************************//
+
+        SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat postFormater = new SimpleDateFormat("dd-MMMM-yyyy");
+
+        Date dateBirth = null;
+        try {
+            dateBirth = curFormater.parse(user.user_Birth);
+            user.user_Birth = postFormater.format(dateBirth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         mTextDate.setText(user.user_Birth);
+
+        Date dateDue = null;
+        try {
+            dateDue = curFormater.parse(user.user_Due_Date_Driving);
+            user.user_Due_Date_Driving = postFormater.format(dateDue);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         mTextDate_2.setText(user.user_Due_Date_Driving);
+
+//***************************** End Convert Format Date  *****************************//
 
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finalUser.user_Id = 1;
-                finalUser.user_Name = mTextName.getText().toString();
-                finalUser.user_Birth = mTextDate.getText().toString();
-                finalUser.user_Due_Date_Driving = mTextDate_2.getText().toString();
-                repo.update(finalUser);
-
-//                Toast.makeText(this, "เพิ่มข้อมูลผู้ใช้แล้ว", Toast.LENGTH_SHORT).show();
+                user.user_Name = mTextName.getText().toString();
+                repo.update(user);
 
                 Intent go1 = new Intent(getApplicationContext(), CM_3_Car.class);
                 startActivity(go1);
@@ -105,7 +123,7 @@ public class CM_5_User_Data extends AppCompatActivity {
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatePicker.setYearRange(2000, 2020);
+                mDatePicker.setYearRange(2000, 2030);
                 mDatePicker.show(getSupportFragmentManager(), "datePicker");
             }
         });
@@ -113,7 +131,7 @@ public class CM_5_User_Data extends AppCompatActivity {
         mDateButton_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatePicker_2.setYearRange(2000, 2020);
+                mDatePicker_2.setYearRange(2000, 2030);
                 mDatePicker_2.show(getSupportFragmentManager(), "datePicker");
             }
         });
@@ -126,9 +144,11 @@ public class CM_5_User_Data extends AppCompatActivity {
                 public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
 
                     SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
+                    SimpleDateFormat dfm_insert = new SimpleDateFormat("yyyy-MM-dd");
                     mCalendar.set(year, month, day);
                     Date date = mCalendar.getTime();
                     String textDate = dfm.format(date);
+                    user.user_Birth = dfm_insert.format(date);
                     mTextDate.setText(textDate);
 
                 }
@@ -140,9 +160,11 @@ public class CM_5_User_Data extends AppCompatActivity {
                 public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
 
                     SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
+                    SimpleDateFormat dfm_insert = new SimpleDateFormat("yyyy-MM-dd");
                     mCalendar.set(year, month, day);
                     Date date = mCalendar.getTime();
                     String textDate = dfm.format(date);
+                    user.user_Due_Date_Driving = dfm_insert.format(date);
                     mTextDate_2.setText(textDate);
 
                 }
