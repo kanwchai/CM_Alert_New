@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CM_4_Plus_Car extends AppCompatActivity {
 
@@ -36,6 +39,11 @@ public class CM_4_Plus_Car extends AppCompatActivity {
     Button b_enter;
     Button b_cancel;
 
+    Spinner spin;
+    List<String> dataAdap;
+    Repo_10_PROVINCES repo_10_provinces;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +56,24 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         mTextDate = (TextView) findViewById(R.id.editText6);
         b_enter = (Button) findViewById(R.id.button3);
         b_cancel = (Button) findViewById(R.id.button4);
+        spin = (Spinner) findViewById(R.id.spinner);
 
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
+        repo_10_provinces = new Repo_10_PROVINCES(this);
         car = new TB_1_CAR();
         run_data = new TB_6_RUN_DATA();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        dataAdap = repo_10_provinces.getProvincesList_1();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(CM_4_Plus_Car.this, android.R.layout.simple_spinner_item, dataAdap);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spin.setAdapter(dataAdapter);
 
         b_enter.setOnClickListener(new View.OnClickListener() {
             @Override
