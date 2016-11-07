@@ -6,6 +6,7 @@
         <item name="colorPrimary">#2cc6de</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/b7_5_11_59</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />
@@ -15,5 +16,15 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="underline">underline</style>
+
+    <style name="StyleTextName" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleTextDate" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 </resources>

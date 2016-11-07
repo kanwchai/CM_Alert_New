@@ -10,7 +10,7 @@
         android:id="@+id/imageView3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/car_icon2_4_11_59" />
+        android:src="@drawable/car_list_4_11_59" />
 
     <LinearLayout
         android:layout_width="match_parent"

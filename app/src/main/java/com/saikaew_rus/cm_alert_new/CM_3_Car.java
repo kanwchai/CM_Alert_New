@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CM_3_Car extends AppCompatActivity implements android.view.View.OnClickListener {
+public class CM_3_Car extends AppCompatActivity {
 
     Repo_9_USER repo;
     TB_9_USER user;
@@ -27,7 +27,11 @@ public class CM_3_Car extends AppCompatActivity implements android.view.View.OnC
     String carRegis;
     int car_Id;
     ArrayList<HashMap<String, String>> carList;
-    private static String[] Choice;
+    String[] Choice;
+    Toast toast;
+    ListAdapter adapter;
+    ListView listView_1;
+    TextView showName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +40,15 @@ public class CM_3_Car extends AppCompatActivity implements android.view.View.OnC
 
         Choice = new String[]{"Travel", "Maintenance", "History", "Delete"};//ใส่ตัวเลือก
 
-        TextView showName = (TextView) findViewById(R.id.textView4);
-        ListView listView_1 = (ListView) findViewById(R.id.listView);
+        showName = (TextView) findViewById(R.id.textView4);
+        listView_1 = (ListView) findViewById(R.id.listView);
 
         repo = new Repo_9_USER(this);
         user = new TB_9_USER();
 
         repo_1_car = new Repo_1_CAR(this);
 
-        user = repo.getUserById(1);
-        if (repo.getUserList().size() > 0) {
-
-            showName.setText(user.user_Name);
-        }
-
-        carList = repo_1_car.getCarList();
-        ListAdapter adapter = new SimpleAdapter(CM_3_Car.this, carList, R.layout.view_car_list, new String[]{"id", "register"}, new int[]{R.id.car_Id, R.id.car_Register});
-        listView_1.setAdapter(adapter);
+        getDatacar();
 
         listView_1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapterView, View view, int position, long id) {
@@ -61,8 +57,8 @@ public class CM_3_Car extends AppCompatActivity implements android.view.View.OnC
                 car_Id = Integer.parseInt(carList.get(position).get("id"));
 //               carRegis = carList.get(position).get("id").toString();
 
-                //***************  Set Android Toast duration to be really long  ***************//
-                final Toast toast = Toast.makeText(getApplicationContext(), "Selected Car Registration : " + carRegis, Toast.LENGTH_SHORT);
+                //***************  Set Toast duration  ***************//
+                toast = Toast.makeText(getApplicationContext(), "Selected Car Registration : " + carRegis, Toast.LENGTH_SHORT);
                 toast.show();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -70,36 +66,43 @@ public class CM_3_Car extends AppCompatActivity implements android.view.View.OnC
                     public void run() {
                         toast.cancel();
                     }
-                }, 200);
-                //***************  End Set Android Toast duration to be really long  ***************//
+                }, 1000);
+                //***************  End Set Toast  ***************//
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(CM_3_Car.this);
-                builder.setTitle("Car register : " + carRegis);
+                builder.setTitle("Car Registration : " + carRegis);
                 builder.setItems(Choice, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String selected = Choice[which];
-                        Toast.makeText(getApplicationContext(), selected, Toast.LENGTH_SHORT).show();
-
                         if (which == 0) {
-                            Intent intent = new Intent(CM_3_Car.this, CM_6_Travel.class);
+                            Intent intent = new Intent(getApplicationContext(), CM_6_Travel.class);
                             intent.putExtra("car_Id", car_Id);
                             startActivity(intent);
-                            CM_3_Car.this.finish();
                         } else if (which == 1) {
-                            Intent intent = new Intent(CM_3_Car.this, CM_7_List_Parts.class);
+                            Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts.class);
                             intent.putExtra("car_Id", car_Id);
                             startActivity(intent);
-                            CM_3_Car.this.finish();
                         } else if (which == 2) {
-                            Intent intent = new Intent(CM_3_Car.this, CM_8_History.class);
+                            Intent intent = new Intent(getApplicationContext(), CM_8_History.class);
                             intent.putExtra("car_Id", car_Id);
                             startActivity(intent);
-                            CM_3_Car.this.finish();
                         } else if (which == 3) {
-                            Intent intent = new Intent(CM_3_Car.this, CM_3_Car.class);
-                            startActivity(intent);
-                            CM_3_Car.this.finish();
+                            AlertDialog.Builder builder_1 = new AlertDialog.Builder(CM_3_Car.this);
+                            builder_1.setMessage("Are sure Delete " + car_Id + " ?");
+                            builder_1.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    repo_1_car.delete(car_Id);
+                                    Toast.makeText(getApplicationContext(), "Car No. " + car_Id + " is Deleted Success", Toast.LENGTH_SHORT).show();
+                                    getDatacar();
+                                }
+                            });
+                            builder_1.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    getDatacar();
+                                }
+                            });
+
+                            builder_1.show();
                         }
                     }
                 });//คลิกเพื่อเปลี่ยนหน้า
@@ -114,7 +117,6 @@ public class CM_3_Car extends AppCompatActivity implements android.view.View.OnC
             public void onClick(View v) {
                 Intent go1 = new Intent(getApplicationContext(), CM_5_User_Data.class);
                 startActivity(go1);
-                finish();
             }
         });
 
@@ -130,7 +132,19 @@ public class CM_3_Car extends AppCompatActivity implements android.view.View.OnC
     }
 
     @Override
-    public void onClick(View view) {
+    protected void onResume() {
+        super.onResume();
+        getDatacar();
+    }
 
+    public void getDatacar() {
+        user = repo.getUserById(1);
+        if (repo.getUserList().size() > 0) {
+            showName.setText(user.user_Name);
+        }
+
+        carList = repo_1_car.getCarList();
+        adapter = new SimpleAdapter(CM_3_Car.this, carList, R.layout.view_car_list, new String[]{"id", "register"}, new int[]{R.id.car_Id, R.id.car_Register});
+        listView_1.setAdapter(adapter);
     }
 }

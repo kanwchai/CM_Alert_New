@@ -1,13 +1,15 @@
 package com.saikaew_rus.cm_alert_new;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
@@ -31,6 +33,8 @@ public class CM_4_Plus_Car extends AppCompatActivity {
     Repo_6_RUN_DATA repo_6_run_data;
 
     SimpleDateFormat sdf;
+    Button b_enter;
+    Button b_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         regis = (EditText) findViewById(R.id.editText4);
         kilo = (EditText) findViewById(R.id.editText5);
         mTextDate = (TextView) findViewById(R.id.editText6);
+        b_enter = (Button) findViewById(R.id.button3);
+        b_cancel = (Button) findViewById(R.id.button4);
 
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
@@ -49,31 +55,41 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         run_data = new TB_6_RUN_DATA();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        Button button;
-        button = (Button) findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
+        b_enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                car.car_Register = regis.getText().toString();
+                if (regis.getText().toString().matches("") ||
+                        kilo.getText().toString().matches("") ||
+                        mTextDate.getText().toString().matches("")) {
+                    //***************  Set Toast duration  ***************//
+                    final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
+                    toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                        }
+                    }, 1000);
+                    //***************  End Set Toast  ***************//
+                } else {
+                    car.car_Register = regis.getText().toString();
 
-                run_data.car_Id = repo_1_car.insert(car);
-                run_data.run_Date_End = sdf.format(Calendar.getInstance().getTime());
-                run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
-                repo_6_run_data.insert(run_data);
+                    run_data.car_Id = repo_1_car.insert(car);
+                    run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
+                    run_data.run_Date_End = sdf.format(Calendar.getInstance().getTime());
+                    run_data.run_Kilo_Start = Double.parseDouble(kilo.getText().toString());
+                    run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
+                    repo_6_run_data.insert(run_data);
+                    finish();
+                }
 
-                Intent go = new Intent(CM_4_Plus_Car.this, CM_3_Car.class);
-                startActivity(go);
-                finish();
             }
         });
 
-        Button button1;
-        button1 = (Button) findViewById(R.id.button4);
-        button1.setOnClickListener(new View.OnClickListener() {
+        b_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go1 = new Intent(CM_4_Plus_Car.this, CM_3_Car.class);
-                startActivity(go1);
                 finish();
             }
         });
@@ -100,33 +116,52 @@ public class CM_4_Plus_Car extends AppCompatActivity {
 
                     SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
                     SimpleDateFormat dfm_1 = new SimpleDateFormat("yyyy-MM-dd");
+
                     mCalendar.set(year, month, day);
                     Date date = mCalendar.getTime();
+
                     String textDate = dfm.format(date);
                     String textDate_1 = dfm_1.format(date);
-                    car.car_Tax_Date = textDate_1;
                     mTextDate.setText(textDate);
-
+                    car.car_Tax_Date = textDate_1;
                 }
             };
 
-    public void onRadioButtonClicked(View view) {
+    public void onCheckboxClicked(View view) {
         // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+        boolean checked = ((Checkable) view).isChecked();
+        CheckBox chk_ngv = (CheckBox) findViewById(R.id.ngv);
+        CheckBox chk_lpg = (CheckBox) findViewById(R.id.lpg);
+        CheckBox chk_hyb = (CheckBox) findViewById(R.id.hyb);
 
-        // Check which radio button was clicked
+        // Check which checkbox was clicked
         switch (view.getId()) {
             case R.id.ngv:
-                if (checked)
+                if (checked) {
+                    car.type_Car_Id = 2;
+                    chk_lpg.setChecked(false);
+                    chk_hyb.setChecked(false);
+                } else {
                     car.type_Car_Id = 1;
+                }
                 break;
             case R.id.lpg:
-                if (checked)
-                    car.type_Car_Id = 2;
+                if (checked) {
+                    car.type_Car_Id = 3;
+                    chk_ngv.setChecked(false);
+                    chk_hyb.setChecked(false);
+                } else {
+                    car.type_Car_Id = 1;
+                }
                 break;
             case R.id.hyb:
-                if (checked)
-                    car.type_Car_Id = 3;
+                if (checked) {
+                    car.type_Car_Id = 4;
+                    chk_ngv.setChecked(false);
+                    chk_lpg.setChecked(false);
+                } else {
+                    car.type_Car_Id = 1;
+                }
                 break;
         }
     }

@@ -115,4 +115,18 @@ public class Repo_2_DUE_OF_PART_FIX {
         return due_fix;
     }
 
+    public void insert_part_fix(int car_id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String insertQuery = "INSERT INTO " + TB_2_DUE_OF_PART_FIX.TABLE + "(" +
+                TB_2_DUE_OF_PART_FIX.Part_Id + "," + TB_2_DUE_OF_PART_FIX.Car_Id + "," +
+                TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + "," + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + "," +
+                TB_2_DUE_OF_PART_FIX.Fix_Due_Status + ") " +
+                "SELECT " + TB_3_DUE_OF_PART_STANDART.Part_Id + "," + TB_1_CAR.Car_Id + "," +
+                TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," +
+                TB_3_DUE_OF_PART_STANDART.St_Due_Status + " FROM " + TB_1_CAR.TABLE +
+                " NATURAL JOIN " + TB_3_DUE_OF_PART_STANDART.TABLE + " WHERE CAR_ID = " + car_id;
+
+        db.execSQL(insertQuery);
+        db.close();
+    }
 }

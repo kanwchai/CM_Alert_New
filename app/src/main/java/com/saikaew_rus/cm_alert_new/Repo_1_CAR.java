@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,11 +28,10 @@ public class Repo_1_CAR {
         values.put(TB_1_CAR.Car_Tax_Date, car.car_Tax_Date);
 
         // Inserting Row
-        long car_Id = db.insert(TB_1_CAR.TABLE, null, values);
+        int car_Id = (int) db.insert(TB_1_CAR.TABLE, null, values);
         // Closing database connection
-        Log.d("Insert:","Inserting " + car_Id);
         db.close();
-        return (int) car_Id;
+        return car_Id;
     }
 
     public void delete(int car_Id) {

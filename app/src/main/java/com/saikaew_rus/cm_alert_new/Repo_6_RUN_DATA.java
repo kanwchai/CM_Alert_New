@@ -23,7 +23,7 @@ public class Repo_6_RUN_DATA {
         //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TB_6_RUN_DATA.Run_Date_Start, run_data.car_Id);
+        values.put(TB_6_RUN_DATA.Car_Id, run_data.car_Id);
         values.put(TB_6_RUN_DATA.Run_Date_Start, run_data.run_Date_Start);
         values.put(TB_6_RUN_DATA.Run_Date_End, run_data.run_Date_End);
         values.put(TB_6_RUN_DATA.Run_Kilo_Start, run_data.run_Kilo_Start);

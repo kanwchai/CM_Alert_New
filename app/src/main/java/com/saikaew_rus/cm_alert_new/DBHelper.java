@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     //version number
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     // Database Name
     private static final String DB_NAME = "CM_A";
 
@@ -31,8 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 TB_5_PARTS.TABLE + "(" + TB_5_PARTS.Part_Id + ") ON UPDATE CASCADE, "
                 + TB_2_DUE_OF_PART_FIX.Car_Id + " INTEGER REFERENCES " +
                 TB_1_CAR.TABLE + "(" + TB_1_CAR.Car_Id + ") ON UPDATE CASCADE, "
+                + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " INTEGER, "
                 + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " INTEGER, "
-                + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " INTEGER,"
                 + TB_2_DUE_OF_PART_FIX.Fix_Due_Status + " TEXT)";
 
         String CREATE_TB_3_DUE_OF_PART_STANDART = "CREATE TABLE " + TB_3_DUE_OF_PART_STANDART.TABLE + "("

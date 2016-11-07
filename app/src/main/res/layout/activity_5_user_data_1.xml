@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_back"
     android:touchscreenBlocksFocus="false"
     tools:context=".CM_2_Main">
 
@@ -19,11 +18,11 @@
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:src="@drawable/iconpe" />
+        android:src="@drawable/icon_people_4_11_59" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
@@ -35,93 +34,72 @@
 
         <EditText
             android:id="@+id/editText"
+            style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
+            android:layout_height="30dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/rounded_edittext"
             android:hint="Name"
             android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView1"
+            style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:ems="10"
+            android:layout_height="30dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/rounded_edittext"
             android:hint=" Birthday"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/textView2"
+            style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:ems="10"
+            android:layout_height="30dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/rounded_edittext"
             android:hint=" Expired driver license"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/linearLayout"
-        android:layout_marginBottom="-10dp"
-        android:layout_toEndOf="@+id/imageView6"
-        android:layout_toRightOf="@+id/imageView6"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/linearLayout2"
-            android:layout_toEndOf="@+id/linearLayout2"
-            android:layout_toRightOf="@+id/linearLayout2"
-            android:background="@mipmap/ic_launcher" />
-
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/button9"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/linearLayout"
-            android:layout_toRightOf="@+id/linearLayout"
-            android:background="@mipmap/ic_launcher" />
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="120dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_weight=".3"
-            android:background="@color/app_black1"
-            android:text="save" />
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="120dp"
+            <Button
+                android:id="@+id/button"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:background="@drawable/b_ok_4_11_59" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:layout_weight=".3"
-            android:background="@color/app_black1"
-            android:text="cancel" />
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:background="@drawable/b_cancel_4_11_59" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

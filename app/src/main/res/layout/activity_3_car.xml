@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_back"
     tools:context=".CM_3_Car">
 
     <TextView
@@ -27,7 +26,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/ip" />
+        android:src="@drawable/icon_people_4_11_59" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -39,7 +38,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/round_button"
-        android:src="@drawable/plus" />
+        android:src="@drawable/plus_car_10_10_59" />
 
     <ListView
         android:id="@+id/listView"
