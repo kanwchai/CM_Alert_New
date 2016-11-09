@@ -1,50 +1,34 @@
 package com.saikaew_rus.cm_alert_new;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
 
 public class CM_1_Load extends AppCompatActivity {
 
-    DBHelper mHelper;
-    SQLiteDatabase mDb;
+    TB_9_USER tb_9_user;
+    Repo_9_USER repo_9_user;
+
+    ArrayList userList;
 
     Thread splashTread;
-    Cursor mCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_1_load);
 
+        tb_9_user = new TB_9_USER();
+        repo_9_user = new Repo_9_USER(this);
+
+        userList = repo_9_user.getUserList();
+
         StartAnimations();
     }
 
     private void StartAnimations() {
-
-        mHelper = new DBHelper(this);
-        mDb = mHelper.getWritableDatabase();
-        mCursor = mDb.rawQuery("SELECT * FROM " + TB_9_USER.TABLE, null);
-
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
-        anim.reset();
-
-        RelativeLayout l = (RelativeLayout) findViewById(R.id.lin_lay);
-        l.clearAnimation();
-        l.startAnimation(anim);
-
-        anim = AnimationUtils.loadAnimation(this, R.anim.translate);
-        anim.reset();
-
-        ImageView iv = (ImageView) findViewById(R.id.logo_car);
-        iv.clearAnimation();
-        iv.startAnimation(anim);
 
         splashTread = new Thread() {
             @Override
@@ -52,11 +36,11 @@ public class CM_1_Load extends AppCompatActivity {
                 try {
                     int waited = 0;
                     // Splash screen pause time
-                    while (waited < 3000) {
+                    while (waited < 3500) {
                         sleep(100);
                         waited += 100;
                     }
-                    if (mCursor.getCount() == 0) {
+                    if (userList.size() > 0) {
                         Intent intent = new Intent(CM_1_Load.this, CM_2_Main.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
@@ -65,11 +49,11 @@ public class CM_1_Load extends AppCompatActivity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
                     }
-                    CM_1_Load.this.finish();
+                    finish();
                 } catch (InterruptedException e) {
                     // do nothing
                 } finally {
-                    CM_1_Load.this.finish();
+                    finish();
                 }
             }
         };

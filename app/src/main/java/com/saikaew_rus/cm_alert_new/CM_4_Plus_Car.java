@@ -5,11 +5,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +18,6 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class CM_4_Plus_Car extends AppCompatActivity {
 
@@ -29,20 +28,20 @@ public class CM_4_Plus_Car extends AppCompatActivity {
     EditText regis;
     EditText kilo;
 
-    TB_1_CAR car;
+    TB_1_CAR tb_1_car;
     Repo_1_CAR repo_1_car;
 
-    TB_6_RUN_DATA run_data;
+    TB_6_RUN_DATA tb_6_run_data;
     Repo_6_RUN_DATA repo_6_run_data;
+
+    Repo_2_DUE_OF_PART_FIX repo_2_due_of_part_fix;
+    Repo_10_PROVINCES repo_10_provinces;
 
     SimpleDateFormat sdf;
     Button b_enter;
     Button b_cancel;
-
-    Spinner spin;
-    List<String> dataAdap;
-    Repo_10_PROVINCES repo_10_provinces;
-
+    String[] dataAdap;
+    AutoCompleteTextView autoProvince;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,30 +49,29 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         setContentView(R.layout.activity_4_plus_car);
 
         mCalendar = Calendar.getInstance();
-
         regis = (EditText) findViewById(R.id.editText4);
         kilo = (EditText) findViewById(R.id.editText5);
         mTextDate = (TextView) findViewById(R.id.editText6);
         b_enter = (Button) findViewById(R.id.button3);
         b_cancel = (Button) findViewById(R.id.button4);
-        spin = (Spinner) findViewById(R.id.spinner);
+        autoProvince = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
 
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
         repo_10_provinces = new Repo_10_PROVINCES(this);
-        car = new TB_1_CAR();
-        run_data = new TB_6_RUN_DATA();
+        repo_2_due_of_part_fix = new Repo_2_DUE_OF_PART_FIX(this);
+
+        tb_1_car = new TB_1_CAR();
+        tb_6_run_data = new TB_6_RUN_DATA();
+
         sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         dataAdap = repo_10_provinces.getProvincesList_1();
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(CM_4_Plus_Car.this, android.R.layout.simple_spinner_item, dataAdap);
 
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter dataAdapter = new ArrayAdapter(CM_4_Plus_Car.this, android.R.layout.simple_dropdown_item_1line, dataAdap);
 
-        // attaching data adapter to spinner
-        spin.setAdapter(dataAdapter);
+        autoProvince.setAdapter(dataAdapter);
+        autoProvince.setThreshold(1);
 
         b_enter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +91,16 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                     }, 1000);
                     //***************  End Set Toast  ***************//
                 } else {
-                    car.car_Register = regis.getText().toString();
+                    tb_1_car.car_Register = regis.getText().toString();
 
-                    run_data.car_Id = repo_1_car.insert(car);
-                    run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
-                    run_data.run_Date_End = sdf.format(Calendar.getInstance().getTime());
-                    run_data.run_Kilo_Start = Double.parseDouble(kilo.getText().toString());
-                    run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
-                    repo_6_run_data.insert(run_data);
+                    tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);
+                    tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
+                    tb_6_run_data.run_Date_End = sdf.format(Calendar.getInstance().getTime());
+                    tb_6_run_data.run_Kilo_Start = Double.parseDouble(kilo.getText().toString());
+                    tb_6_run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
+                    repo_6_run_data.insert(tb_6_run_data);
+                    repo_2_due_of_part_fix.insert_part_fix(tb_6_run_data.car_Id);
+
                     finish();
                 }
 
@@ -143,7 +143,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                     String textDate = dfm.format(date);
                     String textDate_1 = dfm_1.format(date);
                     mTextDate.setText(textDate);
-                    car.car_Tax_Date = textDate_1;
+                    tb_1_car.car_Tax_Date = textDate_1;
                 }
             };
 
@@ -158,29 +158,29 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.ngv:
                 if (checked) {
-                    car.type_Car_Id = 2;
+                    tb_1_car.type_Car_Id = 2;
                     chk_lpg.setChecked(false);
                     chk_hyb.setChecked(false);
                 } else {
-                    car.type_Car_Id = 1;
+                    tb_1_car.type_Car_Id = 1;
                 }
                 break;
             case R.id.lpg:
                 if (checked) {
-                    car.type_Car_Id = 3;
+                    tb_1_car.type_Car_Id = 3;
                     chk_ngv.setChecked(false);
                     chk_hyb.setChecked(false);
                 } else {
-                    car.type_Car_Id = 1;
+                    tb_1_car.type_Car_Id = 1;
                 }
                 break;
             case R.id.hyb:
                 if (checked) {
-                    car.type_Car_Id = 4;
+                    tb_1_car.type_Car_Id = 4;
                     chk_ngv.setChecked(false);
                     chk_lpg.setChecked(false);
                 } else {
-                    car.type_Car_Id = 1;
+                    tb_1_car.type_Car_Id = 1;
                 }
                 break;
         }

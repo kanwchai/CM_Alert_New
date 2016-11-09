@@ -138,7 +138,7 @@ public class CM_3_Car extends AppCompatActivity {
     }
 
     public void getDatacar() {
-        user = repo.getUserById(1);
+        user = repo.getFirstUser();
         if (repo.getUserList().size() > 0) {
             showName.setText(user.user_Name);
         }

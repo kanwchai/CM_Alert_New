@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_2_DUE_OF_PART_FIX {
-    private DBHelper dbHelper;
+    private MyDatabase dbHelper;
 
     public Repo_2_DUE_OF_PART_FIX(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new MyDatabase(context);
     }
 
     public int insert(TB_2_DUE_OF_PART_FIX due_fix) {
@@ -58,7 +58,7 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close(); // Closing database connection
     }
 
-    public ArrayList<HashMap<String, String>> getCarList() {
+    public ArrayList<HashMap<String, String>> getFixList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE;
@@ -123,8 +123,11 @@ public class Repo_2_DUE_OF_PART_FIX {
                 TB_2_DUE_OF_PART_FIX.Fix_Due_Status + ") " +
                 "SELECT " + TB_3_DUE_OF_PART_STANDART.Part_Id + "," + TB_1_CAR.Car_Id + "," +
                 TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," +
-                TB_3_DUE_OF_PART_STANDART.St_Due_Status + " FROM " + TB_1_CAR.TABLE +
-                " NATURAL JOIN " + TB_3_DUE_OF_PART_STANDART.TABLE + " WHERE CAR_ID = " + car_id;
+                TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                " FROM " + TB_1_CAR.TABLE + " JOIN " + TB_3_DUE_OF_PART_STANDART.TABLE +
+                " ON " + TB_1_CAR.TABLE + "." + TB_1_CAR.Type_Car_Id +
+                " = " + TB_3_DUE_OF_PART_STANDART.TABLE + "." + TB_3_DUE_OF_PART_STANDART.Type_Car_Id +
+                " WHERE CAR_ID = " + car_id;
 
         db.execSQL(insertQuery);
         db.close();

@@ -84,7 +84,7 @@
                 android:id="@+id/button"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
-                android:background="@drawable/b_ok_4_11_59" />
+                android:background="@drawable/b_ok_9_11_59" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +98,7 @@
                 android:id="@+id/button2"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
-                android:background="@drawable/b_cancel_4_11_59" />
+                android:background="@drawable/b_can_9_11_59" />
         </LinearLayout>
     </LinearLayout>
 

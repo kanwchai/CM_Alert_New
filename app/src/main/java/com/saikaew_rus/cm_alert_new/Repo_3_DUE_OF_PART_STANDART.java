@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_3_DUE_OF_PART_STANDART {
-    private DBHelper dbHelper;
+    private MyDatabase dbHelper;
 
     public Repo_3_DUE_OF_PART_STANDART(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new MyDatabase(context);
     }
 
     public int insert(TB_3_DUE_OF_PART_STANDART due_st) {
@@ -105,7 +105,7 @@ public class Repo_3_DUE_OF_PART_STANDART {
                 due_st.part_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Part_Id));
                 due_st.type_Car_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Car_Id));
                 due_st.st_Due_Kilo = cursor.getDouble(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo));
-                due_st.st_Due_Date = cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date));
+                due_st.st_Due_Date = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date));
 
             } while (cursor.moveToNext());
         }

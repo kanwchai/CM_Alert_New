@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_9_USER {
-    private DBHelper dbHelper;
+    private MyDatabase dbHelper;
 
     public Repo_9_USER(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new MyDatabase(context);
     }
 
     public void insert(TB_9_USER user) {
@@ -94,6 +94,31 @@ public class Repo_9_USER {
         TB_9_USER user = new TB_9_USER();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                user.user_Id = cursor.getInt(cursor.getColumnIndex(TB_9_USER.User_Id));
+                user.user_Name = cursor.getString(cursor.getColumnIndex(TB_9_USER.User_Name));
+                user.user_Birth = cursor.getString(cursor.getColumnIndex(TB_9_USER.User_Birth));
+                user.user_Due_Date_Driving = cursor.getString(cursor.getColumnIndex(TB_9_USER.User_Due_Date_Driving));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return user;
+    }
+
+    public TB_9_USER getFirstUser() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT min(" + TB_9_USER.User_Id + "),* FROM " + TB_9_USER.TABLE;
+        // It's a good practice to use parameter ?, instead of concatenate string
+
+        int iCount = 0;
+        TB_9_USER user = new TB_9_USER();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {

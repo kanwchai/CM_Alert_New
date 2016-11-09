@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_4_HISTORYS_OF_CAR {
-    private DBHelper dbHelper;
+    private MyDatabase dbHelper;
 
     public Repo_4_HISTORYS_OF_CAR(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new MyDatabase(context);
     }
 
     public int insert(TB_4_HISTORYS_OF_CAR his_car) {

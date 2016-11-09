@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_6_RUN_DATA {
-    private DBHelper dbHelper;
+    private MyDatabase dbHelper;
 
     public Repo_6_RUN_DATA(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new MyDatabase(context);
     }
 
     public int insert(TB_6_RUN_DATA run_data) {
@@ -65,7 +65,6 @@ public class Repo_6_RUN_DATA {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_6_RUN_DATA.TABLE;
 
-        // TB_6_RUN_DATA run_data = new TB_6_RUN_DATA();
         ArrayList<HashMap<String, String>> run_dataList = new ArrayList<HashMap<String, String>>();
 
         Cursor cursor = db.rawQuery(selectQuery, null);

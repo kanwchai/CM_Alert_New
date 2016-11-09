@@ -54,34 +54,35 @@ public class CM_5_User_Data extends AppCompatActivity {
         repo = new Repo_9_USER(this);
         user = new TB_9_USER();
 
-        user = repo.getUserById(1);
+        user = repo.getFirstUser();
 
         mTextName.setText(user.user_Name);
+        if (user.user_Birth != null) {
+            //*****************************  Convert Format Date  *****************************//
 
-//*****************************  Convert Format Date  *****************************//
+            SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat postFormater = new SimpleDateFormat("dd-MMMM-yyyy");
 
-        SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat postFormater = new SimpleDateFormat("dd-MMMM-yyyy");
+            Date dateBirth = null;
+            try {
+                dateBirth = curFormater.parse(user.user_Birth);
+                user.user_Birth = postFormater.format(dateBirth);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            mTextDate.setText(user.user_Birth);
 
-        Date dateBirth = null;
-        try {
-            dateBirth = curFormater.parse(user.user_Birth);
-            user.user_Birth = postFormater.format(dateBirth);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            Date dateDue = null;
+            try {
+                dateDue = curFormater.parse(user.user_Due_Date_Driving);
+                user.user_Due_Date_Driving = postFormater.format(dateDue);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            mTextDate_2.setText(user.user_Due_Date_Driving);
+
+            //***************************** End Convert Format Date  *****************************//
         }
-        mTextDate.setText(user.user_Birth);
-
-        Date dateDue = null;
-        try {
-            dateDue = curFormater.parse(user.user_Due_Date_Driving);
-            user.user_Due_Date_Driving = postFormater.format(dateDue);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        mTextDate_2.setText(user.user_Due_Date_Driving);
-
-//***************************** End Convert Format Date  *****************************//
 
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override

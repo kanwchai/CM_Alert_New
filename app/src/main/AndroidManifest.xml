@@ -32,20 +32,24 @@
             android:name=".CM_4_Plus_Car"
             android:label="Car Data" />
         <activity
+            android:name=".CM_5_User_Data"
+            android:label="Edit User" />
+        <activity
+            android:name=".CM_6_Travel"
+            android:label="Travel" />
+        <activity
+            android:name=".CM_7_List_Parts"
+            android:label="List Parts" />
+        <activity
+            android:name=".CM_8_History"
+            android:label="Maintenance History" />
+        <activity
             android:name=".CM_9_Add_Parts"
             android:label="Add Parts" />
         <activity
             android:name=".CM_10_Add_Partstwo"
             android:label="Add Parts" />
-        <activity
-            android:name=".CM_8_History"
-            android:label="Maintenance History" />
-        <activity
-            android:name=".CM_6_Travel"
-            android:label="Travel" />
-        <activity
-            android:name=".CM_5_User_Data"
-            android:label="Edit User" />
+
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

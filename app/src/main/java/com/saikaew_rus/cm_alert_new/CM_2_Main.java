@@ -29,8 +29,8 @@ public class CM_2_Main extends AppCompatActivity {
 
     private EditText mTextName;
 
-    private Repo_9_USER repo;
-    private TB_9_USER user;
+    private Repo_9_USER repo_9_user;
+    private TB_9_USER tb_9_user;
 
     Button bSave;
     Button bSkip;
@@ -50,13 +50,13 @@ public class CM_2_Main extends AppCompatActivity {
 
         bSave = (Button) findViewById(R.id.button);
 
-        repo = new Repo_9_USER(this);
-        user = new TB_9_USER();
+        repo_9_user = new Repo_9_USER(this);
+        tb_9_user = new TB_9_USER();
 
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.user_Name = mTextName.getText().toString();
+                tb_9_user.user_Name = mTextName.getText().toString();
                 if (mTextName.getText().toString().matches("") ||
                         mTextDate.getText().toString().matches("") ||
                         mTextDate_2.getText().toString().matches("")) {
@@ -72,11 +72,12 @@ public class CM_2_Main extends AppCompatActivity {
                     }, 1500);
                     //*************  End Set Toast duration  *************//
                 } else {
-                    repo.insert(user);
+                    repo_9_user.insert(tb_9_user);
                     Intent go1 = new Intent(getApplicationContext(), CM_3_Car.class);
                     //**********  CLEAR ALL XML  **********//
                     go1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(go1);
+                    finish();
                 }
 
             }
@@ -90,6 +91,7 @@ public class CM_2_Main extends AppCompatActivity {
                 Intent go1 = new Intent(getApplicationContext(), CM_3_Car.class);
                 go1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(go1);
+                finish();
             }
         });
 
@@ -136,7 +138,7 @@ public class CM_2_Main extends AppCompatActivity {
 
                     String textDate = dfm.format(date);
                     String textDate_insert = dfm_insert.format(date);
-                    user.user_Birth = textDate_insert;
+                    tb_9_user.user_Birth = textDate_insert;
                     mTextDate.setText(textDate);
 
                 }
@@ -155,7 +157,7 @@ public class CM_2_Main extends AppCompatActivity {
 
                     String textDate = dfm.format(date);
                     String textDate_insert = dfm_insert.format(date);
-                    user.user_Due_Date_Driving = textDate_insert;
+                    tb_9_user.user_Due_Date_Driving = textDate_insert;
                     mTextDate_2.setText(textDate);
 
                 }

@@ -12,10 +12,12 @@ public class TB_1_CAR {
     public static final String Type_Car_Id = "Type_Car_Id";
     public static final String Car_Register = "Car_Register";
     public static final String Car_Tax_Date = "Car_Tax_Date";
+    public static final String Province_Id = "Province_Id";
 
     //property help us to keep data
     public int car_Id;
     public int type_Car_Id;
     public String car_Register;
     public String car_Tax_Date;
+    public int province_Id;
 }

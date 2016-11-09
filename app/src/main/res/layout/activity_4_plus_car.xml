@@ -34,12 +34,15 @@
             android:hint="Car Registration Number "
             android:singleLine="true" />
 
-        <Spinner
-            android:id="@+id/spinner"
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
             style="@style/StyleTextDate"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Province"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/editText5"
@@ -49,7 +52,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Number Kilometers"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/editText6"
@@ -58,7 +62,8 @@
             android:layout_height="30dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_edittext"
-            android:hint="Maturity Tax" />
+            android:hint="Maturity Tax"
+            android:singleLine="true" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -114,7 +119,7 @@
                 android:id="@+id/button3"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
-                android:background="@drawable/b_ok_4_11_59"
+                android:background="@drawable/b_ok_9_11_59"
                 android:onClick="onCheckboxClicked" />
         </LinearLayout>
 
@@ -129,7 +134,7 @@
                 android:id="@+id/button4"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
-                android:background="@drawable/b_cancel_4_11_59"
+                android:background="@drawable/b_can_9_11_59"
                 android:onClick="onCheckboxClicked" />
         </LinearLayout>
     </LinearLayout>

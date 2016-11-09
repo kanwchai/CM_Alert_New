@@ -33,7 +33,6 @@ public class Repo_10_PROVINCES {
             do {
                 HashMap<String, String> province = new HashMap<String, String>();
                 province.put("province_id", cursor.getString(cursor.getColumnIndex(TB_10_PROVINCES.Province_Id)));
-                province.put("povince_code", cursor.getString(cursor.getColumnIndex(TB_10_PROVINCES.Province_Code)));
                 province.put("province_name", cursor.getString(cursor.getColumnIndex(TB_10_PROVINCES.Province_Name)));
 
                 provinceList.add(province);
@@ -46,7 +45,7 @@ public class Repo_10_PROVINCES {
         return provinceList;
     }
 
-    public List<String> getProvincesList_1() {
+    public String[] getProvincesList_1() {
         List<String> labels = new ArrayList<String>();
 
         // Select All Query
@@ -62,12 +61,14 @@ public class Repo_10_PROVINCES {
             } while (cursor.moveToNext());
         }
 
+        String[] province = labels.toArray(new String[labels.size()]);
+
         // closing connection
         cursor.close();
         db.close();
 
         // returning lables
-        return labels;
+        return province;
     }
 
 }

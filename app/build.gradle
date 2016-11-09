@@ -26,4 +26,5 @@ dependencies {
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
 }

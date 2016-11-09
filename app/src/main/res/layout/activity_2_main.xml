@@ -39,7 +39,8 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/textView1"
@@ -49,7 +50,8 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_edittext"
             android:hint=" Birthday"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/textView2"
@@ -59,13 +61,14 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_edittext"
             android:hint=" Expired driver license"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:singleLine="true" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -74,31 +77,35 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:background="@drawable/b_ok_4_11_59" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/b_ok_9_11_59"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:background="@drawable/b_cancel_4_11_59" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/b_can_9_11_59"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
         </LinearLayout>
 
     </LinearLayout>
