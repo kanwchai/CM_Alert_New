@@ -64,6 +64,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         tb_1_car = new TB_1_CAR();
         tb_6_run_data = new TB_6_RUN_DATA();
 
+        tb_1_car.type_Car_Id = 1;
         sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         dataAdap = repo_10_provinces.getProvincesList_1();
@@ -151,8 +152,6 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         CheckBox chk_ngv = (CheckBox) findViewById(R.id.ngv);
         CheckBox chk_lpg = (CheckBox) findViewById(R.id.lpg);
         CheckBox chk_hyb = (CheckBox) findViewById(R.id.hyb);
-
-        tb_1_car.type_Car_Id = 1;
 
         // Check which checkbox was clicked
         switch (view.getId()) {
