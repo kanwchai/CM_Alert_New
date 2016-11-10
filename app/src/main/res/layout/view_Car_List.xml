@@ -20,20 +20,18 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/car_Id"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+        android:id="@+id/car_Id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
         <TextView
             android:id="@+id/car_Register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Car-Registration"
-            android:textIsSelectable="false"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/text_font" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 </LinearLayout>

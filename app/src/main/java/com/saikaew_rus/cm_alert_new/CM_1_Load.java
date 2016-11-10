@@ -40,19 +40,18 @@ public class CM_1_Load extends AppCompatActivity {
                         sleep(100);
                         waited += 100;
                     }
-                    if (userList.size() > 0) {
-                        Intent intent = new Intent(CM_1_Load.this, CM_2_Main.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(CM_1_Load.this, CM_3_Car.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                    }
-                    finish();
+
                 } catch (InterruptedException e) {
                     // do nothing
-                } finally {
+                }
+
+                if (userList.size() == 0) {
+                    Intent intent = new Intent(CM_1_Load.this, CM_2_Main.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(CM_1_Load.this, CM_3_Car.class);
+                    startActivity(intent);
                     finish();
                 }
             }

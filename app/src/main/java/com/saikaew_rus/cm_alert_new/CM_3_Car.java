@@ -26,7 +26,7 @@ public class CM_3_Car extends AppCompatActivity {
     Repo_1_CAR repo_1_car;
     String carRegis;
     int car_Id;
-    ArrayList<HashMap<String, String>> carList;
+    ArrayList<HashMap<String, String>> getCarList;
     String[] Choice;
     Toast toast;
     ListAdapter adapter;
@@ -52,10 +52,11 @@ public class CM_3_Car extends AppCompatActivity {
 
         listView_1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapterView, View view, int position, long id) {
-                final TextView carId = (TextView) view.findViewById(R.id.car_Register);
-                carRegis = carId.getText().toString();
-                car_Id = Integer.parseInt(carList.get(position).get("id"));
-//               carRegis = carList.get(position).get("id").toString();
+
+//                final TextView car_Reg = (TextView) view.findViewById(R.id.car_Register);
+//                carRegis = car_Reg.getText().toString();
+                car_Id = Integer.parseInt(getCarList.get(position).get("id"));
+                carRegis = getCarList.get(position).get("register").toString();
 
                 //***************  Set Toast duration  ***************//
                 toast = Toast.makeText(getApplicationContext(), "Selected Car Registration : " + carRegis, Toast.LENGTH_SHORT);
@@ -143,8 +144,8 @@ public class CM_3_Car extends AppCompatActivity {
             showName.setText(user.user_Name);
         }
 
-        carList = repo_1_car.getCarList();
-        adapter = new SimpleAdapter(CM_3_Car.this, carList, R.layout.view_car_list, new String[]{"id", "register"}, new int[]{R.id.car_Id, R.id.car_Register});
+        getCarList = repo_1_car.getCarList();
+        adapter = new SimpleAdapter(CM_3_Car.this, getCarList, R.layout.view_car_list, new String[]{"id", "register"}, new int[]{R.id.car_Id, R.id.car_Register});
         listView_1.setAdapter(adapter);
     }
 }

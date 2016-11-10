@@ -47,7 +47,7 @@
             android:name=".CM_9_Add_Parts"
             android:label="Add Parts" />
         <activity
-            android:name=".CM_10_Add_Partstwo"
+            android:name=".CM_10_Add_Parts_2"
             android:label="Add Parts" />
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for

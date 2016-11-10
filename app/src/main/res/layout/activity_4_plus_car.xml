@@ -7,13 +7,15 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/car_add_4_11_59" />
+        android:src="@drawable/car_add_10_11_59"
+        android:layout_alignParentEnd="false"
+        android:layout_marginTop="15dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +34,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Car Registration Number "
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_marginTop="15dp" />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -117,9 +120,9 @@
 
             <Button
                 android:id="@+id/button3"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:background="@drawable/b_ok_9_11_59"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="@drawable/bt_ok_10_11_59"
                 android:onClick="onCheckboxClicked" />
         </LinearLayout>
 
@@ -132,9 +135,9 @@
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:background="@drawable/b_can_9_11_59"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="@drawable/bt_cancel_10_11_59"
                 android:onClick="onCheckboxClicked" />
         </LinearLayout>
     </LinearLayout>

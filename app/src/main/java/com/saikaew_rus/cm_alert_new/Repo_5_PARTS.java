@@ -50,7 +50,7 @@ public class Repo_5_PARTS {
         db.close(); // Closing database connection
     }
 
-    public ArrayList<HashMap<String, String>> getCarList() {
+    public ArrayList<HashMap<String, String>> getPartList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_5_PARTS.TABLE;

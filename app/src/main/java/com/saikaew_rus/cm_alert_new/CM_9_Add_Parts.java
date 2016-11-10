@@ -18,7 +18,7 @@ public class CM_9_Add_Parts extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go1 = new Intent(getApplicationContext(), CM_10_Add_Partstwo.class);
+                Intent go1 = new Intent(getApplicationContext(), CM_10_Add_Parts_2.class);
                 startActivity(go1);
             }
         });

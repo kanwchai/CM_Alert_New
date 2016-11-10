@@ -52,13 +52,14 @@ public class Repo_3_DUE_OF_PART_STANDART {
         values.put(TB_3_DUE_OF_PART_STANDART.Type_Car_Id, due_st.type_Car_Id);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo, due_st.st_Due_Kilo);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Date, due_st.st_Due_Date);
+        values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Status, due_st.st_Due_Status);
 
         // It's a good practice to use parameter ?, instead of concatenate string
         db.update(TB_3_DUE_OF_PART_STANDART.TABLE, values, TB_3_DUE_OF_PART_STANDART.St_Due_Id + "=?", new String[]{String.valueOf(due_st.st_Due_Id)});
         db.close(); // Closing database connection
     }
 
-    public ArrayList<HashMap<String, String>> getCarList() {
+    public ArrayList<HashMap<String, String>> getStandartList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_3_DUE_OF_PART_STANDART.TABLE;
@@ -77,6 +78,7 @@ public class Repo_3_DUE_OF_PART_STANDART {
                 due_st.put("car_id", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Car_Id)));
                 due_st.put("due_st_kilo", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo)));
                 due_st.put("due_st_date", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date)));
+                due_st.put("due_st_status", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Status)));
 
                 due_stList.add(due_st);
 

@@ -82,9 +82,9 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:background="@drawable/b_ok_9_11_59" />
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="@drawable/bt_ok_10_11_59" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,9 +96,9 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:background="@drawable/b_can_9_11_59" />
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="@drawable/bt_cancel_10_11_59" />
         </LinearLayout>
     </LinearLayout>
 

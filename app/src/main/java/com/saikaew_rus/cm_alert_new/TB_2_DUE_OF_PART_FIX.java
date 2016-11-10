@@ -20,6 +20,6 @@ public class TB_2_DUE_OF_PART_FIX {
     public int part_Id;
     public int car_Id;
     public double fix_Due_Kilo;
-    public String fix_Due_Date;
+    public int fix_Due_Date;
     public String fix_Due_Status;
 }
