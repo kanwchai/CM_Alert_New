@@ -9,13 +9,13 @@
         android:id="@+id/imageView2"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/car_add_10_11_59"
-        android:layout_alignParentEnd="false"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:src="@drawable/car_add_10_11_59" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,10 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Car Registration Number "
-            android:singleLine="true"
-            android:layout_marginTop="15dp" />
+            android:singleLine="true" />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -65,8 +65,13 @@
             android:layout_height="30dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_edittext"
-            android:hint="Maturity Tax"
-            android:singleLine="true" />
+            android:hint="Maturity Tax" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(if not check is normal)"
+            android:id="@+id/textView13" />
 
         <RadioGroup
             android:layout_width="match_parent"

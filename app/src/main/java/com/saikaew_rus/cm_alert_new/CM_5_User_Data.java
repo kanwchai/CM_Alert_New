@@ -39,7 +39,7 @@ public class CM_5_User_Data extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_5_user_data_1);
+        setContentView(R.layout.activity_5_user_data);
 
         mTextDate = (TextView) findViewById(R.id.textView1);
 
