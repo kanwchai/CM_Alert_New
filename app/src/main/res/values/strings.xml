@@ -3,4 +3,6 @@
     <string name="ngv">NGV</string>
     <string name="lpg">LPG</string>
     <string name="hyb">HYBRID</string>
+    <string name="diesel">DIESEL</string>
+    <string name="benzine">BENZINE</string>
 </resources>

@@ -67,42 +67,63 @@
             android:background="@drawable/rounded_edittext"
             android:hint="Maturity Tax" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="(if not check is normal)"
-            android:id="@+id/textView13" />
-
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_edittext">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/ngv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/ngv" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edittext">
 
-            <CheckBox
-                android:id="@+id/lpg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/lpg" />
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/benzine" />
 
-            <CheckBox
-                android:id="@+id/hyb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:onClick="onCheckboxClicked"
-                android:text="@string/hyb" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diesel" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edittext">
+
+                <CheckBox
+                    android:id="@+id/ngv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:onClick="onCheckboxClicked"
+                    android:text="@string/ngv" />
+
+                <CheckBox
+                    android:id="@+id/lpg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:onClick="onCheckboxClicked"
+                    android:text="@string/lpg" />
+
+                <CheckBox
+                    android:id="@+id/hyb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:onClick="onCheckboxClicked"
+                    android:text="@string/hyb" />
+            </RadioGroup>
+        </LinearLayout>
 
     </LinearLayout>
 

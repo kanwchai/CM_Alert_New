@@ -66,20 +66,18 @@ public class CM_5_User_Data extends AppCompatActivity {
             Date dateBirth = null;
             try {
                 dateBirth = curFormater.parse(user.user_Birth);
-                user.user_Birth = postFormater.format(dateBirth);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            mTextDate.setText(user.user_Birth);
+            mTextDate.setText(postFormater.format(dateBirth));
 
             Date dateDue = null;
             try {
                 dateDue = curFormater.parse(user.user_Due_Date_Driving);
-                user.user_Due_Date_Driving = postFormater.format(dateDue);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            mTextDate_2.setText(user.user_Due_Date_Driving);
+            mTextDate_2.setText(postFormater.format(dateDue));
 
             //***************************** End Convert Format Date  *****************************//
         }
