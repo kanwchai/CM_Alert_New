@@ -55,8 +55,8 @@ public class CM_3_Car extends AppCompatActivity {
 
 //                final TextView car_Reg = (TextView) view.findViewById(R.id.car_Register);
 //                carRegis = car_Reg.getText().toString();
-                car_Id = Integer.parseInt(getCarList.get(position).get("id"));
-                carRegis = getCarList.get(position).get("register").toString();
+                car_Id = Integer.parseInt(getCarList.get(position).get(TB_1_CAR.Car_Id));
+                carRegis = getCarList.get(position).get(TB_1_CAR.Car_Register).toString();
 
                 //***************  Set Toast duration  ***************//
                 toast = Toast.makeText(getApplicationContext(), "Selected Car Registration : " + carRegis, Toast.LENGTH_SHORT);
@@ -145,7 +145,7 @@ public class CM_3_Car extends AppCompatActivity {
         }
 
         getCarList = repo_1_car.getCarList();
-        adapter = new SimpleAdapter(CM_3_Car.this, getCarList, R.layout.view_car_list, new String[]{"id", "register"}, new int[]{R.id.car_Id, R.id.car_Register});
+        adapter = new SimpleAdapter(CM_3_Car.this, getCarList, R.layout.view_car_list, new String[]{TB_1_CAR.Car_Id, TB_1_CAR.Car_Register, TB_1_CAR.Province_Name}, new int[]{R.id.car_Id, R.id.car_Register, R.id.car_Province});
         listView_1.setAdapter(adapter);
     }
 }

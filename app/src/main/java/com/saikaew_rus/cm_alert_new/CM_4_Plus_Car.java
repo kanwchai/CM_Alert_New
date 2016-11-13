@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +36,13 @@ public class CM_4_Plus_Car extends AppCompatActivity {
     Repo_6_RUN_DATA repo_6_run_data;
 
     Repo_2_DUE_OF_PART_FIX repo_2_due_of_part_fix;
+    Repo_4_HISTORYS_OF_CAR repo_4_historys_of_car;
     Repo_10_PROVINCES repo_10_provinces;
 
     SimpleDateFormat sdf;
     Button b_enter;
     Button b_cancel;
+    RadioGroup radioGroup;
     String[] dataAdap;
     AutoCompleteTextView autoProvince;
 
@@ -55,16 +58,19 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         b_enter = (Button) findViewById(R.id.button3);
         b_cancel = (Button) findViewById(R.id.button4);
         autoProvince = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        radioGroup = (RadioGroup) findViewById(R.id.radioOil);
 
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
         repo_10_provinces = new Repo_10_PROVINCES(this);
         repo_2_due_of_part_fix = new Repo_2_DUE_OF_PART_FIX(this);
+        repo_4_historys_of_car = new Repo_4_HISTORYS_OF_CAR(this);
 
         tb_1_car = new TB_1_CAR();
         tb_6_run_data = new TB_6_RUN_DATA();
 
-        tb_1_car.type_Car_Id = 1;
+        tb_1_car.type_Gas_Id = 1;
+        tb_1_car.type_Oil_Id = 1;
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         dataAdap = repo_10_provinces.getProvincesList_1();
@@ -77,7 +83,8 @@ public class CM_4_Plus_Car extends AppCompatActivity {
             public void onClick(View v) {
                 if (regis.getText().toString().matches("") ||
                         kilo.getText().toString().matches("") ||
-                        mTextDate.getText().toString().matches("")) {
+                        mTextDate.getText().toString().matches("") ||
+                        autoProvince.getText().toString().matches("")) {
                     //***************  Set Toast duration  ***************//
                     final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -91,6 +98,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                     //***************  End Set Toast  ***************//
                 } else {
                     tb_1_car.car_Register = regis.getText().toString();
+                    tb_1_car.province_Name = autoProvince.getText().toString();
 
                     tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);
                     tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
@@ -98,7 +106,8 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                     tb_6_run_data.run_Kilo_Start = Double.parseDouble(kilo.getText().toString());
                     tb_6_run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
                     repo_6_run_data.insert(tb_6_run_data);
-                    repo_2_due_of_part_fix.insert_part_fix(tb_6_run_data.car_Id);
+                    repo_2_due_of_part_fix.insert_part_fix(tb_6_run_data.car_Id, tb_1_car.type_Oil_Id, tb_1_car.type_Gas_Id);
+                    repo_4_historys_of_car.insertBy_CarId(tb_6_run_data.car_Id);
 
                     finish();
                 }
@@ -110,6 +119,20 @@ public class CM_4_Plus_Car extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.benzine:
+                        tb_1_car.type_Oil_Id = 1;
+                        break;
+                    case R.id.diesel:
+                        tb_1_car.type_Oil_Id = 2;
+                        break;
+                }
             }
         });
 
@@ -157,29 +180,29 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.ngv:
                 if (checked) {
-                    tb_1_car.type_Car_Id = 2;
+                    tb_1_car.type_Gas_Id = 2;
                     chk_lpg.setChecked(false);
                     chk_hyb.setChecked(false);
                 } else {
-                    tb_1_car.type_Car_Id = 1;
+                    tb_1_car.type_Gas_Id = 1;
                 }
                 break;
             case R.id.lpg:
                 if (checked) {
-                    tb_1_car.type_Car_Id = 3;
+                    tb_1_car.type_Gas_Id = 3;
                     chk_ngv.setChecked(false);
                     chk_hyb.setChecked(false);
                 } else {
-                    tb_1_car.type_Car_Id = 1;
+                    tb_1_car.type_Gas_Id = 1;
                 }
                 break;
             case R.id.hyb:
                 if (checked) {
-                    tb_1_car.type_Car_Id = 4;
+                    tb_1_car.type_Gas_Id = 4;
                     chk_ngv.setChecked(false);
                     chk_lpg.setChecked(false);
                 } else {
-                    tb_1_car.type_Car_Id = 1;
+                    tb_1_car.type_Gas_Id = 1;
                 }
                 break;
         }

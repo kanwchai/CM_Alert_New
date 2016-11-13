@@ -23,10 +23,12 @@ public class Repo_3_DUE_OF_PART_STANDART {
         //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id, due_st.Type_Oil_Id);
+        values.put(TB_3_DUE_OF_PART_STANDART.Type_Gas_Id, due_st.Type_Gas_Id);
         values.put(TB_3_DUE_OF_PART_STANDART.Part_Id, due_st.part_Id);
-        values.put(TB_3_DUE_OF_PART_STANDART.Type_Car_Id, due_st.type_Car_Id);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo, due_st.st_Due_Kilo);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Date, due_st.st_Due_Date);
+        values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Status, due_st.st_Due_Status);
 
         // Inserting Row
         long due_st_id = db.insert(TB_3_DUE_OF_PART_STANDART.TABLE, null, values);
@@ -48,8 +50,9 @@ public class Repo_3_DUE_OF_PART_STANDART {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id, due_st.Type_Oil_Id);
+        values.put(TB_3_DUE_OF_PART_STANDART.Type_Gas_Id, due_st.Type_Gas_Id);
         values.put(TB_3_DUE_OF_PART_STANDART.Part_Id, due_st.part_Id);
-        values.put(TB_3_DUE_OF_PART_STANDART.Type_Car_Id, due_st.type_Car_Id);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo, due_st.st_Due_Kilo);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Date, due_st.st_Due_Date);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Status, due_st.st_Due_Status);
@@ -73,12 +76,13 @@ public class Repo_3_DUE_OF_PART_STANDART {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> due_st = new HashMap<String, String>();
-                due_st.put("due_st_id", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Id)));
-                due_st.put("part_id", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Part_Id)));
-                due_st.put("car_id", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Car_Id)));
-                due_st.put("due_st_kilo", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo)));
-                due_st.put("due_st_date", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date)));
-                due_st.put("due_st_status", cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Status)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.St_Due_Id, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Id)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.Type_Gas_Id, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Gas_Id)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.Part_Id, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Part_Id)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.St_Due_Date, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date)));
+                due_st.put(TB_3_DUE_OF_PART_STANDART.St_Due_Status, cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Status)));
 
                 due_stList.add(due_st);
 
@@ -104,10 +108,12 @@ public class Repo_3_DUE_OF_PART_STANDART {
         if (cursor.moveToFirst()) {
             do {
                 due_st.st_Due_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Id));
+                due_st.type_Oil_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id));
+                due_st.type_Gas_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Gas_Id));
                 due_st.part_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Part_Id));
-                due_st.type_Car_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Car_Id));
                 due_st.st_Due_Kilo = cursor.getDouble(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo));
                 due_st.st_Due_Date = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date));
+                due_st.st_Due_Status = cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Status));
 
             } while (cursor.moveToNext());
         }

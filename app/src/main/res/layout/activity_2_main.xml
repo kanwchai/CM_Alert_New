@@ -91,7 +91,9 @@
                 android:id="@+id/button"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
-                android:background="@drawable/bt_ok_10_11_59" />
+                android:background="@drawable/bt_ok_10_11_59"
+                android:textColor="@color/text_font"
+                android:textSize="20dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +107,9 @@
                 android:id="@+id/button2"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
-                android:background="@drawable/bt_cancel_10_11_59" />
+                android:background="@drawable/bt_cancel_10_11_59"
+                android:textColor="@color/text_font"
+                android:textSize="20dp" />
         </LinearLayout>
 
     </LinearLayout>

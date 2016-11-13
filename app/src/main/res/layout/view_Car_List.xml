@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/list_view"
     android:orientation="horizontal"
-    android:padding="16dp"
-    android:background="@color/list_view">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -20,10 +20,10 @@
         android:padding="10dp">
 
         <TextView
-        android:id="@+id/car_Id"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+            android:id="@+id/car_Id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/car_Register"
@@ -31,6 +31,14 @@
             android:layout_height="wrap_content"
             android:text="Car-Registration"
             android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/car_Province"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Province"
+            android:textSize="15dp"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -9,53 +9,53 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="10"
             android:id="@+id/editText9"
-            android:hint="Term maturity" />
-
-        <EditText
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:ems="10"
+            android:hint="Term maturity"
+            android:inputType="numberDecimal" />
+
+        <EditText
             android:id="@+id/editText8"
-            android:hint="Lifetime/Monts" />
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Lifetime/Monts"
+            android:inputType="number" />
     </LinearLayout>
 
     <Button
+        android:id="@+id/button7"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:text="ok"
-        android:id="@+id/button7"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/app_black1" />
+        android:text="ok"
+        android:background="@drawable/round_radius" />
 
     <Button
+        android:id="@+id/button8"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:text="cancel"
-        android:id="@+id/button8"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="@color/app_black1" />
+        android:layout_alignParentRight="true"
+        android:text="cancel"
+        android:background="@drawable/round_radius" />
 
     <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:id="@+id/imageView5"
-        android:src="@drawable/car_part_4_11_59"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/car_part_4_11_59" />
 </RelativeLayout>

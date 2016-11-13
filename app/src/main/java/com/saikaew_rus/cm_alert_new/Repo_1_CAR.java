@@ -23,9 +23,11 @@ public class Repo_1_CAR {
         //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TB_1_CAR.Type_Car_Id, car.type_Car_Id);
+        values.put(TB_1_CAR.Type_Oil_Id, car.type_Oil_Id);
+        values.put(TB_1_CAR.Type_Gas_Id, car.type_Gas_Id);
         values.put(TB_1_CAR.Car_Register, car.car_Register);
         values.put(TB_1_CAR.Car_Tax_Date, car.car_Tax_Date);
+        values.put(TB_1_CAR.Province_Name, car.province_Name);
 
         // Inserting Row
         int car_Id = (int) db.insert(TB_1_CAR.TABLE, null, values);
@@ -47,9 +49,11 @@ public class Repo_1_CAR {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(TB_1_CAR.Type_Car_Id, car.type_Car_Id);
+        values.put(TB_1_CAR.Type_Oil_Id, car.type_Oil_Id);
+        values.put(TB_1_CAR.Type_Gas_Id, car.type_Gas_Id);
         values.put(TB_1_CAR.Car_Register, car.car_Register);
         values.put(TB_1_CAR.Car_Tax_Date, car.car_Tax_Date);
+        values.put(TB_1_CAR.Province_Name, car.province_Name);
 
         // It's a good practice to use parameter ?, instead of concatenate string
         db.update(TB_1_CAR.TABLE, values, TB_1_CAR.Car_Id + "=?", new String[]{String.valueOf(car.car_Id)});
@@ -69,10 +73,12 @@ public class Repo_1_CAR {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> car = new HashMap<String, String>();
-                car.put("id", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Id)));
-                car.put("type", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Car_Id)));
-                car.put("register", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register)));
-                car.put("tax_date", cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
+                car.put(TB_1_CAR.Car_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Id)));
+                car.put(TB_1_CAR.Type_Oil_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Oil_Id)));
+                car.put(TB_1_CAR.Type_Gas_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Gas_Id)));
+                car.put(TB_1_CAR.Province_Name, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Province_Name)));
+                car.put(TB_1_CAR.Car_Register, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register)));
+                car.put(TB_1_CAR.Car_Tax_Date, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
                 carList.add(car);
             } while (cursor.moveToNext());
         }
@@ -96,10 +102,11 @@ public class Repo_1_CAR {
         if (cursor.moveToFirst()) {
             do {
                 car.car_Id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Car_Id));
-                car.type_Car_Id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Type_Car_Id));
+                car.type_Oil_Id = cursor.getInt(cursor.getColumnIndex(TB_1_CAR.Type_Oil_Id));
+                car.type_Gas_Id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Gas_Id)));
+                car.province_Name = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Province_Name));
                 car.car_Register = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register));
                 car.car_Tax_Date = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date));
-
             } while (cursor.moveToNext());
         }
 

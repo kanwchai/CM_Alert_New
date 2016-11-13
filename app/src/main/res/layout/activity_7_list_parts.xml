@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="NO. Kilometer"
+                android:text="No. Kilometer"
                 android:textSize="18dp" />
 
             <TextView
@@ -107,8 +107,10 @@
         <Button
             android:id="@+id/button10"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bt_add_new_parts" />
+            android:layout_height="55dp"
+            android:background="@drawable/bt_add_new_parts"
+            android:textColor="@color/text_font"
+            android:textSize="20dp" />
     </LinearLayout>
 
 </LinearLayout>

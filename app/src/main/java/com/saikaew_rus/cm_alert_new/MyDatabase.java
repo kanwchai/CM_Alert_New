@@ -9,8 +9,8 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  */
 public class MyDatabase extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "cm_a_origin_2.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "cm_alert_sqlite.db";
+    private static final int DATABASE_VERSION = 1;
 
     public MyDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
