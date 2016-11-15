@@ -128,7 +128,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         String selectQuery = "";
 
         if (part_name.matches("")) {
-            selectQuery = "SELECT * FROM " +
+            selectQuery = "SELECT strftime('%d/%m/%Y',"+TB_4_HISTORYS_OF_CAR.Changed_Date+") chg_date_format,* FROM " +
                     TB_4_HISTORYS_OF_CAR.TABLE + " h," +
                     TB_2_DUE_OF_PART_FIX.TABLE + " df," +
                     TB_5_PARTS.TABLE + " p" +
@@ -139,7 +139,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                     " WHERE " +
                     "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id;
         } else {
-            selectQuery = "SELECT * FROM " +
+            selectQuery = "SELECT strftime('%d/%m/%Y',"+TB_4_HISTORYS_OF_CAR.Changed_Date+") chg_date_format,* FROM " +
                     TB_4_HISTORYS_OF_CAR.TABLE + " h," +
                     TB_2_DUE_OF_PART_FIX.TABLE + " df," +
                     TB_5_PARTS.TABLE + " p" +
@@ -161,6 +161,7 @@ public class Repo_4_HISTORYS_OF_CAR {
             do {
                 HashMap<String, String> his_car = new HashMap<String, String>();
                 his_car.put(TB_5_PARTS.Part_Name, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                his_car.put("chg_date_format", cursor.getString(cursor.getColumnIndex("chg_date_format")));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Date)));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Kilo, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Kilo)));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Next_Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Date)));

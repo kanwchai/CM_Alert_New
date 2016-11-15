@@ -73,8 +73,8 @@ public class CM_8_History extends AppCompatActivity {
         adapter = new SimpleAdapter(CM_8_History.this,
                 getListPart,
                 R.layout.view_his_car,
-                new String[]{TB_5_PARTS.Part_Name, TB_4_HISTORYS_OF_CAR.Changed_Kilo, TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo, TB_4_HISTORYS_OF_CAR.Changed_Date, TB_4_HISTORYS_OF_CAR.Next_Changed_Date},
-                new int[]{R.id.part_name, R.id.chg_kilo, R.id.chg_kilo_next, R.id.chg_date, R.id.chg_date_next});
+                new String[]{TB_5_PARTS.Part_Name, TB_4_HISTORYS_OF_CAR.Changed_Kilo, "chg_date_format"},
+                new int[]{R.id.part_name, R.id.chg_kilo, R.id.chg_date});
         listView.setAdapter(adapter);
     }
 }

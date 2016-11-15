@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".75"
-        android:gravity="left"
+        android:gravity="left|center_vertical"
         android:paddingRight="2dp"
         android:text="Part Name"
         android:textIsSelectable="false"
@@ -25,35 +25,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/border_edittext"
         android:text="New Text"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/chg_kilo_next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/border_edittext"
-        android:text="New Text"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:gravity="center_vertical|center_horizontal|right" />
 
     <TextView
         android:id="@+id/chg_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/border_edittext"
         android:text="chg_date"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/chg_date_next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/border_edittext"
-        android:text="New Text"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:gravity="center_vertical|center_horizontal" />
 
 </LinearLayout>
