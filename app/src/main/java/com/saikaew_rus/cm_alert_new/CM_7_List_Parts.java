@@ -163,6 +163,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                         tb_4_historys_of_car.changed_Kilo = Double.parseDouble(due_kilo.getText().toString());
                                         tb_4_historys_of_car.next_Changed_Kilo = Integer.parseInt(String.valueOf(due_kilo.getText())) + due_fix_kilo;
                                         repo_4_historys_of_car.insert(tb_4_historys_of_car);
+                                        dialog_2.dismiss();
                                     }
                                 }
                             });

@@ -33,7 +33,7 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/textView29"
+                    android:id="@+id/car_regis_his"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -84,9 +84,8 @@
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight=".75"
                     android:background="@drawable/border_edittext"
-                    android:padding="5dp"
                     android:text="Part Name"
                     android:textSize="13dp" />
 
@@ -96,7 +95,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
-                    android:padding="5dp"
                     android:text="Changed Kilo"
                     android:textSize="13dp" />
 
@@ -106,7 +104,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
-                    android:padding="5dp"
                     android:text="Next Changed Kilo"
                     android:textSize="13dp" />
 
@@ -116,7 +113,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
-                    android:padding="5dp"
                     android:text="Changed Date"
                     android:textSize="13dp" />
 
@@ -126,7 +122,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
-                    android:padding="5dp"
                     android:text="Next Changed Date"
                     android:textSize="13dp" />
 
@@ -142,7 +137,8 @@
                 android:id="@+id/listView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="false" />
+                android:layout_alignParentStart="false"
+                android:background="@drawable/border_edittext" />
         </RelativeLayout>
 
     </LinearLayout>

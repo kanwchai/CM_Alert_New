@@ -140,17 +140,17 @@ public class Repo_4_HISTORYS_OF_CAR {
                     "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id;
         } else {
             selectQuery = "SELECT * FROM " +
-                            TB_4_HISTORYS_OF_CAR.TABLE + " h," +
-                            TB_2_DUE_OF_PART_FIX.TABLE + " df," +
-                            TB_5_PARTS.TABLE + " p" +
-                        " ON " +
-                                "h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " = " + "df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
-                            " AND " +
-                                "df." + TB_2_DUE_OF_PART_FIX.Part_Id + " = " + "p." + TB_5_PARTS.Part_Id +
-                        " WHERE " +
-                                "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id +
-                            " AND " +
-                                "p."+TB_5_PARTS.Part_Name + " LIKE " + "'%'||'" + part_name + "'||'%'";
+                    TB_4_HISTORYS_OF_CAR.TABLE + " h," +
+                    TB_2_DUE_OF_PART_FIX.TABLE + " df," +
+                    TB_5_PARTS.TABLE + " p" +
+                    " ON " +
+                    "h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " = " + "df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
+                    " AND " +
+                    "df." + TB_2_DUE_OF_PART_FIX.Part_Id + " = " + "p." + TB_5_PARTS.Part_Id +
+                    " WHERE " +
+                    "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id +
+                    " AND " +
+                    "p." + TB_5_PARTS.Part_Name + " LIKE " + "'%'||'" + part_name + "'||'%'";
         }
 
         ArrayList<HashMap<String, String>> his_carList = new ArrayList<HashMap<String, String>>();
@@ -160,13 +160,11 @@ public class Repo_4_HISTORYS_OF_CAR {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> his_car = new HashMap<String, String>();
-                his_car.put(TB_4_HISTORYS_OF_CAR.History_Id, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.History_Id)));
-                his_car.put(TB_4_HISTORYS_OF_CAR.Fix_Due_Id, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Fix_Due_Id)));
-                his_car.put(TB_4_HISTORYS_OF_CAR.Car_Id, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Car_Id)));
-                his_car.put("change_date", cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Date)));
-                his_car.put("change_kilo", cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Kilo)));
-                his_car.put("next_change_date", cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Date)));
-                his_car.put("next_change_kilo", cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo)));
+                his_car.put(TB_5_PARTS.Part_Name, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Date)));
+                his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Kilo, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Kilo)));
+                his_car.put(TB_4_HISTORYS_OF_CAR.Next_Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Date)));
+                his_car.put(TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo)));
 
                 his_carList.add(his_car);
 
@@ -189,7 +187,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                 " ON " +
                 "df." + TB_2_DUE_OF_PART_FIX.Part_Id + " = " + "p." + TB_5_PARTS.Part_Id +
                 " WHERE " +
-                "h." + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId;
+                "df." + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId;
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -197,7 +195,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                labels.add(cursor.getString(cursor.getColumnIndex(TB_10_PROVINCES.Province_Name)));
+                labels.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
             } while (cursor.moveToNext());
         }
 
