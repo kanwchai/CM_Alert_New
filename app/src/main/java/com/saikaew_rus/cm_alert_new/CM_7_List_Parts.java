@@ -17,11 +17,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fourmob.datetimepicker.date.DatePickerDialog;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 public class CM_7_List_Parts extends AppCompatActivity {
 
@@ -39,10 +42,18 @@ public class CM_7_List_Parts extends AppCompatActivity {
     Toast toast;
     Button add_part;
     String[] Choice;
+    Calendar mCalendar;
+    DatePickerDialog mDatePicker;
+    TextView due_date;
+    EditText due_kilo;
+    int due_fix_kilo;
+    int due_fix_date;
+    String due_fix_status;
 
     TB_1_CAR tb_1_car;
     TB_2_DUE_OF_PART_FIX tb_2_due_of_part_fix;
     TB_6_RUN_DATA tb_6_run_data;
+    TB_4_HISTORYS_OF_CAR tb_4_historys_of_car;
 
     Repo_1_CAR repo_1_car;
     Repo_2_DUE_OF_PART_FIX repo_2_due_of_part_fix;
@@ -60,10 +71,12 @@ public class CM_7_List_Parts extends AppCompatActivity {
         tv_ex_date = (TextView) findViewById(R.id.textView8);
         partList = (ListView) findViewById(R.id.listView2);
         add_part = (Button) findViewById(R.id.button10);
+        mCalendar = Calendar.getInstance();
 
         tb_1_car = new TB_1_CAR();
         tb_2_due_of_part_fix = new TB_2_DUE_OF_PART_FIX();
         tb_6_run_data = new TB_6_RUN_DATA();
+        tb_4_historys_of_car = new TB_4_HISTORYS_OF_CAR();
 
         repo_1_car = new Repo_1_CAR(this);
         repo_2_due_of_part_fix = new Repo_2_DUE_OF_PART_FIX(this);
@@ -78,18 +91,19 @@ public class CM_7_List_Parts extends AppCompatActivity {
         tb_1_car = repo_1_car.getCarById(car_id);
         tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
         tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
+
         getDatacar();
         getPartList(car_id);
 
         partList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> AdapterView, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> AdapterView, final View view, final int position, long id) {
 
                 due_fix_id = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
                 part_id = Integer.parseInt(getPartList.get(position).get(TB_5_PARTS.Part_Id));
                 part_name = getPartList.get(position).get(TB_5_PARTS.Part_Name).toString();
-                final String due_fix_kilo = getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo);
-                final String due_fix_date = getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date);
-                final String due_fix_status = getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
+                due_fix_kilo = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
+                due_fix_date = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
+                due_fix_status = getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
 
                 //***************  Set Toast duration  ***************//
                 toast = Toast.makeText(getApplicationContext(), "Selected Part : " + part_name, Toast.LENGTH_SHORT);
@@ -110,27 +124,46 @@ public class CM_7_List_Parts extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
                             final Dialog dialog_2 = new Dialog(CM_7_List_Parts.this);
-                            dialog_2.setTitle("Last Maintenance " + part_name);
                             dialog_2.setContentView(R.layout.dialog_custom_specify);
 
-                            final EditText due_date = (EditText) dialog_2.findViewById(R.id.due_date);
-                            final EditText due_kilo = (EditText) dialog_2.findViewById(R.id.due_kilo);
+                            due_date = (TextView) dialog_2.findViewById(R.id.due_date_spec);
+                            due_kilo = (EditText) dialog_2.findViewById(R.id.due_kilo_spec);
                             Button bSave = (Button) dialog_2.findViewById(R.id.button_save);
                             Button bCancel = (Button) dialog_2.findViewById(R.id.button_cancel);
 
-                            due_date.setText(due_fix_date);
-                            due_kilo.setText(due_fix_kilo);
+                            dialog_2.setTitle("Last Maintenance " + part_name);
+
+                            due_date.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mDatePicker.setYearRange(2000, 2030);
+                                    mDatePicker.show(getSupportFragmentManager(), "datePicker");
+                                }
+                            });
 
                             bSave.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;
-                                    tb_2_due_of_part_fix.car_Id = car_id;
-                                    tb_2_due_of_part_fix.part_Id = part_id;
-                                    tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date.toString());
-                                    tb_2_due_of_part_fix.fix_Due_Kilo = Double.parseDouble(due_kilo.toString());
-                                    tb_2_due_of_part_fix.fix_Due_Status = due_fix_status;
-                                    repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
+                                    if (due_date.getText().toString().matches("") ||
+                                            due_kilo.getText().toString().matches("")) {
+                                        //***************  Set Toast duration  ***************//
+                                        final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                toast.cancel();
+                                            }
+                                        }, 1500);
+                                        //*************  End Set Toast duration  *************//
+                                    } else {
+                                        tb_4_historys_of_car.fix_Due_Id = due_fix_id;
+                                        tb_4_historys_of_car.car_Id = car_id;
+                                        tb_4_historys_of_car.changed_Kilo = Double.parseDouble(due_kilo.getText().toString());
+                                        tb_4_historys_of_car.next_Changed_Kilo = Integer.parseInt(String.valueOf(due_kilo.getText())) + due_fix_kilo;
+                                        repo_4_historys_of_car.insert(tb_4_historys_of_car);
+                                    }
                                 }
                             });
 
@@ -143,7 +176,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
                             dialog_2.show();
                         } else if (which == 1) {
                             final Dialog dialog_2 = new Dialog(CM_7_List_Parts.this);
-                            dialog_2.setTitle("Config Part" + part_name);
+                            dialog_2.setTitle("Config Part : " + part_name);
                             dialog_2.setContentView(R.layout.dialog_custom_set_usage);
 
                             final EditText due_date = (EditText) dialog_2.findViewById(R.id.due_date);
@@ -151,8 +184,8 @@ public class CM_7_List_Parts extends AppCompatActivity {
                             Button bSave = (Button) dialog_2.findViewById(R.id.button_save);
                             Button bCancel = (Button) dialog_2.findViewById(R.id.button_cancel);
 
-                            due_date.setText(due_fix_date);
-                            due_kilo.setText(due_fix_kilo);
+                            due_date.setText(String.valueOf(due_fix_date));
+                            due_kilo.setText(String.valueOf(due_fix_kilo));
 
                             bSave.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -160,10 +193,11 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                     tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;
                                     tb_2_due_of_part_fix.car_Id = car_id;
                                     tb_2_due_of_part_fix.part_Id = part_id;
-                                    tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date.toString());
-                                    tb_2_due_of_part_fix.fix_Due_Kilo = Double.parseDouble(due_kilo.toString());
-                                    tb_2_due_of_part_fix.fix_Due_Status = due_fix_status;
+                                    tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date.getText().toString());
+                                    tb_2_due_of_part_fix.fix_Due_Kilo = Double.parseDouble(due_kilo.getText().toString());
+                                    tb_2_due_of_part_fix.fix_Due_Status = String.valueOf(due_fix_status);
                                     repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
+                                    dialog_2.dismiss();
                                 }
                             });
 
@@ -177,14 +211,14 @@ public class CM_7_List_Parts extends AppCompatActivity {
                         } else if (which == 2) {
                             AlertDialog.Builder builder_1 = new AlertDialog.Builder(CM_7_List_Parts.this);
                             builder_1.setMessage("Delete " + part_name + " ?");
-                            builder_1.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                            builder_1.setNegativeButton("OK ", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     repo_2_due_of_part_fix.delete(due_fix_id);
                                     Toast.makeText(getApplicationContext(), "Part " + part_name + " is Deleted Success", Toast.LENGTH_SHORT).show();
                                     getPartList(car_id);
                                 }
                             });
-                            builder_1.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                            builder_1.setPositiveButton("CANCEL ", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                 }
                             });
@@ -216,6 +250,13 @@ public class CM_7_List_Parts extends AppCompatActivity {
                 builder.show();
             }
         });
+
+        mDatePicker = DatePickerDialog.newInstance(onDateSetListener,
+                mCalendar.get(Calendar.YEAR),       // ปี
+                mCalendar.get(Calendar.MONTH),      // เดือน
+                mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
+                false);
+
     }
 
     public void getDatacar() {
@@ -236,7 +277,27 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
     public void getPartList(int carId) {
         getPartList = repo_2_due_of_part_fix.getFixListByCarId(carId);
-        adapter = new SimpleAdapter(CM_7_List_Parts.this, getPartList, R.layout.view_part_list, new String[]{TB_5_PARTS.Part_Name,"countKilo","countDate"}, new int[]{R.id.part_name,R.id.textView10,R.id.textView12});
+        adapter = new SimpleAdapter(CM_7_List_Parts.this, getPartList, R.layout.view_part_list, new String[]{TB_5_PARTS.Part_Name, "countKilo", "countDate"}, new int[]{R.id.part_name, R.id.textView10, R.id.textView12});
         partList.setAdapter(adapter);
     }
+
+    private DatePickerDialog.OnDateSetListener onDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+
+                    SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
+                    SimpleDateFormat dfm_insert = new SimpleDateFormat("yyyy-MM-dd");
+
+                    mCalendar.set(year, month, day);
+                    Date date = mCalendar.getTime();
+                    mCalendar.add(Calendar.MONTH, due_fix_date);
+                    Date date_chg = mCalendar.getTime();
+                    String textDate = dfm.format(date);
+                    tb_4_historys_of_car.changed_Date = dfm_insert.format(date);
+                    tb_4_historys_of_car.next_Changed_Date = dfm_insert.format(date_chg);
+                    due_date.setText(textDate);
+
+                }
+            };
 }

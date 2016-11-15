@@ -96,7 +96,8 @@ public class Repo_2_DUE_OF_PART_FIX {
                 "(SELECT MAX(" + TB_6_RUN_DATA.Run_Id + "), * FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?) r," +
                 "(SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " h, " + TB_2_DUE_OF_PART_FIX.TABLE + " df " +
                 "ON " +
-                "h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + "= df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + ") hd," +
+                "h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + "= df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
+                " GROUP BY h."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+") hd," +
                 TB_5_PARTS.TABLE + " p" +
                 " ON " +
                 "r." + TB_1_CAR.Car_Id + "= hd." + TB_1_CAR.Car_Id +
@@ -133,9 +134,7 @@ public class Repo_2_DUE_OF_PART_FIX {
     public TB_2_DUE_OF_PART_FIX getDue_FixById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + " WHERE " + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "=?";
-        // It's a good practice to use parameter ?, instead of concatenate string
 
-        int iCount = 0;
         TB_2_DUE_OF_PART_FIX due_fix = new TB_2_DUE_OF_PART_FIX();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
