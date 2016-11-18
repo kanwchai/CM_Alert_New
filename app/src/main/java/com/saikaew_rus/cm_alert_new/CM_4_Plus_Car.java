@@ -38,6 +38,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
     Repo_2_DUE_OF_PART_FIX repo_2_due_of_part_fix;
     Repo_4_HISTORYS_OF_CAR repo_4_historys_of_car;
     Repo_10_PROVINCES repo_10_provinces;
+    Repo_Check repo_check;
 
     SimpleDateFormat sdf;
     Button b_enter;
@@ -65,6 +66,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         repo_10_provinces = new Repo_10_PROVINCES(this);
         repo_2_due_of_part_fix = new Repo_2_DUE_OF_PART_FIX(this);
         repo_4_historys_of_car = new Repo_4_HISTORYS_OF_CAR(this);
+        repo_check = new Repo_Check(this);
 
         tb_1_car = new TB_1_CAR();
         tb_6_run_data = new TB_6_RUN_DATA();
@@ -81,37 +83,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         b_enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (regis.getText().toString().matches("") ||
-                        kilo.getText().toString().matches("") ||
-                        mTextDate.getText().toString().matches("") ||
-                        autoProvince.getText().toString().matches("")) {
-                    //***************  Set Toast duration  ***************//
-                    final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
-                    toast.show();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            toast.cancel();
-                        }
-                    }, 1000);
-                    //***************  End Set Toast  ***************//
-                } else {
-                    tb_1_car.car_Register = regis.getText().toString();
-                    tb_1_car.province_Name = autoProvince.getText().toString();
-
-                    tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);
-                    tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
-                    tb_6_run_data.run_Date_End = sdf.format(Calendar.getInstance().getTime());
-                    tb_6_run_data.run_Kilo_Start = Double.parseDouble(kilo.getText().toString());
-                    tb_6_run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
-                    repo_6_run_data.insert(tb_6_run_data);
-                    repo_2_due_of_part_fix.insert_part_fix(tb_6_run_data.car_Id, tb_1_car.type_Oil_Id, tb_1_car.type_Gas_Id);
-                    repo_4_historys_of_car.insertBy_CarId(tb_6_run_data.car_Id);
-
-                    finish();
-                }
-
+                chk_input();
             }
         });
 
@@ -205,6 +177,54 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                     tb_1_car.type_Gas_Id = 1;
                 }
                 break;
+        }
+    }
+
+    public void chk_input() {
+        if (regis.getText().toString().matches("") ||
+                kilo.getText().toString().matches("") ||
+                mTextDate.getText().toString().matches("") ||
+                autoProvince.getText().toString().matches("")) {
+            //***************  Set Toast duration  ***************//
+            final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
+            toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 1000);
+            //***************  End Set Toast  ***************//
+        } else {
+            tb_1_car.car_Register = regis.getText().toString();
+            tb_1_car.province_Name = autoProvince.getText().toString();
+
+            if (repo_check.che_Car(regis.getText().toString(), autoProvince.getText().toString()) >= 1) {
+                final Toast toast = Toast.makeText(getApplicationContext(),
+                        "Car Registration " + regis.getText().toString() +
+                                " not empty", Toast.LENGTH_SHORT);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1000);
+                //***************  End Set Toast  ***************//
+            } else {
+                tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);
+                tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
+                tb_6_run_data.run_Date_End = sdf.format(Calendar.getInstance().getTime());
+                tb_6_run_data.run_Kilo_Start = Double.parseDouble(kilo.getText().toString());
+                tb_6_run_data.run_Kilo_End = Double.parseDouble(kilo.getText().toString());
+                repo_6_run_data.insert(tb_6_run_data);
+                repo_2_due_of_part_fix.insert_part_fix(tb_6_run_data.car_Id, tb_1_car.type_Oil_Id, tb_1_car.type_Gas_Id);
+                repo_4_historys_of_car.insertBy_CarId(tb_6_run_data.car_Id);
+
+                finish();
+            }
         }
     }
 }

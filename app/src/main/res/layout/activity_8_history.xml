@@ -87,8 +87,7 @@
                     android:layout_weight=".75"
                     android:background="@drawable/border_edittext"
                     android:text="Part Name"
-                    android:textSize="13dp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -97,8 +96,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
                     android:text="Changed Kilo"
-                    android:textSize="13dp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/textView27"
@@ -107,8 +105,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
                     android:text="Changed Date"
-                    android:textSize="13dp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:textSize="13dp" />
 
             </LinearLayout>
 

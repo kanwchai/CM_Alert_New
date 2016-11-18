@@ -46,7 +46,7 @@ public class Repo_10_PROVINCES {
     }
 
     public String[] getProvincesList_1() {
-        List<String> labels = new ArrayList<String>();
+        List<String> labels = new ArrayList<>();
 
         // Select All Query
         String selectQuery = "SELECT * FROM " + TB_10_PROVINCES.TABLE + " ORDER BY " + TB_10_PROVINCES.Province_Name;

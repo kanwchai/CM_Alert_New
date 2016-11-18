@@ -52,9 +52,6 @@ public class CM_3_Car extends AppCompatActivity {
 
         listView_1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapterView, View view, int position, long id) {
-
-//                final TextView car_Reg = (TextView) view.findViewById(R.id.car_Register);
-//                carRegis = car_Reg.getText().toString();
                 car_Id = Integer.parseInt(getCarList.get(position).get(TB_1_CAR.Car_Id));
                 carRegis = getCarList.get(position).get(TB_1_CAR.Car_Register).toString();
 
