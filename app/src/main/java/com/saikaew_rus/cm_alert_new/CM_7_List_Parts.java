@@ -96,6 +96,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
         getDatacar();
         getPartList(car_id);
+        new_part = repo_5_parts.getPart_Not(car_id);
 
         partList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> AdapterView, final View view, final int position, long id) {
@@ -197,7 +198,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                     tb_2_due_of_part_fix.car_Id = car_id;
                                     tb_2_due_of_part_fix.part_Id = part_id;
                                     tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date.getText().toString());
-                                    tb_2_due_of_part_fix.fix_Due_Kilo = Double.parseDouble(due_kilo.getText().toString());
+                                    tb_2_due_of_part_fix.fix_Due_Kilo = Integer.parseInt(due_kilo.getText().toString());
                                     tb_2_due_of_part_fix.fix_Due_Status = String.valueOf(due_fix_status);
                                     repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
                                     dialog_2.dismiss();
@@ -245,13 +246,25 @@ public class CM_7_List_Parts extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String partName = new_part[which];
                         repo_2_due_of_part_fix.insert_PartByCar(car_id, partName);
+                        getPartList(car_id);
+                        //***************  Set Toast duration  ***************//
+                        final Toast toast = Toast.makeText(getApplicationContext(), "Add Part " + partName + " Success", Toast.LENGTH_SHORT);
+                        toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                toast.cancel();
+                            }
+                        }, 2500);
+                        //*************  End Set Toast duration  *************//
                     }
                 });
-                builder.setNegativeButton("Add New Part(if not found)",new DialogInterface.OnClickListener(){
+                builder.setNegativeButton("Add New Part(if not found)", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intentAddpart = new Intent(getApplicationContext(),CM_9_Add_Parts.class);
-                        intentAddpart.putExtra("car_id",car_id);
+                        Intent intentAddpart = new Intent(getApplicationContext(), CM_9_Add_Parts.class);
+                        intentAddpart.putExtra("car_id", car_id);
                         startActivity(intentAddpart);
                     }
                 });

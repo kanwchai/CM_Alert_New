@@ -29,6 +29,7 @@ public class Repo_Check {
     }
 
     public int chkDueKilo(int carid) {
+        int dataCar;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " +
                 "(SELECT MAX(+" + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " GROUP BY " + TB_6_RUN_DATA.Car_Id + ") r ," +
@@ -37,24 +38,29 @@ public class Repo_Check {
                 "WHERE Next_Changed_Kilo-Run_Kilo_End <= 1500";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        dataCar = cursor.getCount();
 
         cursor.close();
         db.close();
 
-        return cursor.getCount();
+        return dataCar;
     }
 
     public int che_Car(String car_Reg, String prov_name) {
+        int dataCar;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM" + TB_1_CAR.TABLE +
+        String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE +
                 " WHERE " + TB_1_CAR.Car_Register + " = " + "'" + car_Reg + "'" +
                 " AND " + TB_1_CAR.Province_Name + " = " + "'" + prov_name + "'";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+
+        dataCar = cursor.getCount();
+
         cursor.close();
         db.close();
 
-        return cursor.getCount();
+        return dataCar;
     }
 
 }

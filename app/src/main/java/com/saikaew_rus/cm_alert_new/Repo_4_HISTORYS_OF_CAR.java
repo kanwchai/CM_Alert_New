@@ -43,12 +43,14 @@ public class Repo_4_HISTORYS_OF_CAR {
         String insertQuery = "INSERT INTO " + TB_4_HISTORYS_OF_CAR.TABLE +
                 " SELECT " +
                 "NULL," +
-                TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
-                ", c." + TB_1_CAR.Car_Id + "," +
+                TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "," +
+                "c." + TB_1_CAR.Car_Id + "," +
                 TB_6_RUN_DATA.Run_Kilo_End + "," +
                 TB_6_RUN_DATA.Run_Kilo_End + "+" + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + "," +
+                "NULL," +
                 "DATE('now')," +
-                "DATE('now','+'||" + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + "||' MONTH')" +
+                "DATE('now','+'||" + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + "||' MONTH')" +","+
+                "NULL" +
                 " FROM " +
                 TB_1_CAR.TABLE + " c," +
                 TB_6_RUN_DATA.TABLE + " rd," +

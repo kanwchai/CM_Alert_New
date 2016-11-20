@@ -90,7 +90,7 @@ public class Repo_5_PARTS {
 
         if (cursor.moveToFirst()) {
             do {
-                getPartName.add(String.valueOf(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                getPartName.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
             } while (cursor.moveToNext());
         }
 
