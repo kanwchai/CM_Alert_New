@@ -20,7 +20,6 @@ public class Repo_3_DUE_OF_PART_STANDART {
 
     public int insert(TB_3_DUE_OF_PART_STANDART due_st) {
 
-        //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id, due_st.Type_Oil_Id);
@@ -30,9 +29,8 @@ public class Repo_3_DUE_OF_PART_STANDART {
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Date, due_st.st_Due_Date);
         values.put(TB_3_DUE_OF_PART_STANDART.St_Due_Status, due_st.st_Due_Status);
 
-        // Inserting Row
         long due_st_id = db.insert(TB_3_DUE_OF_PART_STANDART.TABLE, null, values);
-        // Closing database connection
+
         db.close();
         return (int) due_st_id;
     }
@@ -111,7 +109,7 @@ public class Repo_3_DUE_OF_PART_STANDART {
                 due_st.type_Oil_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Oil_Id));
                 due_st.type_Gas_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Type_Gas_Id));
                 due_st.part_Id = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.Part_Id));
-                due_st.st_Due_Kilo = cursor.getDouble(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo));
+                due_st.st_Due_Kilo = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Kilo));
                 due_st.st_Due_Date = cursor.getInt(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Date));
                 due_st.st_Due_Status = cursor.getString(cursor.getColumnIndex(TB_3_DUE_OF_PART_STANDART.St_Due_Status));
 

@@ -19,8 +19,8 @@ public class Repo_2_DUE_OF_PART_FIX {
     }
 
     public int insert(TB_2_DUE_OF_PART_FIX due_fix) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TB_2_DUE_OF_PART_FIX.Part_Id, due_fix.part_Id);
         values.put(TB_2_DUE_OF_PART_FIX.Car_Id, due_fix.car_Id);
@@ -29,10 +29,11 @@ public class Repo_2_DUE_OF_PART_FIX {
         values.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Status, due_fix.fix_Due_Status);
 
         long due_fix_id = db.insert(TB_2_DUE_OF_PART_FIX.TABLE, null, values);
+
         db.close();
         return (int) due_fix_id;
     }
-
+    
     public void insert_part_fix(int car_id, int oil, int gas) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -60,6 +61,20 @@ public class Repo_2_DUE_OF_PART_FIX {
         }
 
         db.execSQL(insertQuery);
+        db.close();
+    }
+
+    public void insert_PartByCar(int car_id, String partName) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String insertPart = "INSERT INTO " + TB_2_DUE_OF_PART_FIX.TABLE +
+                " SELECT null,p." + TB_5_PARTS.Part_Id + "," + car_id + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," +
+                TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                " FROM " + TB_5_PARTS.TABLE + " p," + TB_3_DUE_OF_PART_STANDART.TABLE + " ds" +
+                " ON p." + TB_5_PARTS.Part_Id + " = " + "p." + TB_3_DUE_OF_PART_STANDART.Part_Id +
+                " WHERE " + TB_5_PARTS.Part_Name + " = " + "'" + partName + "'" + " GROUP BY " + TB_5_PARTS.Part_Name;
+
+        db.execSQL(insertPart);
         db.close();
     }
 
@@ -97,14 +112,14 @@ public class Repo_2_DUE_OF_PART_FIX {
                 "(SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " h, " + TB_2_DUE_OF_PART_FIX.TABLE + " df " +
                 "ON " +
                 "h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + "= df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
-                " GROUP BY h."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+") hd," +
+                " GROUP BY h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + ") hd," +
                 TB_5_PARTS.TABLE + " p" +
                 " ON " +
                 "r." + TB_1_CAR.Car_Id + "= hd." + TB_1_CAR.Car_Id +
                 " AND " +
                 "p." + TB_5_PARTS.Part_Id + "= hd." + TB_5_PARTS.Part_Id;
 
-        ArrayList<HashMap<String, String>> due_fixList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> due_fixList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(carId)});
 
@@ -144,7 +159,7 @@ public class Repo_2_DUE_OF_PART_FIX {
                 due_fix.fix_Due_Id = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
                 due_fix.part_Id = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Part_Id));
                 due_fix.car_Id = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Car_Id));
-                due_fix.fix_Due_Kilo = cursor.getDouble(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
+                due_fix.fix_Due_Kilo = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
                 due_fix.fix_Due_Date = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
                 due_fix.fix_Due_Status = cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Status));
 

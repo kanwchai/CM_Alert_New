@@ -150,7 +150,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                     " WHERE " +
                     "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id +
                     " AND " +
-                    "p." + TB_5_PARTS.Part_Name + " LIKE " + "'%'||'" + part_name + "'||'%'";
+                    "p." + TB_5_PARTS.Part_Name + " LIKE " + "'%" + part_name + "%'";
         }
 
         ArrayList<HashMap<String, String>> his_carList = new ArrayList<HashMap<String, String>>();

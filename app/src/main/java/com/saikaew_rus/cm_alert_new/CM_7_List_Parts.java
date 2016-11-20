@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.*;
+import java.util.HashMap;
 
 public class CM_7_List_Parts extends AppCompatActivity {
 
@@ -41,6 +41,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
     String part_name;
     Toast toast;
     Button add_part;
+    String[] new_part;
     String[] Choice;
     Calendar mCalendar;
     DatePickerDialog mDatePicker;
@@ -91,6 +92,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
         tb_1_car = repo_1_car.getCarById(car_id);
         tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
         tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
+        new_part = repo_5_parts.getPart_Not(car_id);
 
         getDatacar();
         getPartList(car_id);
@@ -237,15 +239,22 @@ public class CM_7_List_Parts extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts.this);
                 builder.setTitle("Select New Part");
-                String[] CLUBS = new String[repo_5_parts.getPartList().size()];
 
-                builder.setItems(CLUBS, new DialogInterface.OnClickListener() {
+                builder.setItems(new_part, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        String partName = new_part[which];
+                        repo_2_due_of_part_fix.insert_PartByCar(car_id, partName);
                     }
                 });
-                builder.setNegativeButton("Add New Part(if not found)", null);
+                builder.setNegativeButton("Add New Part(if not found)",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intentAddpart = new Intent(getApplicationContext(),CM_9_Add_Parts.class);
+                        intentAddpart.putExtra("car_id",car_id);
+                        startActivity(intentAddpart);
+                    }
+                });
                 builder.create();
 
                 builder.show();

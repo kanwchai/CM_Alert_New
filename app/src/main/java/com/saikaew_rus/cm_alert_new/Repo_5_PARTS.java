@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by NB_A on 18/10/2559.
@@ -19,15 +20,13 @@ public class Repo_5_PARTS {
     }
 
     public int insert(TB_5_PARTS part_car) {
-
-        //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(TB_5_PARTS.Part_Name, part_car.part_Name);
 
-        // Inserting Row
         long part_id = db.insert(TB_5_PARTS.TABLE, null, values);
-        // Closing database connection
+
         db.close();
         return (int) part_id;
     }
@@ -45,9 +44,8 @@ public class Repo_5_PARTS {
 
         values.put(TB_5_PARTS.Part_Name, part_car.part_Name);
 
-        // It's a good practice to use parameter ?, instead of concatenate string
         db.update(TB_5_PARTS.TABLE, values, TB_5_PARTS.Part_Id + "=?", new String[]{String.valueOf(part_car.part_Id)});
-        db.close(); // Closing database connection
+        db.close();
     }
 
     public ArrayList<HashMap<String, String>> getPartList() {
@@ -55,15 +53,13 @@ public class Repo_5_PARTS {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_5_PARTS.TABLE;
 
-        // TB_5_PARTS part_car = new TB_5_PARTS();
-        ArrayList<HashMap<String, String>> part_carList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> part_carList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> part_car = new HashMap<String, String>();
+                HashMap<String, String> part_car = new HashMap<>();
                 part_car.put("part_id", cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Id)));
                 part_car.put("part_name", cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
 
@@ -78,26 +74,31 @@ public class Repo_5_PARTS {
 
     }
 
-    public TB_5_PARTS getPartById(int Id) {
+    public String[] getPart_Not(int carId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TB_5_PARTS.TABLE + " WHERE " + TB_5_PARTS.Part_Id + "=?";
-        // It's a good practice to use parameter ?, instead of concatenate string
+        String selectQuery = "SELECT " + TB_5_PARTS.Part_Name +
+                " FROM " + TB_5_PARTS.TABLE + " p " +
+                " LEFT OUTER JOIN " +
+                "(SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + " WHERE " + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId + ") df" +
+                " ON " +
+                " p." + TB_5_PARTS.Part_Id + " = " + " df." + TB_2_DUE_OF_PART_FIX.Part_Id +
+                " WHERE " +
+                TB_2_DUE_OF_PART_FIX.Car_Id + " IS NULL GROUP BY p." + TB_5_PARTS.Part_Id;
 
-        int iCount = 0;
-        TB_5_PARTS part_car = new TB_5_PARTS();
-
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        List<String> getPartName = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
             do {
-                part_car.part_Id = cursor.getInt(cursor.getColumnIndex(TB_5_PARTS.Part_Id));
-                part_car.part_Name = cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name));
+                getPartName.add(String.valueOf(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
             } while (cursor.moveToNext());
         }
 
+        String[] partname = getPartName.toArray(new String[getPartName.size()]);
+
         cursor.close();
         db.close();
-        return part_car;
+        return partname;
     }
 
 }

@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editText9"
+            android:id="@+id/kilo_due"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -23,12 +23,51 @@
             android:inputType="numberDecimal" />
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/date_due"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Lifetime/Monts"
             android:inputType="number" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_group"
+            android:padding="5dp"
+            android:id="@+id/radioManType">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Maintenance Type"
+                android:id="@+id/textView20"
+                android:textSize="18dp"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Modify"
+                android:id="@+id/modify"
+                android:layout_marginTop="5dp"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Repair"
+                android:id="@+id/repair"
+                android:layout_marginTop="5dp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Clean"
+                android:id="@+id/clean"
+                android:layout_marginTop="5dp" />
+
+        </RadioGroup>
     </LinearLayout>
 
     <Button
@@ -38,8 +77,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="ok"
-        android:background="@drawable/round_radius" />
+        android:background="@drawable/round_radius"
+        android:text="ok" />
 
     <Button
         android:id="@+id/button8"
@@ -48,8 +87,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="cancel"
-        android:background="@drawable/round_radius" />
+        android:background="@drawable/round_radius"
+        android:text="cancel" />
 
     <ImageView
         android:id="@+id/imageView5"

@@ -76,6 +76,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         dataAdap = repo_10_provinces.getProvincesList_1();
+
         ArrayAdapter dataAdapter = new ArrayAdapter(CM_4_Plus_Car.this, android.R.layout.simple_dropdown_item_1line, dataAdap);
         autoProvince.setAdapter(dataAdapter);
         autoProvince.setThreshold(1);

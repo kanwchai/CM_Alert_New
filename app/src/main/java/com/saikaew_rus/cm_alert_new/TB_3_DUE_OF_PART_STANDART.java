@@ -22,6 +22,6 @@ public class TB_3_DUE_OF_PART_STANDART {
     public int type_Gas_Id;
     public int part_Id;
     public int st_Due_Date;
-    public double st_Due_Kilo;
+    public int st_Due_Kilo;
     public String st_Due_Status;
 }
