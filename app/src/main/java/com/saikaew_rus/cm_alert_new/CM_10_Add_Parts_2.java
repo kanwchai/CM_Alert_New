@@ -8,10 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class CM_10_Add_Parts_2 extends AppCompatActivity {
 
-    Repo_1_CAR repo_1_car;
-    TB_1_CAR tb_1_car;
     int carid;
     String partname;
     TB_5_PARTS tb_5_parts;
@@ -22,6 +23,10 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
     Repo_2_DUE_OF_PART_FIX repo_2_due_of_part_fix;
     String status;
     int partid;
+    TB_4_HISTORYS_OF_CAR tb_4_historys_of_car;
+    Repo_4_HISTORYS_OF_CAR repo_4_historys_of_car;
+    TB_6_RUN_DATA tb_6_run_data;
+    Repo_6_RUN_DATA repo_6_run_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +36,23 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
         final EditText kilo = (EditText) findViewById(R.id.kilo_due);
         final EditText date = (EditText) findViewById(R.id.date_due);
         Button save = (Button) findViewById(R.id.button7);
-        Button cancel = (Button) findViewById(R.id.button8);
+        final Button cancel = (Button) findViewById(R.id.button8);
         RadioGroup radioManType = (RadioGroup) findViewById(R.id.radioManType);
 
-        repo_1_car = new Repo_1_CAR(this);
-        tb_1_car = new TB_1_CAR();
         repo_3_due_of_part_standart = new Repo_3_DUE_OF_PART_STANDART(this);
         tb_3_due_of_part_standart = new TB_3_DUE_OF_PART_STANDART();
         repo_2_due_of_part_fix = new Repo_2_DUE_OF_PART_FIX(this);
         tb_2_due_of_part_fix = new TB_2_DUE_OF_PART_FIX();
+        repo_4_historys_of_car = new Repo_4_HISTORYS_OF_CAR(this);
+        tb_4_historys_of_car = new TB_4_HISTORYS_OF_CAR();
+        repo_6_run_data = new Repo_6_RUN_DATA(this);
+        tb_6_run_data = new TB_6_RUN_DATA();
 
         Intent getIntent = getIntent();
         carid = getIntent.getIntExtra("car_id", 0);
         partname = getIntent.getStringExtra("part_name");
+        tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(carid);
 
-        tb_1_car = repo_1_car.getCarById(carid);
         status = "m";
 
         radioManType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -73,8 +80,8 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
                 tb_5_parts.part_Name = partname;
                 partid = repo_5_parts.insert(tb_5_parts);
 
-                tb_3_due_of_part_standart.type_Oil_Id = tb_1_car.type_Oil_Id;
-                tb_3_due_of_part_standart.type_Gas_Id = tb_1_car.type_Gas_Id;
+                tb_3_due_of_part_standart.type_Oil_Id = 99;
+                tb_3_due_of_part_standart.type_Gas_Id = 99;
                 tb_3_due_of_part_standart.part_Id = partid;
                 tb_3_due_of_part_standart.st_Due_Date = Integer.parseInt(date.getText().toString());
                 tb_3_due_of_part_standart.st_Due_Kilo = Integer.parseInt(kilo.getText().toString());
@@ -86,7 +93,19 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
                 tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(date.getText().toString());
                 tb_2_due_of_part_fix.fix_Due_Kilo = Integer.parseInt(kilo.getText().toString());
                 tb_2_due_of_part_fix.fix_Due_Status = status;
-                repo_2_due_of_part_fix.insert(tb_2_due_of_part_fix);
+
+                tb_4_historys_of_car.fix_Due_Id = repo_2_due_of_part_fix.insert(tb_2_due_of_part_fix);
+                tb_4_historys_of_car.car_Id = carid;
+                tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
+                tb_4_historys_of_car.next_Changed_Kilo = Integer.parseInt(kilo.getText().toString());
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar c = Calendar.getInstance();
+                tb_4_historys_of_car.changed_Date = df.format(c.getTime());
+                c.add(Calendar.MONTH, Integer.parseInt(date.getText().toString()));
+                tb_4_historys_of_car.next_Changed_Date = df.format(c.getTime());
+
+                repo_4_historys_of_car.insert(tb_4_historys_of_car);
 
                 finish();
             }

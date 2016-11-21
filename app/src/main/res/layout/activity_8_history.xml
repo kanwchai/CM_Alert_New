@@ -87,16 +87,8 @@
                     android:layout_weight=".75"
                     android:background="@drawable/border_edittext"
                     android:text="Part Name"
-                    android:textSize="13dp" />
-
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_edittext"
-                    android:text="Changed Kilo"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:gravity="center_vertical|center_horizontal" />
 
                 <TextView
                     android:id="@+id/textView27"
@@ -105,7 +97,18 @@
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
                     android:text="Changed Date"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_edittext"
+                    android:text="Changed Kilo"
+                    android:textSize="13dp"
+                    android:gravity="center_vertical|center_horizontal" />
 
             </LinearLayout>
 
@@ -119,7 +122,6 @@
                 android:id="@+id/listView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="false"
                 android:background="@drawable/border_edittext" />
         </RelativeLayout>
 

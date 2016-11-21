@@ -63,4 +63,19 @@ public class Repo_Check {
         return dataCar;
     }
 
+    public int chk_Part(String part_name) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectPartAll = "SELECT * FROM" + TB_5_PARTS.TABLE +
+                " WHERE " + TB_5_PARTS.Part_Name + " = " + "'" + part_name + "'";
+
+        Cursor cursor = db.rawQuery(selectPartAll, null);
+
+        int countPart = cursor.getCount();
+
+        cursor.close();
+        db.close();
+
+        return countPart;
+    }
+
 }

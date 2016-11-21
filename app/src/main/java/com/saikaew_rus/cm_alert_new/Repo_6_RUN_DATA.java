@@ -91,32 +91,6 @@ public class Repo_6_RUN_DATA {
 
     }
 
-    public TB_6_RUN_DATA getRun_DataById(int Id) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_6_RUN_DATA.Run_Id + "=?";
-        // It's a good practice to use parameter ?, instead of concatenate string
-
-        int iCount = 0;
-        TB_6_RUN_DATA run_data = new TB_6_RUN_DATA();
-
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
-
-        if (cursor.moveToFirst()) {
-            do {
-                run_data.run_Id = cursor.getInt(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Id));
-                run_data.car_Id = cursor.getInt(cursor.getColumnIndex(TB_6_RUN_DATA.Car_Id));
-                run_data.run_Date_Start = cursor.getString(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Date_Start));
-                run_data.run_Date_End = cursor.getString(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Date_End));
-                run_data.run_Kilo_Start = cursor.getDouble(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Kilo_Start));
-                run_data.run_Kilo_End = cursor.getDouble(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Kilo_End));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return run_data;
-    }
-
     public TB_6_RUN_DATA getLastRunByCar_Id(int car_id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT MAX(" + TB_6_RUN_DATA.Run_Date_End + "),* FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?";
