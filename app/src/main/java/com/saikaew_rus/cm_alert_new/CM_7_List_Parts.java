@@ -50,6 +50,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
     int due_fix_kilo;
     int due_fix_date;
     String due_fix_status;
+    String partName;
 
     TB_1_CAR tb_1_car;
     TB_2_DUE_OF_PART_FIX tb_2_due_of_part_fix;
@@ -92,11 +93,9 @@ public class CM_7_List_Parts extends AppCompatActivity {
         tb_1_car = repo_1_car.getCarById(car_id);
         tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
         tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
-        new_part = repo_5_parts.getPart_Not(car_id);
 
         getDatacar();
         getPartList(car_id);
-        new_part = repo_5_parts.getPart_Not(car_id);
 
         partList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> AdapterView, final View view, final int position, long id) {
@@ -240,12 +239,28 @@ public class CM_7_List_Parts extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts.this);
                 builder.setTitle("Select New Part");
+                new_part = repo_5_parts.getPart_Not(car_id);
 
                 builder.setItems(new_part, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String partName = new_part[which];
+                        partName = new_part[which];
                         repo_2_due_of_part_fix.insert_PartByCar(car_id, partName);
+                        tb_2_due_of_part_fix = repo_2_due_of_part_fix.getDue_FixByMax();
+
+                        tb_4_historys_of_car.fix_Due_Id = tb_2_due_of_part_fix.fix_Due_Id;
+                        tb_4_historys_of_car.car_Id = car_id;
+                        tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
+                        tb_4_historys_of_car.next_Changed_Kilo = tb_6_run_data.run_Kilo_End + tb_2_due_of_part_fix.fix_Due_Kilo;
+
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar c = Calendar.getInstance();
+                        tb_4_historys_of_car.changed_Date = df.format(c.getTime());
+                        c.add(Calendar.MONTH, tb_2_due_of_part_fix.fix_Due_Date);
+                        tb_4_historys_of_car.next_Changed_Date = df.format(c.getTime());
+
+                        repo_4_historys_of_car.insert(tb_4_historys_of_car);
+
                         getPartList(car_id);
                         //***************  Set Toast duration  ***************//
                         final Toast toast = Toast.makeText(getApplicationContext(), "Add Part " + partName + " Success", Toast.LENGTH_SHORT);
@@ -256,7 +271,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
                             public void run() {
                                 toast.cancel();
                             }
-                        }, 2500);
+                        }, 2000);
                         //*************  End Set Toast duration  *************//
                     }
                 });

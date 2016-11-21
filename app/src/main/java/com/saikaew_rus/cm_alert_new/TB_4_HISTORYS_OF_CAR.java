@@ -13,6 +13,8 @@ public class TB_4_HISTORYS_OF_CAR {
     public static final String Car_Id = "Car_Id ";
     public static final String Changed_Date = "Changed_Date";
     public static final String Changed_Kilo = "Changed_Kilo";
+    public static final String Amount_Kilo = "Amount_Kilo";
+    public static final String Amount_Date = "Amount_Date";
     public static final String Next_Changed_Date = "Next_Changed_Date";
     public static final String Next_Changed_Kilo = "Next_Changed_Kilo";
 
@@ -22,6 +24,8 @@ public class TB_4_HISTORYS_OF_CAR {
     public int car_Id;
     public String changed_Date;
     public double changed_Kilo;
+    public double amount_Kilo;
+    public double amount_Date;
     public String next_Changed_Date;
     public double next_Changed_Kilo;
 

@@ -202,6 +202,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
             tb_1_car.province_Name = autoProvince.getText().toString();
 
             if (repo_check.che_Car(regis.getText().toString(), autoProvince.getText().toString()) >= 1) {
+                //***************  Set Toast duration  ***************//
                 final Toast toast = Toast.makeText(getApplicationContext(),
                         "Car Registration " + regis.getText().toString() +
                                 " not empty", Toast.LENGTH_SHORT);

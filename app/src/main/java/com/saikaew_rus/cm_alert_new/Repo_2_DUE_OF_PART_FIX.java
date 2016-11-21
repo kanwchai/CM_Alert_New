@@ -33,7 +33,7 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close();
         return (int) due_fix_id;
     }
-    
+
     public void insert_part_fix(int car_id, int oil, int gas) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -71,8 +71,9 @@ public class Repo_2_DUE_OF_PART_FIX {
                 " SELECT null,p." + TB_5_PARTS.Part_Id + "," + car_id + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," +
                 TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
                 " FROM " + TB_5_PARTS.TABLE + " p," + TB_3_DUE_OF_PART_STANDART.TABLE + " ds" +
-                " ON p." + TB_5_PARTS.Part_Id + " = " + "p." + TB_3_DUE_OF_PART_STANDART.Part_Id +
-                " WHERE " + TB_5_PARTS.Part_Name + " = " + "'" + partName + "'" + " GROUP BY " + TB_5_PARTS.Part_Name;
+                " ON p." + TB_5_PARTS.Part_Id + " = " + "ds." + TB_3_DUE_OF_PART_STANDART.Part_Id +
+                " WHERE " + TB_5_PARTS.Part_Name + " = " + "'" + partName + "'" +
+                " GROUP BY " + TB_5_PARTS.Part_Name;
 
         db.execSQL(insertPart);
         db.close();
@@ -146,13 +147,13 @@ public class Repo_2_DUE_OF_PART_FIX {
 
     }
 
-    public TB_2_DUE_OF_PART_FIX getDue_FixById(int Id) {
+    public TB_2_DUE_OF_PART_FIX getDue_FixByMax() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + " WHERE " + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "=?";
+        String selectQuery = "SELECT *,MAX(" + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + ") FROM " + TB_2_DUE_OF_PART_FIX.TABLE;
 
         TB_2_DUE_OF_PART_FIX due_fix = new TB_2_DUE_OF_PART_FIX();
 
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -162,7 +163,6 @@ public class Repo_2_DUE_OF_PART_FIX {
                 due_fix.fix_Due_Kilo = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
                 due_fix.fix_Due_Date = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
                 due_fix.fix_Due_Status = cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Status));
-
             } while (cursor.moveToNext());
         }
 
@@ -170,6 +170,4 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close();
         return due_fix;
     }
-
-
 }
