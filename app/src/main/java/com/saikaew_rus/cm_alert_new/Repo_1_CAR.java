@@ -22,7 +22,9 @@ public class Repo_1_CAR {
 
         //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
+
         values.put(TB_1_CAR.Type_Oil_Id, car.type_Oil_Id);
         values.put(TB_1_CAR.Type_Gas_Id, car.type_Gas_Id);
         values.put(TB_1_CAR.Car_Register, car.car_Register);

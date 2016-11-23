@@ -86,16 +86,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
         repo_4_historys_of_car = new Repo_4_HISTORYS_OF_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
 
-        Choice = new String[]{"Specify Last Maintenance", "Set Usage", "Delete"};
-
-        intent = getIntent();
-        car_id = intent.getIntExtra("car_Id", 0);
-        tb_1_car = repo_1_car.getCarById(car_id);
-        tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
-        tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
-
-        getDatacar();
-        getPartList(car_id);
+        onResume();
 
         partList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> AdapterView, final View view, final int position, long id) {
@@ -121,6 +112,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts.this);
                 builder.setTitle("Part : " + part_name);
+                Choice = new String[]{"Specify Last Maintenance", "Set Usage", "Delete"};
                 builder.setItems(Choice, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -200,6 +192,8 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                     tb_2_due_of_part_fix.fix_Due_Kilo = Integer.parseInt(due_kilo.getText().toString());
                                     tb_2_due_of_part_fix.fix_Due_Status = String.valueOf(due_fix_status);
                                     repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
+
+                                    getPartList(car_id);
                                     dialog_2.dismiss();
                                 }
                             });
@@ -338,4 +332,17 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
                 }
             };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        intent = getIntent();
+        car_id = intent.getIntExtra("car_Id", 0);
+        tb_1_car = repo_1_car.getCarById(car_id);
+        tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
+        tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
+        getDatacar();
+        getPartList(car_id);
+    }
 }

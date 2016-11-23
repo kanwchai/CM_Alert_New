@@ -10,9 +10,11 @@ public class TB_5_PARTS {
     // Labels Table Columns names
     public static final String Part_Id = "Part_Id";
     public static final String Part_Name = "Part_Name";
+    public static final String Part_Name_tha = "Part_Name_tha";
 
     //property help us to keep data
     public int part_Id;
     public String part_Name;
+    public String part_Name_tha;
 
 }

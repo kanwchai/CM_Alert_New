@@ -20,58 +20,80 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView28"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="Car Registration"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7" />
 
                 <TextView
                     android:id="@+id/car_regis_his"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Show Car Registration"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:hint="Car Registration"
                     android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView30"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:text="Part Name"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.7" />
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteTextView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.1"
+                    android:gravity="center_vertical|center_horizontal"
                     android:hint="Enter Part Name"
+                    android:singleLine="true"
                     android:textSize="15dp" />
 
-            </LinearLayout>
+                <ImageButton
+                    android:id="@+id/bFind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.7"
+                    android:background="@android:drawable/ic_menu_search" />
 
-            <Button
-                android:id="@+id/bFind"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="find"
-                android:textSize="15dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,9 +108,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight=".75"
                     android:background="@drawable/border_edittext"
+                    android:gravity="center_vertical|center_horizontal"
                     android:text="Part Name"
-                    android:textSize="13dp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/textView27"
@@ -96,9 +118,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
+                    android:gravity="center_vertical|center_horizontal"
                     android:text="Changed Date"
-                    android:textSize="13dp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -106,9 +128,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/border_edittext"
+                    android:gravity="center_vertical|center_horizontal"
                     android:text="Changed Kilo"
-                    android:textSize="13dp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
@@ -121,8 +143,7 @@
             <ListView
                 android:id="@+id/listView3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_edittext" />
+                android:layout_height="wrap_content" />
         </RelativeLayout>
 
     </LinearLayout>

@@ -84,8 +84,8 @@
                     android:id="@+id/benzine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/benzine"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:text="@string/benzine" />
 
                 <RadioButton
                     android:id="@+id/diesel"

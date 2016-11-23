@@ -47,6 +47,8 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
         tb_4_historys_of_car = new TB_4_HISTORYS_OF_CAR();
         repo_6_run_data = new Repo_6_RUN_DATA(this);
         tb_6_run_data = new TB_6_RUN_DATA();
+        repo_5_parts = new Repo_5_PARTS(this);
+        tb_5_parts = new TB_5_PARTS();
 
         Intent getIntent = getIntent();
         carid = getIntent.getIntExtra("car_id", 0);
@@ -107,6 +109,9 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
 
                 repo_4_historys_of_car.insert(tb_4_historys_of_car);
 
+                Intent intent = new Intent(CM_10_Add_Parts_2.this, CM_7_List_Parts.class);
+                intent.putExtra("car_Id", carid);
+                startActivity(intent);
                 finish();
             }
         });
@@ -114,6 +119,7 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });

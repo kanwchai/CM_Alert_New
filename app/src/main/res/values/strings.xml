@@ -5,4 +5,5 @@
     <string name="hyb">HYBRID</string>
     <string name="diesel">DIESEL</string>
     <string name="benzine">BENZINE</string>
+    <string name="display_options_menu_item">Menu Item</string>
 </resources>

@@ -65,7 +65,7 @@ public class Repo_Check {
 
     public int chk_Part(String part_name) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectPartAll = "SELECT * FROM" + TB_5_PARTS.TABLE +
+        String selectPartAll = "SELECT * FROM " + TB_5_PARTS.TABLE +
                 " WHERE " + TB_5_PARTS.Part_Name + " = " + "'" + part_name + "'";
 
         Cursor cursor = db.rawQuery(selectPartAll, null);

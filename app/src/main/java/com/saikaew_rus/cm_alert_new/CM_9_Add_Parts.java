@@ -14,6 +14,7 @@ public class CM_9_Add_Parts extends AppCompatActivity {
     Repo_Check repo_check;
     EditText namepart;
     int carid;
+    String partAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,11 @@ public class CM_9_Add_Parts extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (repo_check.chk_Part(namepart.getText().toString()) >= 1) {
+                partAdd = namepart.getText().toString();
+                if (partAdd.matches("")) {
                     //***************  Set Toast duration  ***************//
-                    final Toast toast = Toast.makeText(getApplicationContext(), "Part Name : " +
-                            namepart.getText().toString() + " is duplicate!!!", Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getApplicationContext(),
+                            "Part Name is empty!!!", Toast.LENGTH_SHORT);
                     toast.show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -47,12 +48,29 @@ public class CM_9_Add_Parts extends AppCompatActivity {
                     }, 1000);
                     //***************  End Set Toast  ***************//
                 } else {
-                    Intent go1 = new Intent(getApplicationContext(), CM_10_Add_Parts_2.class);
-                    go1.putExtra("car_id", carid);
-                    go1.putExtra("part_name", namepart.getText().toString());
-                    startActivity(go1);
+                    int count = repo_check.chk_Part(partAdd);
+                    if (count >= 1) {
+                        //***************  Set Toast duration  ***************//
+                        final Toast toast = Toast.makeText(getApplicationContext(),
+                                "Part Name : " + partAdd + " is duplicate!!!", Toast.LENGTH_SHORT);
+                        toast.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                toast.cancel();
+                            }
+                        }, 1000);
+                        //***************  End Set Toast  ***************//
+                    } else {
+                        Intent go1 = new Intent(getApplicationContext(), CM_10_Add_Parts_2.class);
+                        go1.putExtra("car_id", carid);
+                        go1.putExtra("part_name", partAdd);
+                        startActivity(go1);
+                    }
                 }
             }
+
         });
 
         Button button1;

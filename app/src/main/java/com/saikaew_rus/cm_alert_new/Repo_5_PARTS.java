@@ -23,12 +23,13 @@ public class Repo_5_PARTS {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
         values.put(TB_5_PARTS.Part_Name, part_car.part_Name);
 
-        long part_id = db.insert(TB_5_PARTS.TABLE, null, values);
+        int part_id = (int) db.insert(TB_5_PARTS.TABLE, null, values);
 
         db.close();
-        return (int) part_id;
+        return part_id;
     }
 
     public void delete(int part_id) {
