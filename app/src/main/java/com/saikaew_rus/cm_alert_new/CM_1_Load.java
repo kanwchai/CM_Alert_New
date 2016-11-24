@@ -25,10 +25,10 @@ public class CM_1_Load extends AppCompatActivity {
 
         userList = repo_9_user.getUserList();
 
-        StartAnimations();
+        startAnimations();
     }
 
-    private void StartAnimations() {
+    private void startAnimations() {
 
         splashTread = new Thread() {
             @Override

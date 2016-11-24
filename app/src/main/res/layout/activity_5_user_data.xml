@@ -39,7 +39,9 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="30"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/textView1"

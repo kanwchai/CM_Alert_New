@@ -32,10 +32,12 @@ public class Repo_Check {
         int dataCar;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " +
-                "(SELECT MAX(+" + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " GROUP BY " + TB_6_RUN_DATA.Car_Id + ") r ," +
-                "(SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " h, DUE_OF_PART_FIX df ON h.Fix_due_id = df.fix_due_id WHERE df.Fix_Due_Kilo > 0) hd" +
-                "ON r.Car_id = hd.Car_id " +
-                "WHERE Next_Changed_Kilo-Run_Kilo_End <= 1500";
+                "(SELECT MAX(" + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " GROUP BY " + TB_6_RUN_DATA.Car_Id + ") r ," +
+                "(SELECT MAX(" + TB_4_HISTORYS_OF_CAR.History_Id + "),* FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " h, " +
+                TB_2_DUE_OF_PART_FIX.TABLE + " df ON h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " = df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
+                " WHERE df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " > 0 GROUP BY df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + ") hd" +
+                " ON r.Car_id = hd.Car_id " +
+                " WHERE " + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + " - " + TB_6_RUN_DATA.Run_Kilo_End + " <= 1500";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         dataCar = cursor.getCount();

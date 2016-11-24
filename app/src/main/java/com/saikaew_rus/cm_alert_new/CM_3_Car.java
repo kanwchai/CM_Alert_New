@@ -80,6 +80,7 @@ public class CM_3_Car extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts.class);
                             intent.putExtra("car_Id", car_Id);
                             startActivity(intent);
+                            finish();
                         } else if (which == 2) {
                             Intent intent = new Intent(getApplicationContext(), CM_8_History.class);
                             intent.putExtra("car_Id", car_Id);

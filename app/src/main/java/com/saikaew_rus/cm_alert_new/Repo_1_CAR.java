@@ -62,6 +62,17 @@ public class Repo_1_CAR {
         db.close(); // Closing database connection
     }
 
+    public void updateRegis(int car_Id,String Regis) {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(TB_1_CAR.Car_Register, Regis);
+
+        db.update(TB_1_CAR.TABLE, values, TB_1_CAR.Car_Id + "=?", new String[]{String.valueOf(car_Id)});
+        db.close();
+    }
+
     public ArrayList<HashMap<String, String>> getCarList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();

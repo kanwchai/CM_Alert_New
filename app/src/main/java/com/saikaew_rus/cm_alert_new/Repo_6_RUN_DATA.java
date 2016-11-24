@@ -93,7 +93,7 @@ public class Repo_6_RUN_DATA {
 
     public TB_6_RUN_DATA getLastRunByCar_Id(int car_id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT MAX(" + TB_6_RUN_DATA.Run_Date_End + "),* FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?";
+        String selectQuery = "SELECT MAX(" + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?";
 
         TB_6_RUN_DATA run_data = new TB_6_RUN_DATA();
 

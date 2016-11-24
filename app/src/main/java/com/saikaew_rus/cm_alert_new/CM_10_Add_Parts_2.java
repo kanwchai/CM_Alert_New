@@ -99,7 +99,7 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
                 tb_4_historys_of_car.fix_Due_Id = repo_2_due_of_part_fix.insert(tb_2_due_of_part_fix);
                 tb_4_historys_of_car.car_Id = carid;
                 tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
-                tb_4_historys_of_car.next_Changed_Kilo = Integer.parseInt(kilo.getText().toString());
+                tb_4_historys_of_car.next_Changed_Kilo = Integer.parseInt(kilo.getText().toString())+tb_6_run_data.run_Kilo_End;
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar c = Calendar.getInstance();
@@ -109,10 +109,10 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
 
                 repo_4_historys_of_car.insert(tb_4_historys_of_car);
 
-                Intent intent = new Intent(CM_10_Add_Parts_2.this, CM_7_List_Parts.class);
+                Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts.class);
                 intent.putExtra("car_Id", carid);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
             }
         });
 

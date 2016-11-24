@@ -35,7 +35,8 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Car Registration Number "
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:maxLength="15" />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -55,8 +56,9 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Number Kilometers"
-            android:inputType="numberDecimal"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:maxLength="7"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/editText6"

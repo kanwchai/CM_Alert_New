@@ -1,11 +1,11 @@
 package com.saikaew_rus.cm_alert_new;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,11 +50,7 @@ public class CM_8_History extends AppCompatActivity {
 
         lockButtonClear();
 
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         repo_4_historys_of_car = new Repo_4_HISTORYS_OF_CAR(this);
         repo_1_car = new Repo_1_CAR(this);

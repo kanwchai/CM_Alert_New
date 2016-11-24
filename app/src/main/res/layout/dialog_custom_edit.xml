@@ -13,52 +13,24 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|right"
-            android:text="Due Date :"
-            android:textSize="15dp" />
-
-        <TextView
-            android:id="@+id/due_date_spec"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:hint="Date"
-            android:inputType="number"
-            android:maxLines="1"
-            android:textSize="15dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:text="Due Kilometre :"
+            android:text="data"
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/due_kilo_spec"
+            android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:hint="Kilo"
-            android:inputType="number"
+            android:hint="detail"
             android:maxLines="1"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:singleLine="true" />
     </LinearLayout>
 
     <LinearLayout
