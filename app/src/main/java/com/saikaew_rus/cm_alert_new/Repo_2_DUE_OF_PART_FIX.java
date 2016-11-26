@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,13 +103,32 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close();
     }
 
-    public ArrayList<HashMap<String, String>> getFixListByCarId(int carId) {
+    public ArrayList<HashMap<String, String>> getFixListByCarId(int carId, int sortPartNum) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] sortPart = {"Part_Name", "countDate2", "countKilo", "Part_Name DESC", "countDate2 DESC", "countKilo DESC"};
 
         String selectQuery = "SELECT *," +
                 TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + "-" + TB_6_RUN_DATA.Run_Kilo_End + " countKilo," +
-                "julianday(strftime('%Y-%m-%d'," + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ")) - julianday(strftime('%Y-%m-%d', 'now')) countDate" +
+                "julianday(strftime('%Y-%m-%d'," + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ")) - julianday(strftime('%Y-%m-%d', 'now')) countDate2, " +
+                "CASE " +
+                "WHEN STRFTIME('%Y',remain_date)+0 > 0 " +
+                "THEN (STRFTIME('%Y',remain_date)+0)||'Y '||(STRFTIME('%m',remain_date)+0)||'M '||(STRFTIME('%d',remain_date)+0)||'D' " +
+                "WHEN((STRFTIME('%Y', remain_date) + 0 == 0)AND(STRFTIME('%m', remain_date) + 0 >= 0)) " +
+                "THEN(STRFTIME('%m', remain_date) + 0) || 'M ' || (STRFTIME('%d', remain_date) + 0) || 'D' " +
+                "WHEN remain_date = 'End of life' " +
+                "THEN 'End of life' " +
+                "ELSE CAST(remain_date AS INT) || 'D' END countDate" +
                 " FROM " +
+                "(" +
+                "SELECT *," +
+                "CASE " +
+                "WHEN date(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ") > date('now', '+1 month', '+1 day') " +
+                "THEN date(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ", '-' || STRFTIME('%Y', 'now') || ' year', '-' || STRFTIME('%m', 'now') || ' month', '-' || STRFTIME('%d', 'now') || ' day') " +
+                "WHEN date(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ") < date('now') " +
+                "THEN 'End of life' ELSE JULIANDAY(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ") - JULIANDAY('now') " +
+                "END remain_date " +
+                "FROM " +
                 "(SELECT MAX(" + TB_6_RUN_DATA.Run_Id + "), * FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?) r," +
                 "(SELECT * FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " h, " + TB_2_DUE_OF_PART_FIX.TABLE + " df " +
                 "ON " +
@@ -118,7 +138,9 @@ public class Repo_2_DUE_OF_PART_FIX {
                 " ON " +
                 "r." + TB_1_CAR.Car_Id + "= hd." + TB_1_CAR.Car_Id +
                 " AND " +
-                "p." + TB_5_PARTS.Part_Id + "= hd." + TB_5_PARTS.Part_Id;
+                "p." + TB_5_PARTS.Part_Id + "= hd." + TB_5_PARTS.Part_Id +
+                ")" +
+                " ORDER BY " + sortPart[sortPartNum];
 
         ArrayList<HashMap<String, String>> due_fixList = new ArrayList<>();
 
@@ -140,6 +162,8 @@ public class Repo_2_DUE_OF_PART_FIX {
 
             } while (cursor.moveToNext());
         }
+
+        Log.d("Query", selectQuery);
 
         cursor.close();
         db.close();
@@ -170,4 +194,5 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close();
         return due_fix;
     }
+
 }

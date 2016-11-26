@@ -39,7 +39,12 @@
             android:label="Travel" />
         <activity
             android:name=".CM_7_List_Parts"
-            android:label="List Parts" />
+            android:label="List Parts"
+            android:parentActivityName=".CM_3_Car">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CM_3_Car" />
+        </activity>
         <activity
             android:name=".CM_8_History"
             android:label="Maintenance History" />

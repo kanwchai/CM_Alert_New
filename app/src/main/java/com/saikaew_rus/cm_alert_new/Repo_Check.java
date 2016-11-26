@@ -32,7 +32,7 @@ public class Repo_Check {
         int dataCar;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " +
-                "(SELECT MAX(" + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " GROUP BY " + TB_6_RUN_DATA.Car_Id + ") r ," +
+                "(SELECT MAX(" + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " WHERE " + TB_1_CAR.Car_Id + " = " + carid + ") r ," +
                 "(SELECT MAX(" + TB_4_HISTORYS_OF_CAR.History_Id + "),* FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " h, " +
                 TB_2_DUE_OF_PART_FIX.TABLE + " df ON h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " = df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id +
                 " WHERE df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " > 0 GROUP BY df." + TB_2_DUE_OF_PART_FIX.Fix_Due_Id + ") hd" +

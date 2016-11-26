@@ -150,7 +150,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/listPartName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -158,10 +158,11 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Part Name"
             android:textColor="#ffffff"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:onClick="sortPart" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/listPartDay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
@@ -169,10 +170,11 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Remain Days"
             android:textColor="#ffffff"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:onClick="sortPart" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/listPartKilo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
@@ -180,7 +182,8 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Remain Kilo"
             android:textColor="#ffffff"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:onClick="sortPart" />
 
     </LinearLayout>
 

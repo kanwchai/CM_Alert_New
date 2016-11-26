@@ -36,9 +36,6 @@ import java.util.HashMap;
 
 public class CM_7_List_Parts extends AppCompatActivity {
 
-    private static final String TITLE = "Maintenance Your Car";
-    private static final String MESSAGE = "You have parts breakdown!!!";
-
     TextView tv_regis;
     TextView tv_kilo;
     TextView tv_ex_date;
@@ -66,6 +63,8 @@ public class CM_7_List_Parts extends AppCompatActivity {
     ImageButton imBtRegis;
     ImageButton imBtKilo;
     ImageButton imBtExpTax;
+    int sortPartList;
+
 
     TB_1_CAR tb_1_car;
     TB_2_DUE_OF_PART_FIX tb_2_due_of_part_fix;
@@ -97,6 +96,8 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
         mCalendar = Calendar.getInstance();
 
+        sortPartList = 0;
+
         tb_1_car = new TB_1_CAR();
         tb_2_due_of_part_fix = new TB_2_DUE_OF_PART_FIX();
         tb_6_run_data = new TB_6_RUN_DATA();
@@ -110,6 +111,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
         repo_check = new Repo_Check(this);
 
         onResume();
+        getPartList(car_id);
 
         partList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> AdapterView, final View view, final int position, long id) {
@@ -138,6 +140,8 @@ public class CM_7_List_Parts extends AppCompatActivity {
                             TextView bSave = (TextView) dialog_2.findViewById(R.id.button_save);
                             TextView bCancel = (TextView) dialog_2.findViewById(R.id.button_cancel);
 
+                            due_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
+
                             dialog_2.setTitle("Last Maintenance : " + part_name);
 
                             due_date.setOnClickListener(new View.OnClickListener() {
@@ -157,8 +161,10 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                         tb_4_historys_of_car.fix_Due_Id = due_fix_id;
                                         tb_4_historys_of_car.car_Id = car_id;
                                         tb_4_historys_of_car.changed_Kilo = Double.parseDouble(due_kilo.getText().toString());
-                                        tb_4_historys_of_car.next_Changed_Kilo = Integer.parseInt(String.valueOf(due_kilo.getText())) + due_fix_kilo;
+                                        tb_4_historys_of_car.next_Changed_Kilo = Double.parseDouble(String.valueOf(due_kilo.getText())) + due_fix_kilo;
                                         repo_4_historys_of_car.insert(tb_4_historys_of_car);
+
+                                        getPartList(car_id);
                                         dialog_2.dismiss();
                                     }
                                 }
@@ -194,12 +200,11 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                         tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;
                                         tb_2_due_of_part_fix.car_Id = car_id;
                                         tb_2_due_of_part_fix.part_Id = part_id;
-                                        tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date.getText().toString());
-                                        tb_2_due_of_part_fix.fix_Due_Kilo = Integer.parseInt(due_kilo.getText().toString());
+                                        tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date_2.getText().toString());
+                                        tb_2_due_of_part_fix.fix_Due_Kilo = Integer.parseInt(due_kilo_2.getText().toString());
                                         tb_2_due_of_part_fix.fix_Due_Status = String.valueOf(due_fix_status);
                                         repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
 
-                                        getPartList(car_id);
                                         dialog_2.dismiss();
                                     }
                                 }
@@ -335,7 +340,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
     }
 
     public void getPartList(int carId) {
-        getPartList = repo_2_due_of_part_fix.getFixListByCarId(carId);
+        getPartList = repo_2_due_of_part_fix.getFixListByCarId(carId, sortPartList);
         adapter = new SimpleAdapter(CM_7_List_Parts.this, getPartList, R.layout.view_part_list, new String[]{TB_5_PARTS.Part_Name, "countKilo", "countDate"}, new int[]{R.id.part_name, R.id.textView10, R.id.textView12});
         partList.setAdapter(adapter);
     }
@@ -385,8 +390,6 @@ public class CM_7_List_Parts extends AppCompatActivity {
         tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
         tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
         getDatacar();
-        getPartList(car_id);
-
     }
 
     public void showToast(String message) {
@@ -408,7 +411,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
         final TextView data = (TextView) dialog.findViewById(R.id.data);
         final EditText detail = (EditText) dialog.findViewById(R.id.detail);
         TextView bSave = (TextView) dialog.findViewById(R.id.button_save);
-        TextView bCancel = (TextView) dialog.findViewById(R.id.button_cancel);
+        final TextView bCancel = (TextView) dialog.findViewById(R.id.button_cancel);
 
         dialog.setTitle(titleDia);
         data.setText(detailTitle);
@@ -429,10 +432,11 @@ public class CM_7_List_Parts extends AppCompatActivity {
                     showToast("Please complete the form below.");
                 } else {
                     if (typeInput == 2) {
-                        if (Integer.parseInt(detail.getText().toString()) > tb_6_run_data.run_Kilo_End || Integer.parseInt(detail.getText().toString()) < tb_6_run_data.run_Kilo_End) {
+                        if (Double.parseDouble(detail.getText().toString()) > tb_6_run_data.run_Kilo_End ||
+                                Double.parseDouble(detail.getText().toString()) < tb_6_run_data.run_Kilo_End) {
                             tb_6_run_data.car_Id = car_id;
                             tb_6_run_data.run_Kilo_Start = tb_6_run_data.run_Kilo_End;
-                            tb_6_run_data.run_Kilo_End = Integer.parseInt(detail.getText().toString());
+                            tb_6_run_data.run_Kilo_End = Double.parseDouble(detail.getText().toString());
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                             Calendar c = Calendar.getInstance();
                             tb_6_run_data.run_Date_Start = df.format(c.getTime());
@@ -464,6 +468,9 @@ public class CM_7_List_Parts extends AppCompatActivity {
         dialog.show();
     }
 
+    private static final String TITLE = "Maintenance Your Car";
+    private static final String MESSAGE = "You have parts breakdown!!!";
+
     public void notifiChkkilo() {
         Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts.class);
         intent.putExtra("car_Id", car_id);
@@ -487,7 +494,43 @@ public class CM_7_List_Parts extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(), CM_3_Car.class));
         finish();
+    }
+
+    public void sortPart(View view) {
+        boolean clickable = view.isClickable();
+
+        switch (view.getId()) {
+            case R.id.listPartName:
+                if (clickable) {
+                    if (sortPartList != 0) {
+                        sortPartList = 0;
+                    } else {
+                        sortPartList = 3;
+                    }
+                    getPartList(car_id);
+                }
+                break;
+            case R.id.listPartDay:
+                if (clickable) {
+                    if (sortPartList != 1) {
+                        sortPartList = 1;
+                    } else {
+                        sortPartList = 4;
+                    }
+                    getPartList(car_id);
+                }
+                break;
+            case R.id.listPartKilo:
+                if (clickable) {
+                    if (sortPartList != 2) {
+                        sortPartList = 2;
+                    } else {
+                        sortPartList = 5;
+                    }
+                    getPartList(car_id);
+                }
+                break;
+        }
     }
 }
