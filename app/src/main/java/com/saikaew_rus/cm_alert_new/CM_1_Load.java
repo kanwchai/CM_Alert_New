@@ -36,7 +36,7 @@ public class CM_1_Load extends AppCompatActivity {
                 try {
                     int waited = 0;
                     // Splash screen pause time
-                    while (waited < 2500) {
+                    while (waited < 1500) {
                         sleep(100);
                         waited += 100;
                     }
