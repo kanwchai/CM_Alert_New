@@ -73,8 +73,8 @@ public class Repo_2_DUE_OF_PART_FIX {
                 TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
                 " FROM " + TB_5_PARTS.TABLE + " p," + TB_3_DUE_OF_PART_STANDART.TABLE + " ds" +
                 " ON p." + TB_5_PARTS.Part_Id + " = " + "ds." + TB_3_DUE_OF_PART_STANDART.Part_Id +
-                " WHERE " + TB_5_PARTS.Part_Name + " = " + "'" + partName + "'" +
-                " GROUP BY " + TB_5_PARTS.Part_Name;
+                " WHERE " + TB_5_PARTS.Part_Name_en + " = " + "'" + partName + "'" +
+                " GROUP BY " + TB_5_PARTS.Part_Name_en;
 
         db.execSQL(insertPart);
         db.close();
@@ -151,7 +151,7 @@ public class Repo_2_DUE_OF_PART_FIX {
                 HashMap<String, String> due_fix = new HashMap<String, String>();
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Id, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Id)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Part_Id, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Part_Id)));
-                due_fix.put(TB_5_PARTS.Part_Name, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                due_fix.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Car_Id, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Car_Id)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Date, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Date)));

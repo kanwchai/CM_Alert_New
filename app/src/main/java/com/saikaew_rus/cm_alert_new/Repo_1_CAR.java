@@ -78,14 +78,14 @@ public class Repo_1_CAR {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE;
 
-        ArrayList<HashMap<String, String>> carList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> carList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> car = new HashMap<String, String>();
+                HashMap<String, String> car = new HashMap<>();
                 car.put(TB_1_CAR.Car_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Id)));
                 car.put(TB_1_CAR.Type_Oil_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Oil_Id)));
                 car.put(TB_1_CAR.Type_Gas_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Gas_Id)));

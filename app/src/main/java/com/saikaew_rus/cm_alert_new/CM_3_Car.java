@@ -10,9 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +27,9 @@ public class CM_3_Car extends AppCompatActivity {
     ArrayList<HashMap<String, String>> getCarList;
     String[] Choice;
     Toast toast;
-    ListAdapter adapter;
     ListView listView_1;
     TextView showName;
+    CM_3_Car_Adapter cm_3_car_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +140,8 @@ public class CM_3_Car extends AppCompatActivity {
         }
 
         getCarList = repo_1_car.getCarList();
-        adapter = new SimpleAdapter(CM_3_Car.this, getCarList, R.layout.view_car_list, new String[]{TB_1_CAR.Car_Id, TB_1_CAR.Car_Register, TB_1_CAR.Province_Name}, new int[]{R.id.car_Id, R.id.car_Register, R.id.car_Province});
-        listView_1.setAdapter(adapter);
+        cm_3_car_adapter = new CM_3_Car_Adapter(getApplicationContext(),getCarList);
+//        adapter = new SimpleAdapter(CM_3_Car.this, getCarList, R.layout.view_car_list, new String[]{TB_1_CAR.Car_Register, TB_1_CAR.Province_Name}, new int[]{R.id.car_Register, R.id.car_Province});
+        listView_1.setAdapter(cm_3_car_adapter);
     }
 }

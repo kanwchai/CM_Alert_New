@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="false"
@@ -15,131 +15,147 @@
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:src="@drawable/car_add_10_11_59" />
+        android:src="@drawable/car_add_10_11_59"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView2"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_edittext"
+        android:id="@+id/input_dataCar"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="75dp"
-        android:layout_marginRight="75dp"
-        android:orientation="vertical">
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/editText4"
             style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_edittext"
+            android:layout_height="match_parent"
             android:hint="Car Registration Number "
             android:singleLine="true"
-            android:maxLength="15" />
+            android:maxLength="15"
+            android:layout_weight="1"
+            android:gravity="left" />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_edittext"
+            android:layout_height="match_parent"
             android:hint="Province"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:gravity="left" />
 
         <EditText
             android:id="@+id/editText5"
             style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_edittext"
+            android:layout_height="match_parent"
             android:hint="Number Kilometers"
             android:singleLine="true"
             android:maxLength="7"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:layout_weight="1"
+            android:gravity="left" />
 
         <TextView
             android:id="@+id/editText6"
             style="@style/StyleTextDate"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_edittext"
-            android:hint="Maturity Tax" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:id="@+id/radioOil"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_edittext">
-
-                <RadioButton
-                    android:id="@+id/benzine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/benzine" />
-
-                <RadioButton
-                    android:id="@+id/diesel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/diesel" />
-            </RadioGroup>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_edittext">
-
-                <CheckBox
-                    android:id="@+id/ngv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/ngv" />
-
-                <CheckBox
-                    android:id="@+id/lpg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/lpg" />
-
-                <CheckBox
-                    android:id="@+id/hyb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:onClick="onCheckboxClicked"
-                    android:text="@string/hyb" />
-            </RadioGroup>
-        </LinearLayout>
+            android:hint="Maturity Tax"
+            android:layout_weight="1"
+            android:gravity="left" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/input_dataCar"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/choose_type">
+
+        <RadioGroup
+            android:id="@+id/radioOil"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/benzine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/benzine" />
+
+            <RadioButton
+                android:id="@+id/diesel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diesel" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/ngv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/ngv" />
+
+            <CheckBox
+                android:id="@+id/lpg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/lpg" />
+
+            <CheckBox
+                android:id="@+id/hyb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/hyb" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/lin_btn_car"
+        android:layout_below="@+id/choose_type"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="wrap_content"

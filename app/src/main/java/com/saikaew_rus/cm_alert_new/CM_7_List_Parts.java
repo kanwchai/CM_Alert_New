@@ -118,7 +118,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
                 due_fix_id = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
                 part_id = Integer.parseInt(getPartList.get(position).get(TB_5_PARTS.Part_Id));
-                part_name = getPartList.get(position).get(TB_5_PARTS.Part_Name).toString();
+                part_name = getPartList.get(position).get(TB_5_PARTS.Part_Name_en).toString();
                 due_fix_kilo = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
                 due_fix_date = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
                 due_fix_status = getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
@@ -341,7 +341,7 @@ public class CM_7_List_Parts extends AppCompatActivity {
 
     public void getPartList(int carId) {
         getPartList = repo_2_due_of_part_fix.getFixListByCarId(carId, sortPartList);
-        adapter = new SimpleAdapter(CM_7_List_Parts.this, getPartList, R.layout.view_part_list, new String[]{TB_5_PARTS.Part_Name, "countKilo", "countDate"}, new int[]{R.id.part_name, R.id.textView10, R.id.textView12});
+        adapter = new SimpleAdapter(CM_7_List_Parts.this, getPartList, R.layout.view_part_list, new String[]{TB_5_PARTS.Part_Name_en, "countKilo", "countDate"}, new int[]{R.id.part_name, R.id.textView10, R.id.textView12});
         partList.setAdapter(adapter);
     }
 

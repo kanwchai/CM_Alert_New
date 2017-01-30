@@ -153,7 +153,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                     " WHERE " +
                     "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id +
                     " AND " +
-                    "p." + TB_5_PARTS.Part_Name + " LIKE " + "'%" + part_name + "%'";
+                    "p." + TB_5_PARTS.Part_Name_en + " LIKE " + "'%" + part_name + "%'";
         }
 
         ArrayList<HashMap<String, String>> his_carList = new ArrayList<HashMap<String, String>>();
@@ -163,7 +163,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> his_car = new HashMap<String, String>();
-                his_car.put(TB_5_PARTS.Part_Name, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                his_car.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
                 his_car.put("chg_date_format", cursor.getString(cursor.getColumnIndex("chg_date_format")));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Date)));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Kilo, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Kilo)));
@@ -199,7 +199,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                labels.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                labels.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
             } while (cursor.moveToNext());
         }
 

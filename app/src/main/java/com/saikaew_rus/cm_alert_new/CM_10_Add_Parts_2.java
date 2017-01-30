@@ -79,7 +79,7 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tb_5_parts.part_Name = partname;
+                tb_5_parts.part_Name_en = partname;
                 partid = repo_5_parts.insert(tb_5_parts);
 
                 tb_3_due_of_part_standart.type_Oil_Id = 99;

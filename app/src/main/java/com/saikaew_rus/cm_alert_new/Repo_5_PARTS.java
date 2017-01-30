@@ -24,7 +24,7 @@ public class Repo_5_PARTS {
 
         ContentValues values = new ContentValues();
 
-        values.put(TB_5_PARTS.Part_Name, part_car.part_Name);
+        values.put(TB_5_PARTS.Part_Name_en, part_car.part_Name_en);
 
         int part_id = (int) db.insert(TB_5_PARTS.TABLE, null, values);
 
@@ -43,7 +43,7 @@ public class Repo_5_PARTS {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(TB_5_PARTS.Part_Name, part_car.part_Name);
+        values.put(TB_5_PARTS.Part_Name_en, part_car.part_Name_en);
 
         db.update(TB_5_PARTS.TABLE, values, TB_5_PARTS.Part_Id + "=?", new String[]{String.valueOf(part_car.part_Id)});
         db.close();
@@ -62,7 +62,7 @@ public class Repo_5_PARTS {
             do {
                 HashMap<String, String> part_car = new HashMap<>();
                 part_car.put("part_id", cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Id)));
-                part_car.put("part_name", cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                part_car.put("part_name", cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
 
                 part_carList.add(part_car);
 
@@ -77,7 +77,7 @@ public class Repo_5_PARTS {
 
     public String[] getPart_Not(int carId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT " + TB_5_PARTS.Part_Name +
+        String selectQuery = "SELECT " + TB_5_PARTS.Part_Name_en +
                 " FROM " + TB_5_PARTS.TABLE + " p " +
                 " LEFT OUTER JOIN " +
                 "(SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + " WHERE " + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId + ") df" +
@@ -91,7 +91,7 @@ public class Repo_5_PARTS {
 
         if (cursor.moveToFirst()) {
             do {
-                getPartName.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name)));
+                getPartName.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
             } while (cursor.moveToNext());
         }
 

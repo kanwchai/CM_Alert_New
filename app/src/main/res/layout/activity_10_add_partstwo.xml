@@ -45,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Maintenance Type"
-                android:id="@+id/textView20"
                 android:textSize="18dp"
                 android:gravity="center_vertical|center_horizontal"
                 android:textColor="#000000" />
@@ -97,7 +96,6 @@
         android:background="@drawable/bt_cancel_10_11_59" />
 
     <ImageView
-        android:id="@+id/imageView5"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
