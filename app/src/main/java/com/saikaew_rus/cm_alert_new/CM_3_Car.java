@@ -29,7 +29,7 @@ public class CM_3_Car extends AppCompatActivity {
     Toast toast;
     ListView listView_1;
     TextView showName;
-    CM_3_Car_Adapter cm_3_car_adapter;
+    CM_3_Car_base_adapter cm_3_car_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +140,7 @@ public class CM_3_Car extends AppCompatActivity {
         }
 
         getCarList = repo_1_car.getCarList();
-        cm_3_car_adapter = new CM_3_Car_Adapter(getApplicationContext(),getCarList);
+        cm_3_car_adapter = new CM_3_Car_base_adapter(getApplicationContext(),getCarList);
 //        adapter = new SimpleAdapter(CM_3_Car.this, getCarList, R.layout.view_car_list, new String[]{TB_1_CAR.Car_Register, TB_1_CAR.Province_Name}, new int[]{R.id.car_Register, R.id.car_Province});
         listView_1.setAdapter(cm_3_car_adapter);
     }
