@@ -116,11 +116,19 @@ public class CM_7_List_Parts extends AppCompatActivity {
         partList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> AdapterView, final View view, final int position, long id) {
 
-                due_fix_id = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
-                part_id = Integer.parseInt(getPartList.get(position).get(TB_5_PARTS.Part_Id));
+                due_fix_id = Integer.valueOf(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
+                part_id = Integer.valueOf(getPartList.get(position).get(TB_5_PARTS.Part_Id));
                 part_name = getPartList.get(position).get(TB_5_PARTS.Part_Name_en).toString();
-                due_fix_kilo = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
-                due_fix_date = Integer.parseInt(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
+                if (!getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo).equals("")) {
+                    due_fix_kilo = Integer.valueOf(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
+                } else {
+                    due_fix_kilo = 0;
+                }
+                if (!getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date).equals("")) {
+                    due_fix_date = Integer.valueOf(getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
+                } else {
+                    due_fix_date = 0;
+                }
                 due_fix_status = getPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
 
                 showToast("Selected Part : " + part_name);
@@ -200,8 +208,8 @@ public class CM_7_List_Parts extends AppCompatActivity {
                                         tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;
                                         tb_2_due_of_part_fix.car_Id = car_id;
                                         tb_2_due_of_part_fix.part_Id = part_id;
-                                        tb_2_due_of_part_fix.fix_Due_Date = Integer.parseInt(due_date_2.getText().toString());
-                                        tb_2_due_of_part_fix.fix_Due_Kilo = Integer.parseInt(due_kilo_2.getText().toString());
+                                        tb_2_due_of_part_fix.fix_Due_Date = Integer.valueOf(due_date_2.getText().toString());
+                                        tb_2_due_of_part_fix.fix_Due_Kilo = Integer.valueOf(due_kilo_2.getText().toString());
                                         tb_2_due_of_part_fix.fix_Due_Status = String.valueOf(due_fix_status);
                                         repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
 

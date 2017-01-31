@@ -106,7 +106,7 @@ public class Repo_2_DUE_OF_PART_FIX {
     public ArrayList<HashMap<String, String>> getFixListByCarId(int carId, int sortPartNum) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String[] sortPart = {"Part_Name", "countDate2", "countKilo", "Part_Name DESC", "countDate2 DESC", "countKilo DESC"};
+        String[] sortPart = {TB_5_PARTS.Part_Name_en, "countDate2", "countKilo", TB_5_PARTS.Part_Name_en + " DESC", "countDate2 DESC", "countKilo DESC"};
 
         String selectQuery = "SELECT *," +
                 TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + "-" + TB_6_RUN_DATA.Run_Kilo_End + " countKilo," +
