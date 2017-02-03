@@ -1,3 +1,19 @@
+/*
+ * Copyright 2013 Leon Cheng
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.saikaew_rus.cm_alert_new;
 
 import android.animation.Animator;
@@ -22,7 +38,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 
 public class CircularBar extends ProgressBar {
-    private static final String TAG = "CircularProgressBar";
+    private static final String TAG = "CircularBar";
 
     private static final int STROKE_WIDTH = 40;
 
@@ -115,20 +131,20 @@ public class CircularBar extends ProgressBar {
 
 
         mProgressColorPaint.setAntiAlias(true);
-        mProgressColorPaint.setStyle(Style.STROKE);
+        mProgressColorPaint.setStyle(Paint.Style.STROKE);
         mProgressColorPaint.setStrokeWidth(mStrokeWidth);
 
         mBackgroundColorPaint.setAntiAlias(true);
-        mBackgroundColorPaint.setStyle(Style.STROKE);
+        mBackgroundColorPaint.setStyle(Paint.Style.STROKE);
         mBackgroundColorPaint.setStrokeWidth(mStrokeWidth);
 
-        mTitlePaint.setTextSize(60);
+        mTitlePaint.setTextSize(70);
         mTitlePaint.setStyle(Style.FILL);
         mTitlePaint.setAntiAlias(true);
         mTitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.NORMAL));
         mTitlePaint.setShadowLayer(0.1f, 0, 1, Color.GRAY);
 
-        mSubtitlePaint.setTextSize(20);
+        mSubtitlePaint.setTextSize(40);
         mSubtitlePaint.setStyle(Style.FILL);
         mSubtitlePaint.setAntiAlias(true);
         mSubtitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.BOLD));
@@ -190,7 +206,7 @@ public class CircularBar extends ProgressBar {
             setProgress(start);
 
         final ObjectAnimator progressBarAnimator = ObjectAnimator.ofFloat(this, "animateProgress", start, end);
-        progressBarAnimator.setDuration(1500);
+        progressBarAnimator.setDuration(1000);
         //		progressBarAnimator.setInterpolator(new AnticipateOvershootInterpolator(2f, 1.5f));
         progressBarAnimator.setInterpolator(new LinearInterpolator());
 

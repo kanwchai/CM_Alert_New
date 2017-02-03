@@ -1,6 +1,7 @@
 package com.saikaew_rus.cm_alert_new;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,10 @@ public class CM_3_Car_base_adapter extends BaseAdapter {
         TextView car_Regis = (TextView) view.findViewById(R.id.car_Register);
         TextView car_Prov = (TextView) view.findViewById(R.id.car_Province);
 
+        final int percent = Integer.parseInt(String.format("%.0f", Double.parseDouble(getCarList.get(position).get("percent_Car"))));
+
         final CircularBar c2 = (CircularBar) view.findViewById(R.id.circularprogressbar2);
-        c2.animateProgressTo(0, 77, new CircularBar.ProgressAnimationListener() {
+        c2.animateProgressTo(0, percent, new CircularBar.ProgressAnimationListener() {
             @Override
             public void onAnimationStart() {
             }
@@ -58,6 +61,18 @@ public class CM_3_Car_base_adapter extends BaseAdapter {
 
             @Override
             public void onAnimationFinish() {
+                if (percent <= 0) {
+                    c2.setTitle("0%");
+                    c2.setTitleColor(Color.RED);
+                    c2.setSubTitleColor(Color.RED);
+                } else if(percent <= 25) {
+                    c2.setTitleColor(Color.rgb(255,145,00));
+                    c2.setSubTitleColor(Color.rgb(255,145,00));
+                }
+                else if (percent <= 50) {
+                    c2.setTitleColor(Color.YELLOW);
+                    c2.setSubTitleColor(Color.YELLOW);
+                }
                 c2.setSubTitle("Status");
             }
         });

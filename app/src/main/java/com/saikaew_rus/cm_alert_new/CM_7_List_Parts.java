@@ -450,7 +450,6 @@ public class CM_7_List_Parts extends AppCompatActivity {
                             tb_6_run_data.run_Date_Start = df.format(c.getTime());
                             tb_6_run_data.run_Date_End = df.format(c.getTime());
                             repo_6_run_data.insert(tb_6_run_data);
-                            onResume();
 
                             if (repo_check.chkDueKilo(car_id) >= 1) {
                                 notifiChkkilo();
@@ -461,8 +460,9 @@ public class CM_7_List_Parts extends AppCompatActivity {
                         }
                     } else {
                         repo_1_car.updateRegis(car_id, detail.getText().toString());
-                        getDatacar();
                     }
+                    getPartList(car_id);
+                    onResume();
                     dialog.dismiss();
                 }
             }

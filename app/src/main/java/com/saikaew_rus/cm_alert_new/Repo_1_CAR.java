@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class Repo_1_CAR {
         db.close(); // Closing database connection
     }
 
-    public void updateRegis(int car_Id,String Regis) {
+    public void updateRegis(int car_Id, String Regis) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -76,15 +77,41 @@ public class Repo_1_CAR {
     public ArrayList<HashMap<String, String>> getCarList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE;
+        String selectQuery = "SELECT " + TB_1_CAR.TABLE + ".*,COUNT(*) 'partTotal',COUNT(Part_Broke) 'partBroke' " +
+                "FROM (SELECT *, CASE WHEN " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " > 0 and " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " != '' and " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " > 0 and " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " != '' THEN " +
+                "CASE WHEN (DATE(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ") > DATE('now')) and ((" + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + ") - (" + TB_6_RUN_DATA.Run_Kilo_End + ") > 0) THEN 1 ELSE null END " +
+                "WHEN " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " == '' or " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " == 0 or " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " == null THEN " +
+                "CASE WHEN(DATE(MAX(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ")) > DATE('now')) THEN 1 ELSE null END " +
+                "WHEN " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " == '' or " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " == 0 or " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " == null THEN " +
+                "CASE WHEN(MAX(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + ") - MAX(" + TB_6_RUN_DATA.Run_Kilo_End + ")) > 0 THEN 1 ELSE null END " +
+                "END 'Part_Broke' " +
+                "FROM (SELECT * FROM" +
+                "(SELECT * FROM "+TB_2_DUE_OF_PART_FIX.TABLE+") df," +
+                "(SELECT MAX("+TB_4_HISTORYS_OF_CAR.TABLE+"."+TB_4_HISTORYS_OF_CAR.History_Id+"),* FROM "+TB_4_HISTORYS_OF_CAR.TABLE+" GROUP BY "+TB_4_HISTORYS_OF_CAR.TABLE+"."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+") h," +
+                "(SELECT MAX("+TB_6_RUN_DATA.TABLE+"."+TB_6_RUN_DATA.Run_Id+"),* FROM "+TB_6_RUN_DATA.TABLE+" GROUP BY "+TB_6_RUN_DATA.TABLE+"."+TB_6_RUN_DATA.Car_Id+") r " +
+                "ON df."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+" = h."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+" and h."+TB_6_RUN_DATA.Car_Id+" = r."+TB_6_RUN_DATA.Car_Id+") " +
+                "GROUP BY "+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+")P , " + TB_1_CAR.TABLE + " " +
+                "ON " + TB_1_CAR.TABLE + "."+TB_6_RUN_DATA.Car_Id+" = P."+TB_6_RUN_DATA.Car_Id+" " +
+                "GROUP BY " + TB_1_CAR.TABLE + "."+TB_6_RUN_DATA.Car_Id+"";
 
-        ArrayList<HashMap<String, String>> carList = new ArrayList<>();
+        Log.d("queryCode", selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
 
+        ArrayList<HashMap<String, String>> carList = new ArrayList<>();
+
         if (cursor.moveToFirst()) {
             do {
+                Double totalPercent;
+                Double partbroke = cursor.getDouble(cursor.getColumnIndex("partBroke"));
+                Double parttotal = cursor.getDouble(cursor.getColumnIndex("partTotal"));
+                if (partbroke <= 0) {
+                    totalPercent = 0.0;
+                } else {
+                    totalPercent = partbroke * 100 / parttotal;
+                }
+
                 HashMap<String, String> car = new HashMap<>();
                 car.put(TB_1_CAR.Car_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Id)));
                 car.put(TB_1_CAR.Type_Oil_Id, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Type_Oil_Id)));
@@ -92,6 +119,7 @@ public class Repo_1_CAR {
                 car.put(TB_1_CAR.Province_Name, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Province_Name)));
                 car.put(TB_1_CAR.Car_Register, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register)));
                 car.put(TB_1_CAR.Car_Tax_Date, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
+                car.put("percent_Car", String.valueOf(totalPercent));
                 carList.add(car);
             } while (cursor.moveToNext());
         }
@@ -107,7 +135,6 @@ public class Repo_1_CAR {
         String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE + " WHERE " + TB_1_CAR.Car_Id + "=?";
         // It's a good practice to use parameter ?, instead of concatenate string
 
-        int iCount = 0;
         TB_1_CAR car = new TB_1_CAR();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
