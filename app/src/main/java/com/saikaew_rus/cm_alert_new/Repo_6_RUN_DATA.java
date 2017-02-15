@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_6_RUN_DATA {
-    private MyDatabase dbHelper;
+    private A_MyDatabase dbHelper;
 
     public Repo_6_RUN_DATA(Context context) {
-        dbHelper = new MyDatabase(context);
+        dbHelper = new A_MyDatabase(context);
     }
 
     public int insert(TB_6_RUN_DATA run_data) {
@@ -72,7 +72,7 @@ public class Repo_6_RUN_DATA {
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> run_data = new HashMap<String, String>();
+                HashMap<String, String> run_data = new HashMap<>();
                 run_data.put("run_id", cursor.getString(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Id)));
                 run_data.put("fix_id", cursor.getString(cursor.getColumnIndex(TB_6_RUN_DATA.Car_Id)));
                 run_data.put("car_id", cursor.getString(cursor.getColumnIndex(TB_6_RUN_DATA.Run_Date_Start)));

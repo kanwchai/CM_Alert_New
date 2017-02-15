@@ -56,7 +56,7 @@ public class CM_8_History extends AppCompatActivity {
         repo_1_car = new Repo_1_CAR(this);
         tb_1_car = new TB_1_CAR();
         intent = getIntent();
-        car_id = intent.getIntExtra("car_Id", 0);
+        car_id = intent.getIntExtra(TB_1_CAR.Car_Id, 0);
         part_name = "";
         getLisHis();
         tb_1_car = repo_1_car.getCarById(car_id);
@@ -121,7 +121,7 @@ public class CM_8_History extends AppCompatActivity {
                 getListPart,
                 R.layout.view_his_car,
                 new String[]{TB_5_PARTS.Part_Name_en, TB_4_HISTORYS_OF_CAR.Changed_Kilo, "chg_date_format"},
-                new int[]{R.id.part_name, R.id.chg_kilo, R.id.chg_date});
+                new int[]{R.id.partName, R.id.chg_kilo, R.id.chg_date});
         listView.setAdapter(adapter);
     }
 

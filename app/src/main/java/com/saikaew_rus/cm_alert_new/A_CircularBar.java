@@ -37,7 +37,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 
-public class CircularBar extends ProgressBar {
+public class A_CircularBar extends ProgressBar {
     private static final String TAG = "CircularBar";
 
     private static final int STROKE_WIDTH = 40;
@@ -65,17 +65,17 @@ public class CircularBar extends ProgressBar {
         public void onAnimationProgress(int progress);
     }
 
-    public CircularBar(Context context) {
+    public A_CircularBar(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public CircularBar(Context context, AttributeSet attrs) {
+    public A_CircularBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public CircularBar(Context context, AttributeSet attrs, int defStyle) {
+    public A_CircularBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
@@ -85,47 +85,47 @@ public class CircularBar extends ProgressBar {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs,
-                R.styleable.CircularBar, style, 0);
+                R.styleable.A_CircularBar, style, 0);
 
         String color;
         Resources res = getResources();
 
-        this.mHasShadow = a.getBoolean(R.styleable.CircularBar_cpb_hasShadow, true);
+        this.mHasShadow = a.getBoolean(R.styleable.A_CircularBar_cpb_hasShadow, true);
 
-        color = a.getString(R.styleable.CircularBar_cpb_progressColor);
+        color = a.getString(R.styleable.A_CircularBar_cpb_progressColor);
         if (color == null)
             mProgressColorPaint.setColor(res.getColor(R.color.circular_progress_default_progress));
         else
             mProgressColorPaint.setColor(Color.parseColor(color));
 
-        color = a.getString(R.styleable.CircularBar_cpb_backgroundColor);
+        color = a.getString(R.styleable.A_CircularBar_cpb_backgroundColor);
         if (color == null)
             mBackgroundColorPaint.setColor(res.getColor(R.color.circular_progress_default_background));
         else
             mBackgroundColorPaint.setColor(Color.parseColor(color));
 
-        color = a.getString(R.styleable.CircularBar_cpb_titleColor);
+        color = a.getString(R.styleable.A_CircularBar_cpb_titleColor);
         if (color == null)
             mTitlePaint.setColor(res.getColor(R.color.circular_progress_default_title));
         else
             mTitlePaint.setColor(Color.parseColor(color));
 
-        color = a.getString(R.styleable.CircularBar_cpb_subtitleColor);
+        color = a.getString(R.styleable.A_CircularBar_cpb_subtitleColor);
         if (color == null)
             mSubtitlePaint.setColor(res.getColor(R.color.circular_progress_default_subtitle));
         else
             mSubtitlePaint.setColor(Color.parseColor(color));
 
 
-        String t = a.getString(R.styleable.CircularBar_cpb_title);
+        String t = a.getString(R.styleable.A_CircularBar_cpb_title);
         if (t != null)
             mTitle = t;
 
-        t = a.getString(R.styleable.CircularBar_cpb_subtitle);
+        t = a.getString(R.styleable.A_CircularBar_cpb_subtitle);
         if (t != null)
             mSubTitle = t;
 
-        mStrokeWidth = a.getInt(R.styleable.CircularBar_cpb_strokeWidth, STROKE_WIDTH);
+        mStrokeWidth = a.getInt(R.styleable.A_CircularBar_cpb_strokeWidth, STROKE_WIDTH);
 
         a.recycle();
 
@@ -138,13 +138,13 @@ public class CircularBar extends ProgressBar {
         mBackgroundColorPaint.setStyle(Paint.Style.STROKE);
         mBackgroundColorPaint.setStrokeWidth(mStrokeWidth);
 
-        mTitlePaint.setTextSize(70);
+        mTitlePaint.setTextSize(55);
         mTitlePaint.setStyle(Style.FILL);
         mTitlePaint.setAntiAlias(true);
         mTitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.NORMAL));
         mTitlePaint.setShadowLayer(0.1f, 0, 1, Color.GRAY);
 
-        mSubtitlePaint.setTextSize(40);
+        mSubtitlePaint.setTextSize(30);
         mSubtitlePaint.setStyle(Style.FILL);
         mSubtitlePaint.setAntiAlias(true);
         mSubtitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.BOLD));
@@ -217,7 +217,7 @@ public class CircularBar extends ProgressBar {
 
             @Override
             public void onAnimationEnd(final Animator animation) {
-                CircularBar.this.setProgress(end);
+                A_CircularBar.this.setProgress(end);
                 if (listener != null)
                     listener.onAnimationFinish();
             }
@@ -237,9 +237,9 @@ public class CircularBar extends ProgressBar {
             @Override
             public void onAnimationUpdate(final ValueAnimator animation) {
                 int progress = ((Float) animation.getAnimatedValue()).intValue();
-                if (progress != CircularBar.this.getProgress()) {
+                if (progress != A_CircularBar.this.getProgress()) {
                     Log.d(TAG, progress + "");
-                    CircularBar.this.setProgress(progress);
+                    A_CircularBar.this.setProgress(progress);
                     if (listener != null)
                         listener.onAnimationProgress(progress);
                 }

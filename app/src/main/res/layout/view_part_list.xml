@@ -6,34 +6,34 @@
     android:paddingTop="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="5dp"
-    android:background="@color/list_view">
+    android:background="@color/list_view"
+    android:id="@+id/linPartlist">
 
     <TextView
-        android:id="@+id/part_name"
+        android:id="@+id/partName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text="Part Name"
-        android:textSize="17dp"
+        android:textSize="16dp"
         android:gravity="left|center_vertical"
         android:translationZ="2dp"
         android:paddingRight="2dp"
         android:paddingLeft="2dp" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/partDate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom"
         android:text="Date"
         android:layout_weight="1.5"
-        android:gravity="center_vertical|center_horizontal"
+        android:gravity="right|center_vertical|center_horizontal"
         android:translationZ="2dp"
         android:paddingRight="2dp"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/partKilo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
@@ -42,6 +42,6 @@
         android:gravity="center_vertical|right"
         android:translationZ="2dp"
         android:paddingRight="2dp"
-        android:textSize="12dp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

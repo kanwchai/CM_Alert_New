@@ -2,17 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.saikaew_rus.cm_alert_new">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".CM_1_Load"
             android:label="@string/app_name"
@@ -25,39 +30,65 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CM_2_Main"
+            android:name=".CM_2_Add_User"
             android:label="User"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CM_3_Car"
+            android:name=".CM_3_Car_Recycle"
             android:label="Car" />
         <activity
-            android:name=".CM_4_Plus_Car"
-            android:label="Car Data" />
+            android:name=".CM_4_Add_Car"
+            android:label="Car Data"
+            android:parentActivityName=".CM_3_Car_Recycle" />
         <activity
-            android:name=".CM_5_User_Data"
-            android:label="Edit User" />
+            android:name=".CM_5_Edit_User"
+            android:label="Edit User"
+            android:parentActivityName=".CM_3_Car_Recycle" />
         <activity
             android:name=".CM_6_Travel"
-            android:label="Travel" />
+            android:label="Travel"
+            android:parentActivityName=".CM_3_Car_Recycle" />
         <activity
-            android:name=".CM_7_List_Parts"
+            android:name=".CM_7_List_Parts_Recycle"
             android:label="List Parts"
-            android:parentActivityName=".CM_3_Car">
+            android:launchMode="singleTop"
+            android:parentActivityName=".CM_3_Car_Recycle">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CM_3_Car" />
+                android:value=".CM_3_Car_Recycle" />
         </activity>
         <activity
             android:name=".CM_8_History"
-            android:label="Maintenance History" />
+            android:label="Maintenance History"
+            android:parentActivityName=".CM_3_Car_Recycle" />
         <activity
             android:name=".CM_9_Add_Parts"
-            android:label="Add Parts" />
+            android:label="Add Parts"
+            android:launchMode="singleTop"
+            android:parentActivityName=".CM_7_List_Parts_Recycle" />
         <activity
             android:name=".CM_10_Add_Parts_2"
-            android:label="Add Parts" />
+            android:label="Add Parts"
+            android:parentActivityName=".CM_9_Add_Parts" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".CM_6_Travel_Map"
+            android:label="@string/title_activity_cm_6__travel__map" />
+        <activity
+            android:name=".CM_6_Test_MapsActivity"
+            android:label="@string/title_activity_cm_6__test__maps" />
+        <activity android:name=".ListAlert"></activity>
     </application>
 
 </manifest>

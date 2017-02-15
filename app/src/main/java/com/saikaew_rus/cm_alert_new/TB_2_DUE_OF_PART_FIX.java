@@ -14,6 +14,9 @@ public class TB_2_DUE_OF_PART_FIX {
     public static final String Fix_Due_Kilo = "Fix_Due_Kilo";
     public static final String Fix_Due_Date = "Fix_Due_Date";
     public static final String Fix_Due_Status = "Fix_Due_Status";
+    public static final String CountKilo = "CountKilo";
+    public static final String CountDate = "CountDate";
+    public static final String SetColor = "SetColor";
 
     //property help us to keep data
     public int fix_Due_Id;

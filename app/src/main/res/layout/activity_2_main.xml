@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:touchscreenBlocksFocus="false"
-    tools:context=".CM_2_Main">
+    tools:context=".CM_2_Add_User"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="false"
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="false"
@@ -17,72 +19,124 @@
         android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/icon_people_4_11_59"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_user"
+        android:layout_weight="1" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_below="@+id/imageView6"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="75dp"
-        android:layout_marginLeft="75dp"
-        android:background="@drawable/rounded_edittext"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/lin_btnok"
-        android:layout_marginBottom="30dp">
+        android:layout_below="@+id/imageView6"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_edittext"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText"
-            style="@style/StyleTextDate"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:singleLine="true"
-            android:maxLength="30"
-            android:layout_weight="1"
-            android:gravity="left|center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp" />
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textView1"
-            style="@style/StyleTextDate"
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                app:srcCompat="@mipmap/ic_user_name"
+                android:layout_margin="5dp" />
+
+            <EditText
+                android:id="@+id/editText"
+                style="@style/StyleTextDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:layout_margin="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Birthday"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="1"
-            android:gravity="left|center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" />
+            android:id="@+id/linBirth"
+            android:clickable="false">
 
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/StyleTextDate"
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                app:srcCompat="@mipmap/ic_birthday"
+                android:layout_margin="5dp" />
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/StyleTextDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Birthday"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="5dp"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Expired driver license"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="1"
-            android:gravity="left|center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp" />
+            android:id="@+id/linLicense">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                app:srcCompat="@mipmap/ic_licen"
+                android:layout_margin="5dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/StyleTextDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Expired driver license"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:editable="false"
+                android:layout_margin="5dp"
+                android:clickable="false" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin_btnok"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/lin_btnok">
+        android:layout_weight="1.65">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.25"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,12 +147,18 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="150dp"
-                android:layout_height="55dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/bt_ok_10_11_59"
                 android:textColor="@color/text_font"
                 android:textSize="20dp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.25"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,13 +169,19 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="150dp"
-                android:layout_height="55dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/bt_cancel_10_11_59"
                 android:textColor="@color/text_font"
                 android:textSize="20dp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.25"></LinearLayout>
+
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

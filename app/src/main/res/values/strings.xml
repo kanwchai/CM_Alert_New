@@ -1,8 +1,19 @@
 <resources>
-    <string name="app_name">CM Alert New</string>
+    <string name="app_name">CM Alert</string>
     <string name="ngv">NGV</string>
     <string name="lpg">LPG</string>
     <string name="hyb">HYBRID</string>
     <string name="diesel">DIESEL</string>
     <string name="benzine">BENZINE</string>
+    <string name="btn_switch">กดเพื่อเดินทาง</string>
+    <string-array name="status_travel">
+        <item>(ปิดใช้งาน)</item>
+        <item>(กำลังใช้งาน)</item>
+    </string-array>
+    <string name="reg_car">Registration Car</string>
+    <string name="file">file</string>
+    <string name="create_new">create_new</string>
+    <string name="open">open</string>
+    <string name="title_activity_cm_6__travel__map">Map</string>
+    <string name="title_activity_cm_6__test__maps">Map</string>
 </resources>

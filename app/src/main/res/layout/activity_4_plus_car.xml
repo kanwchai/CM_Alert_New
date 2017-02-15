@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.saikaew_rus.cm_alert_new.CM_4_Plus_Car">
+    tools:context="com.saikaew_rus.cm_alert_new.CM_4_Add_Car"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"></LinearLayout>
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:src="@drawable/car_add_10_11_59"
         android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp" />
+        android:layout_marginRight="80dp"
+        android:layout_weight=".9" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/imageView2"
         android:orientation="vertical"
         android:background="@drawable/rounded_edittext"
@@ -31,7 +44,7 @@
         android:layout_marginRight="50dp"
         android:paddingRight="15dp"
         android:paddingLeft="15dp"
-        android:layout_marginTop="20dp">
+        android:layout_weight=".8">
 
         <EditText
             android:id="@+id/editText4"
@@ -66,32 +79,44 @@
             android:layout_weight="1"
             android:gravity="left" />
 
-        <TextView
-            android:id="@+id/editText6"
-            style="@style/StyleTextDate"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Maturity Tax"
             android:layout_weight="1"
-            android:gravity="left" />
+            android:id="@+id/linNumKilo">
+
+            <TextView
+                android:id="@+id/editText6"
+                style="@style/StyleTextDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Maturity Tax"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:clickable="false" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_below="@+id/input_dataCar"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_edittext"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="15dp"
-        android:id="@+id/choose_type">
+        android:id="@+id/choose_type"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <RadioGroup
             android:id="@+id/radioOil"
@@ -147,15 +172,21 @@
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:orientation="horizontal"
         android:id="@+id/lin_btn_car"
         android:layout_below="@+id/choose_type"
-        android:layout_marginTop="20dp">
+        android:layout_weight="1.1">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -192,4 +223,10 @@
         </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"></LinearLayout>
+
+</LinearLayout>

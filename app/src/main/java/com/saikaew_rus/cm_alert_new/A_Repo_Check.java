@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by NB_A on 18/10/2559.
  */
-public class Repo_Check {
-    private MyDatabase dbHelper;
+public class A_Repo_Check {
+    private A_MyDatabase dbHelper;
 
-    public Repo_Check(Context context) {
-        dbHelper = new MyDatabase(context);
+    public A_Repo_Check(Context context) {
+        dbHelper = new A_MyDatabase(context);
     }
 
     public void chkDueDate() {
@@ -48,7 +48,7 @@ public class Repo_Check {
         return dataCar;
     }
 
-    public int che_Car(String car_Reg, String prov_name) {
+    public int chk_Car(String car_Reg, String prov_name) {
         int dataCar;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE +

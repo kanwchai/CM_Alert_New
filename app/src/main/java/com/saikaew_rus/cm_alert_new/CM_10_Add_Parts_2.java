@@ -109,7 +109,7 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
 
                 repo_4_historys_of_car.insert(tb_4_historys_of_car);
 
-                Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts.class);
+                Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts_Recycle.class);
                 intent.putExtra("car_Id", carid);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

@@ -13,10 +13,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_2_DUE_OF_PART_FIX {
-    private MyDatabase dbHelper;
+    private A_MyDatabase dbHelper;
 
     public Repo_2_DUE_OF_PART_FIX(Context context) {
-        dbHelper = new MyDatabase(context);
+        dbHelper = new A_MyDatabase(context);
     }
 
     public int insert(TB_2_DUE_OF_PART_FIX due_fix) {
@@ -58,7 +58,6 @@ public class Repo_2_DUE_OF_PART_FIX {
                     " SELECT * FROM " + TB_3_DUE_OF_PART_STANDART.TABLE + " WHERE "
                     + TB_3_DUE_OF_PART_STANDART.Type_Gas_Id + " = " + gas +
                     " GROUP BY " + TB_3_DUE_OF_PART_STANDART.Part_Id + " ORDER BY " + TB_3_DUE_OF_PART_STANDART.Part_Id + ")";
-
         }
 
         db.execSQL(insertQuery);
@@ -106,11 +105,12 @@ public class Repo_2_DUE_OF_PART_FIX {
     public ArrayList<HashMap<String, String>> getFixListByCarId(int carId, int sortPartNum) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String[] sortPart = {TB_5_PARTS.Part_Name_en, "countDate2", "countKilo", TB_5_PARTS.Part_Name_en + " DESC", "countDate2 DESC", "countKilo DESC"};
+        String[] sortPart = {TB_5_PARTS.Part_Name_en, TB_2_DUE_OF_PART_FIX.CountDate, TB_2_DUE_OF_PART_FIX.CountKilo
+                , TB_5_PARTS.Part_Name_en + " DESC", TB_2_DUE_OF_PART_FIX.CountDate + " DESC", TB_2_DUE_OF_PART_FIX.CountKilo + " DESC"};
 
         String selectQuery = "SELECT *," +
-                TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + "-" + TB_6_RUN_DATA.Run_Kilo_End + " countKilo," +
-                "julianday(strftime('%Y-%m-%d'," + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ")) - julianday(strftime('%Y-%m-%d', 'now')) countDate2, " +
+                TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + "-" + TB_6_RUN_DATA.Run_Kilo_End + " " + TB_2_DUE_OF_PART_FIX.CountKilo + "," +
+                "julianday(strftime('%Y-%m-%d'," + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ")) - julianday(strftime('%Y-%m-%d', 'now')) " + TB_2_DUE_OF_PART_FIX.CountDate + ", " +
                 "CASE " +
                 "WHEN STRFTIME('%Y',remain_date)+0 > 0 " +
                 "THEN (STRFTIME('%Y',remain_date)+0)||'Y '||(STRFTIME('%m',remain_date)+0)||'M '||(STRFTIME('%d',remain_date)+0)||'D' " +
@@ -118,7 +118,7 @@ public class Repo_2_DUE_OF_PART_FIX {
                 "THEN(STRFTIME('%m', remain_date) + 0) || 'M ' || (STRFTIME('%d', remain_date) + 0) || 'D' " +
                 "WHEN remain_date = 'End of life' " +
                 "THEN 'End of life' " +
-                "ELSE CAST(remain_date AS INT) || 'D' END countDate" +
+                "ELSE CAST(remain_date AS INT) || 'D' END " + TB_2_DUE_OF_PART_FIX.CountDate +
                 " FROM " +
                 "(" +
                 "SELECT *," +
@@ -156,8 +156,13 @@ public class Repo_2_DUE_OF_PART_FIX {
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Date, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Date)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Status, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Status)));
-                due_fix.put("countKilo", cursor.getString(cursor.getColumnIndex("countKilo")));
-                due_fix.put("countDate", cursor.getString(cursor.getColumnIndex("countDate")));
+                due_fix.put(TB_2_DUE_OF_PART_FIX.CountKilo, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.CountKilo)));
+                due_fix.put(TB_2_DUE_OF_PART_FIX.CountDate, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.CountDate)));
+
+                if (cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.CountKilo)) <= 0) {
+                    due_fix.put(TB_2_DUE_OF_PART_FIX.SetColor, String.valueOf(R.color.LifeTime_0));
+                }
+
                 due_fixList.add(due_fix);
 
             } while (cursor.moveToNext());

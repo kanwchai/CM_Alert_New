@@ -13,10 +13,10 @@ import java.util.List;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_5_PARTS {
-    private MyDatabase dbHelper;
+    private A_MyDatabase dbHelper;
 
     public Repo_5_PARTS(Context context) {
-        dbHelper = new MyDatabase(context);
+        dbHelper = new A_MyDatabase(context);
     }
 
     public int insert(TB_5_PARTS part_car) {

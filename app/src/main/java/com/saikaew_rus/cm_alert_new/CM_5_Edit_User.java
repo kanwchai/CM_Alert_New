@@ -1,13 +1,16 @@
 package com.saikaew_rus.cm_alert_new;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
@@ -16,22 +19,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CM_5_User_Data extends AppCompatActivity {
+public class CM_5_Edit_User extends AppCompatActivity {
 
-    private DatePickerDialog mDatePicker;
-    private DatePickerDialog mDatePicker_2;
+    DatePickerDialog mDatePicker;
+    DatePickerDialog mDatePicker_2;
 
-    private Calendar mCalendar;
+    Calendar mCalendar;
+    TextView mTextDate, mTextDate_2;
+    EditText mTextName;
+    ImageView imageView;
+    LinearLayout linLayBirth, linLayExpired;
+    A_Toast_Time a_toast_time;
 
-    private TextView mTextDate;
-
-    private TextView mTextDate_2;
-
-    private EditText mTextName;
-
-
-    private Repo_9_USER repo;
-    private TB_9_USER user;
+    Repo_9_USER repo;
+    TB_9_USER user;
 
     Button bSave;
     Button button1;
@@ -41,22 +42,31 @@ public class CM_5_User_Data extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_5_user_data);
 
+        setLayout();
+        setValue();
+        setEvent();
+    }
+
+    public void setLayout() {
         mTextDate = (TextView) findViewById(R.id.textView1);
-
         mTextDate_2 = (TextView) findViewById(R.id.textView2);
-
-        mCalendar = Calendar.getInstance();
-
         mTextName = (EditText) findViewById(R.id.editText);
-
         bSave = (Button) findViewById(R.id.button);
+        imageView = (ImageView) findViewById(R.id.imageView8);
+        linLayBirth = (LinearLayout) findViewById(R.id.linBirth);
+        linLayExpired = (LinearLayout) findViewById(R.id.linLicense);
+        button1 = (Button) findViewById(R.id.button2);
+    }
 
+    public void setValue() {
+        mCalendar = Calendar.getInstance();
         repo = new Repo_9_USER(this);
         user = new TB_9_USER();
+        a_toast_time = new A_Toast_Time();
 
         user = repo.getFirstUser();
-
         mTextName.setText(user.user_Name);
+
         if (user.user_Birth != null) {
             //*****************************  Convert Format Date  *****************************//
 
@@ -82,39 +92,6 @@ public class CM_5_User_Data extends AppCompatActivity {
             //***************************** End Convert Format Date  *****************************//
         }
 
-        bSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                user.user_Name = mTextName.getText().toString();
-                if (mTextName.getText().toString().matches("") ||
-                        mTextDate.getText().toString().matches("") ||
-                        mTextDate_2.getText().toString().matches("")) {
-                    //***************  Set Toast duration  ***************//
-                    final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
-                    toast.show();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            toast.cancel();
-                        }
-                    }, 1000);
-                    //***************  End Set Toast  ***************//
-                } else {
-                    repo.update(user);
-                    finish();
-                }
-            }
-        });
-
-        button1 = (Button) findViewById(R.id.button2);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         mDatePicker = DatePickerDialog.newInstance(onDateSetListener,
                 mCalendar.get(Calendar.YEAR),       // ปี
                 mCalendar.get(Calendar.MONTH),      // เดือน
@@ -127,7 +104,32 @@ public class CM_5_User_Data extends AppCompatActivity {
                 mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
                 false);
 
-        mTextDate.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public void setEvent() {
+        bSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.user_Name = mTextName.getText().toString();
+                if (mTextName.getText().toString().matches("") ||
+                        mTextDate.getText().toString().matches("") ||
+                        mTextDate_2.getText().toString().matches("")) {
+                    a_toast_time.Toast_Time(getApplicationContext(), "Please complete the form below.", 1200);
+                } else {
+                    repo.update(user);
+                    finish();
+                }
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        linLayBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDatePicker.setYearRange(1950, 2030);
@@ -135,7 +137,7 @@ public class CM_5_User_Data extends AppCompatActivity {
             }
         });
 
-        mTextDate_2.setOnClickListener(new View.OnClickListener() {
+        linLayExpired.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDatePicker_2.setYearRange(2000, 2030);
@@ -143,6 +145,15 @@ public class CM_5_User_Data extends AppCompatActivity {
             }
         });
 
+        mTextName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    hideSoftKeyboard(CM_5_Edit_User.this);
+                }
+                return false;
+            }
+        });
     }
 
     private DatePickerDialog.OnDateSetListener onDateSetListener =
@@ -176,4 +187,9 @@ public class CM_5_User_Data extends AppCompatActivity {
 
                 }
             };
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    }
 }

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class CM_9_Add_Parts extends AppCompatActivity {
 
-    Repo_Check repo_check;
+    A_Repo_Check repo_check;
     EditText namepart;
     int carid;
     String partAdd;
@@ -21,9 +21,9 @@ public class CM_9_Add_Parts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_9_add_parts);
 
-        namepart = (EditText) findViewById(R.id.part_name);
+        namepart = (EditText) findViewById(R.id.partName);
 
-        repo_check = new Repo_Check(this);
+        repo_check = new A_Repo_Check(this);
 
         Intent intent = getIntent();
         carid = intent.getIntExtra("car_id", 0);

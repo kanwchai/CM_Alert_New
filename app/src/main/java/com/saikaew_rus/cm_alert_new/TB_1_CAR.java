@@ -14,7 +14,10 @@ public class TB_1_CAR {
     public static final String Province_Name = "Province_Name";
     public static final String Car_Register = "Car_Register";
     public static final String Car_Tax_Date = "Car_Tax_Date";
-
+    public static final String SetTitle = "SetTitle";
+    public static final String SetColor = "SetColor";
+    public static final String PartBroke = "partBroke";
+    public static final String PartTotal = "partTotal";
 
     //property help us to keep data
     public int car_Id;

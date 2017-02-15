@@ -12,10 +12,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_3_DUE_OF_PART_STANDART {
-    private MyDatabase dbHelper;
+    private A_MyDatabase dbHelper;
 
     public Repo_3_DUE_OF_PART_STANDART(Context context) {
-        dbHelper = new MyDatabase(context);
+        dbHelper = new A_MyDatabase(context);
     }
 
     public int insert(TB_3_DUE_OF_PART_STANDART due_st) {

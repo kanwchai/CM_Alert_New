@@ -1,19 +1,21 @@
 package com.saikaew_rus.cm_alert_new;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 
@@ -21,14 +23,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CM_4_Plus_Car extends AppCompatActivity {
+public class CM_4_Add_Car extends AppCompatActivity {
 
     DatePickerDialog mDatePicker;
     Calendar mCalendar;
     TextView mTextDate;
 
-    EditText regis;
-    EditText kilo;
+    EditText regis, kilo;
 
     TB_1_CAR tb_1_car;
     Repo_1_CAR repo_1_car;
@@ -39,20 +40,46 @@ public class CM_4_Plus_Car extends AppCompatActivity {
     Repo_2_DUE_OF_PART_FIX repo_2_due_of_part_fix;
     Repo_4_HISTORYS_OF_CAR repo_4_historys_of_car;
     Repo_10_PROVINCES repo_10_provinces;
-    Repo_Check repo_check;
+    A_Repo_Check repo_check;
 
     SimpleDateFormat sdf;
-    Button b_enter;
-    Button b_cancel;
+    Button b_enter, b_cancel;
     RadioGroup radioGroup;
     String[] dataAdap;
     AutoCompleteTextView autoProvince;
+    A_Toast_Time a_toast_time;
+    ArrayAdapter dataAdapter;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_4_plus_car);
 
+        setLayout();
+        setValue();
+        setEvent();
+
+    }
+
+    private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+
+            SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
+            SimpleDateFormat dfm_1 = new SimpleDateFormat("yyyy-MM-dd");
+
+            mCalendar.set(year, month, day);
+            Date date = mCalendar.getTime();
+
+            String textDate = dfm.format(date);
+            String textDate_1 = dfm_1.format(date);
+            mTextDate.setText(textDate);
+            tb_1_car.car_Tax_Date = textDate_1;
+        }
+    };
+
+    public void setLayout() {
         mCalendar = Calendar.getInstance();
         regis = (EditText) findViewById(R.id.editText4);
         kilo = (EditText) findViewById(R.id.editText5);
@@ -61,13 +88,17 @@ public class CM_4_Plus_Car extends AppCompatActivity {
         b_cancel = (Button) findViewById(R.id.button4);
         autoProvince = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         radioGroup = (RadioGroup) findViewById(R.id.radioOil);
+        linearLayout = (LinearLayout) findViewById(R.id.linNumKilo);
+    }
 
+    public void setValue() {
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
         repo_10_provinces = new Repo_10_PROVINCES(this);
         repo_2_due_of_part_fix = new Repo_2_DUE_OF_PART_FIX(this);
         repo_4_historys_of_car = new Repo_4_HISTORYS_OF_CAR(this);
-        repo_check = new Repo_Check(this);
+        repo_check = new A_Repo_Check(this);
+        a_toast_time = new A_Toast_Time();
 
         tb_1_car = new TB_1_CAR();
         tb_6_run_data = new TB_6_RUN_DATA();
@@ -78,9 +109,21 @@ public class CM_4_Plus_Car extends AppCompatActivity {
 
         dataAdap = repo_10_provinces.getProvincesList_1();
 
-        ArrayAdapter dataAdapter = new ArrayAdapter(CM_4_Plus_Car.this, android.R.layout.simple_dropdown_item_1line, dataAdap);
+        dataAdapter = new ArrayAdapter(CM_4_Add_Car.this, android.R.layout.simple_dropdown_item_1line, dataAdap);
         autoProvince.setAdapter(dataAdapter);
         autoProvince.setThreshold(1);
+    }
+
+    public void setEvent() {
+        kilo.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    hideSoftKeyboard(CM_4_Add_Car.this);
+                }
+                return false;
+            }
+        });
 
         b_enter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +153,7 @@ public class CM_4_Plus_Car extends AppCompatActivity {
             }
         });
 
-        mTextDate.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mDatePicker.setYearRange(2000, 2030);
@@ -124,24 +167,6 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                 mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
                 false);
     }
-
-    private DatePickerDialog.OnDateSetListener onDateSetListener =
-            new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-
-                    SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
-                    SimpleDateFormat dfm_1 = new SimpleDateFormat("yyyy-MM-dd");
-
-                    mCalendar.set(year, month, day);
-                    Date date = mCalendar.getTime();
-
-                    String textDate = dfm.format(date);
-                    String textDate_1 = dfm_1.format(date);
-                    mTextDate.setText(textDate);
-                    tb_1_car.car_Tax_Date = textDate_1;
-                }
-            };
 
     public void onCheckboxClicked(View view) {
         // Is the button now checked?
@@ -187,35 +212,13 @@ public class CM_4_Plus_Car extends AppCompatActivity {
                 kilo.getText().toString().matches("") ||
                 mTextDate.getText().toString().matches("") ||
                 autoProvince.getText().toString().matches("")) {
-            //***************  Set Toast duration  ***************//
-            final Toast toast = Toast.makeText(getApplicationContext(), "Please complete the form below.", Toast.LENGTH_SHORT);
-            toast.show();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    toast.cancel();
-                }
-            }, 1000);
-            //***************  End Set Toast  ***************//
+            a_toast_time.Toast_Time(this, "Please complete the form below.", 1200);
         } else {
             tb_1_car.car_Register = regis.getText().toString();
             tb_1_car.province_Name = autoProvince.getText().toString();
 
-            if (repo_check.che_Car(regis.getText().toString(), autoProvince.getText().toString()) >= 1) {
-                //***************  Set Toast duration  ***************//
-                final Toast toast = Toast.makeText(getApplicationContext(),
-                        "Car Registration " + regis.getText().toString() +
-                                " not empty", Toast.LENGTH_SHORT);
-                toast.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        toast.cancel();
-                    }
-                }, 1000);
-                //***************  End Set Toast  ***************//
+            if (repo_check.chk_Car(regis.getText().toString(), autoProvince.getText().toString()) >= 1) {
+                a_toast_time.Toast_Time(this, "Car Registration " + regis.getText().toString() + " not empty", 1200);
             } else {
                 tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);
                 tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
@@ -241,6 +244,11 @@ public class CM_4_Plus_Car extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
 }

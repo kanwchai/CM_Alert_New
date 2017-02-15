@@ -46,11 +46,11 @@ public class CM_1_Load extends AppCompatActivity {
                 }
 
                 if (userList.size() == 0) {
-                    Intent intent = new Intent(CM_1_Load.this, CM_2_Main.class);
+                    Intent intent = new Intent(CM_1_Load.this, CM_2_Add_User.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(CM_1_Load.this, CM_3_Car.class);
+                    Intent intent = new Intent(CM_1_Load.this, CM_3_Car_Recycle.class);
                     startActivity(intent);
                     finish();
                 }

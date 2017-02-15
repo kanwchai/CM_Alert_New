@@ -13,10 +13,10 @@ import java.util.HashMap;
  * Created by NB_A on 18/10/2559.
  */
 public class Repo_1_CAR {
-    private MyDatabase dbHelper;
+    private A_MyDatabase dbHelper;
 
     public Repo_1_CAR(Context context) {
-        dbHelper = new MyDatabase(context);
+        dbHelper = new A_MyDatabase(context);
     }
 
     public int insert(TB_1_CAR car) {
@@ -75,9 +75,8 @@ public class Repo_1_CAR {
     }
 
     public ArrayList<HashMap<String, String>> getCarList() {
-        //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT " + TB_1_CAR.TABLE + ".*,COUNT(*) 'partTotal',COUNT(Part_Broke) 'partBroke' " +
+        String selectQuery = "SELECT " + TB_1_CAR.TABLE + ".*,COUNT(*) '" + TB_1_CAR.PartTotal + "',COUNT(Part_Broke) '" + TB_1_CAR.PartBroke + "' " +
                 "FROM (SELECT *, CASE WHEN " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " > 0 and " + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + " != '' and " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " > 0 and " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " != '' THEN " +
                 "CASE WHEN (DATE(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ") > DATE('now')) and ((" + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + ") - (" + TB_6_RUN_DATA.Run_Kilo_End + ") > 0) THEN 1 ELSE null END " +
                 "WHEN " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " == '' or " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " == 0 or " + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + " == null THEN " +
@@ -86,26 +85,25 @@ public class Repo_1_CAR {
                 "CASE WHEN(MAX(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + ") - MAX(" + TB_6_RUN_DATA.Run_Kilo_End + ")) > 0 THEN 1 ELSE null END " +
                 "END 'Part_Broke' " +
                 "FROM (SELECT * FROM" +
-                "(SELECT * FROM "+TB_2_DUE_OF_PART_FIX.TABLE+") df," +
-                "(SELECT MAX("+TB_4_HISTORYS_OF_CAR.TABLE+"."+TB_4_HISTORYS_OF_CAR.History_Id+"),* FROM "+TB_4_HISTORYS_OF_CAR.TABLE+" GROUP BY "+TB_4_HISTORYS_OF_CAR.TABLE+"."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+") h," +
-                "(SELECT MAX("+TB_6_RUN_DATA.TABLE+"."+TB_6_RUN_DATA.Run_Id+"),* FROM "+TB_6_RUN_DATA.TABLE+" GROUP BY "+TB_6_RUN_DATA.TABLE+"."+TB_6_RUN_DATA.Car_Id+") r " +
-                "ON df."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+" = h."+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+" and h."+TB_6_RUN_DATA.Car_Id+" = r."+TB_6_RUN_DATA.Car_Id+") " +
-                "GROUP BY "+TB_4_HISTORYS_OF_CAR.Fix_Due_Id+")P , " + TB_1_CAR.TABLE + " " +
-                "ON " + TB_1_CAR.TABLE + "."+TB_6_RUN_DATA.Car_Id+" = P."+TB_6_RUN_DATA.Car_Id+" " +
-                "GROUP BY " + TB_1_CAR.TABLE + "."+TB_6_RUN_DATA.Car_Id+"";
+                "(SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + ") df," +
+                "(SELECT MAX(" + TB_4_HISTORYS_OF_CAR.TABLE + "." + TB_4_HISTORYS_OF_CAR.History_Id + "),* FROM " + TB_4_HISTORYS_OF_CAR.TABLE + " GROUP BY " + TB_4_HISTORYS_OF_CAR.TABLE + "." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + ") h," +
+                "(SELECT MAX(" + TB_6_RUN_DATA.TABLE + "." + TB_6_RUN_DATA.Run_Id + "),* FROM " + TB_6_RUN_DATA.TABLE + " GROUP BY " + TB_6_RUN_DATA.TABLE + "." + TB_6_RUN_DATA.Car_Id + ") r " +
+                "ON df." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " = h." + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + " and h." + TB_6_RUN_DATA.Car_Id + " = r." + TB_6_RUN_DATA.Car_Id + ") " +
+                "GROUP BY " + TB_4_HISTORYS_OF_CAR.Fix_Due_Id + ")P , " + TB_1_CAR.TABLE + " " +
+                "ON " + TB_1_CAR.TABLE + "." + TB_6_RUN_DATA.Car_Id + " = P." + TB_6_RUN_DATA.Car_Id + " " +
+                "GROUP BY " + TB_1_CAR.TABLE + "." + TB_6_RUN_DATA.Car_Id + "";
 
         Log.d("queryCode", selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
 
         ArrayList<HashMap<String, String>> carList = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
             do {
                 Double totalPercent;
-                Double partbroke = cursor.getDouble(cursor.getColumnIndex("partBroke"));
-                Double parttotal = cursor.getDouble(cursor.getColumnIndex("partTotal"));
+                Double partbroke = cursor.getDouble(cursor.getColumnIndex(TB_1_CAR.PartBroke));
+                Double parttotal = cursor.getDouble(cursor.getColumnIndex(TB_1_CAR.PartTotal));
                 if (partbroke <= 0) {
                     totalPercent = 0.0;
                 } else {
@@ -119,7 +117,16 @@ public class Repo_1_CAR {
                 car.put(TB_1_CAR.Province_Name, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Province_Name)));
                 car.put(TB_1_CAR.Car_Register, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register)));
                 car.put(TB_1_CAR.Car_Tax_Date, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
-                car.put("percent_Car", String.valueOf(totalPercent));
+                car.put(TB_1_CAR.SetTitle, String.valueOf(Integer.parseInt(String.format("%.0f", totalPercent))));
+
+                if (totalPercent <= 0) {
+                    car.put(TB_1_CAR.SetColor, String.valueOf(R.color.LifeTime_0));
+                }else if (totalPercent <= 25) {
+                    car.put(TB_1_CAR.SetColor, String.valueOf(R.color.LifeTime_25));
+                }else if (totalPercent <= 50) {
+                    car.put(TB_1_CAR.SetColor, String.valueOf(R.color.LifeTime_50));
+                }
+
                 carList.add(car);
             } while (cursor.moveToNext());
         }
