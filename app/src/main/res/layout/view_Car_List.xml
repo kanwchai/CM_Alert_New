@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.7">
 
-        <com.saikaew_rus.cm_alert_new.A_CircularBar
+        <com.saikaew_rus.cm_alert.A_CircularBar
             android:id="@+id/circularprogressbar2"
             style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
             circular:cpb_subtitle="subtitle"

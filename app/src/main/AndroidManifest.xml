@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.saikaew_rus.cm_alert_new">
+    package="com.saikaew_rus.cm_alert">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -55,7 +55,7 @@
             android:parentActivityName=".CM_3_Car_Recycle">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CM_3_Car_Recycle" />
+                android:value="com.saikaew_rus.cm_alert.CM_3_Car_Recycle" />
         </activity>
         <activity
             android:name=".CM_8_History"
@@ -84,11 +84,11 @@
 
         <activity
             android:name=".CM_6_Travel_Map"
-            android:label="@string/title_activity_cm_6__travel__map" />
+            android:label="Travel" />
+        <activity android:name=".A_ListAlert" />
         <activity
-            android:name=".CM_6_Test_MapsActivity"
-            android:label="@string/title_activity_cm_6__test__maps" />
-        <activity android:name=".A_ListAlert"></activity>
+            android:name=".A_MapsActivity"
+            android:label="@string/title_activity_a__maps"></activity>
     </application>
 
 </manifest>

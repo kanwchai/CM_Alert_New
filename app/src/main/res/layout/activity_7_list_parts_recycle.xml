@@ -79,7 +79,8 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="New Text"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -90,7 +91,8 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="New Text"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -101,7 +103,8 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="New Text"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="normal|bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,10 +156,10 @@
             android:layout_weight="1"
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical|center_horizontal"
+            android:onClick="sortPart"
             android:text="Part Name"
             android:textColor="#ffffff"
-            android:textSize="12dp"
-            android:onClick="sortPart" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/listPartDay"
@@ -165,10 +168,10 @@
             android:layout_weight="1.5"
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical|center_horizontal"
+            android:onClick="sortPart"
             android:text="Remain Days"
             android:textColor="#ffffff"
-            android:textSize="12dp"
-            android:onClick="sortPart" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/listPartKilo"
@@ -177,18 +180,18 @@
             android:layout_weight="1.5"
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical|center_horizontal"
+            android:onClick="sortPart"
             android:text="Remain Kilo"
             android:textColor="#ffffff"
-            android:textSize="12dp"
-            android:onClick="sortPart" />
+            android:textSize="12dp" />
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyPart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
-        android:id="@+id/recyPart" />
+        android:layout_weight="1.25" />
 
     <LinearLayout
         android:layout_width="match_parent"

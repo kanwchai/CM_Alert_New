@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/file"
+    <item android:title="Notification"
+        android:id="@+id/noti" />
+    <item android:id="@+id/setting"
         android:title="@string/file" >
         <!-- "file" submenu -->
-        <menu>
-            <item android:id="@+id/create_new"
-                android:title="@string/create_new" />
-            <item android:id="@+id/open"
-                android:title="@string/open" />
-        </menu>
+        <menu></menu>
     </item>
 </menu>

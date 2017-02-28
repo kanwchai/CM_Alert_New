@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.saikaew_rus.cm_alert_new.CM_4_Add_Car"
+    tools:context="com.saikaew_rus.cm_alert.CM_4_Add_Car"
     android:orientation="vertical">
 
     <LinearLayout

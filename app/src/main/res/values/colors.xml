@@ -16,5 +16,7 @@
     <color name="LifeTime_0">#f73f35</color>
     <color name="LifeTime_25">#ff8b2b</color>
     <color name="LifeTime_50">#fcf353</color>
+    <color name="headlvExp">#ffffff</color>
+    <color name="childlvExp">#69b7cc</color>
 </resources>
 
