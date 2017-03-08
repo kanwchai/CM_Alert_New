@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,12 +44,13 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
     TextView tv_regis, tv_kilo, tv_ex_date, due_date;
     int car_id, part_id, due_fix_id, due_fix_kilo, due_fix_date, sortPartList;
-    String part_name, due_fix_status, partName,maintenance;
+    String part_name, due_fix_status, partName, maintenance;
     String[] new_part, Choice;
     EditText due_kilo, due_date_2, due_kilo_2;
     ImageButton imBtRegis, imBtKilo, imBtExpTax;
 
-    ListView partList;
+    DecimalFormat decimalFormat;
+
     ArrayList<HashMap<String, String>> getdataPartList;
     Intent intent;
     Button add_part;
@@ -92,7 +92,6 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         tv_regis = (TextView) findViewById(R.id.textView6);
         tv_kilo = (TextView) findViewById(R.id.textView7);
         tv_ex_date = (TextView) findViewById(R.id.textView8);
-        partList = (ListView) findViewById(R.id.listView2);
         add_part = (Button) findViewById(R.id.button10);
         imBtRegis = (ImageButton) findViewById(R.id.editRegis);
         imBtKilo = (ImageButton) findViewById(R.id.editKilo);
@@ -103,10 +102,10 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
     public void setValue() {
         mCalendar = Calendar.getInstance();
-        sortPartList = 0;
+        sortPartList = 2;
         intent = getIntent();
         car_id = intent.getIntExtra(TB_1_CAR.Car_Id, 0);
-        Choice = new String[]{"Specify Last Maintenance", "Set Maturity","Maintenance Guide", "Delete"};
+        Choice = new String[]{"Specify Last Maintenance", "Set Maturity", "Maintenance Guide", "Delete"};
 
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -141,7 +140,8 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         imBtRegis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editDialog("Setting Registration", "Registration Car : ", tb_1_car.car_Register, 1);
+//                editDialog("Setting Registration", "Registration Car : ", tb_1_car.car_Register, 1);
+                dialogRegis("Setting Registration", "Registration Car : ", tb_1_car.car_Register);
             }
         });
 
@@ -271,7 +271,10 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
             car_id = bundle.getInt(TB_1_CAR.Car_Id, 0);
         }
         tb_6_run_data = repo_6_run_data.getLastRunByCar_Id(car_id);
-        tv_kilo.setText(String.valueOf(tb_6_run_data.run_Kilo_End));
+
+        decimalFormat = new DecimalFormat("#,###,###");
+
+        tv_kilo.setText(String.valueOf(decimalFormat.format(tb_6_run_data.run_Kilo_End)));
         getDatacar();
         getPartList(car_id);
     }
@@ -288,10 +291,49 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         }, 1200);
     }
 
-    public void editDialog(String titleDia, String detailTitle, final String detailData, final int typeInput) {
+    public void dialogRegis(String titleDialog, String detailTitle, String detailData) {
+        final Dialog dialog = new Dialog(CM_7_List_Parts_Recycle.this);
+        dialog.setContentView(R.layout.dialog_custom_edit_regis);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        TextView data = (TextView) dialog.findViewById(R.id.data);
+        final EditText regisFront = (EditText) dialog.findViewById(R.id.editText3);
+        final EditText regisBack = (EditText) dialog.findViewById(R.id.detail);
+        TextView bSave = (TextView) dialog.findViewById(R.id.button_save);
+        TextView bCancel = (TextView) dialog.findViewById(R.id.button_cancel);
+
+        dialog.setTitle(titleDialog);
+        data.setText(detailTitle);
+        regisFront.setText(detailData.substring(0, detailData.indexOf("-")-1));
+        regisBack.setText(detailData.substring(detailData.indexOf("-")+1));
+
+        bSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (regisFront.getText().toString().matches("") && regisBack.getText().toString().matches("")) {
+                    showToast("Please complete the form below.");
+                } else {
+                    repo_1_car.updateRegis(car_id, regisFront.getText().toString() + " - " + regisBack.getText().toString());
+
+                    getPartList(car_id);
+                    onResume();
+                    dialog.dismiss();
+                }
+            }
+        });
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+    }
+
+    public void editDialog(String titleDialog, String detailTitle, final String detailData, final int typeInput) {
         final Dialog dialog = new Dialog(CM_7_List_Parts_Recycle.this);
         dialog.setContentView(R.layout.dialog_custom_edit);
-
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         TextView data = (TextView) dialog.findViewById(R.id.data);
@@ -299,7 +341,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         TextView bSave = (TextView) dialog.findViewById(R.id.button_save);
         TextView bCancel = (TextView) dialog.findViewById(R.id.button_cancel);
 
-        dialog.setTitle(titleDia);
+        dialog.setTitle(titleDialog);
         data.setText(detailTitle);
         detail.setText(detailData);
         if (typeInput == 2) {
@@ -473,9 +515,9 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                     due_fix_id = Integer.valueOf(getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
                     part_id = Integer.valueOf(getdataPartList.get(position).get(TB_5_PARTS.Part_Id));
                     part_name = getdataPartList.get(position).get(TB_5_PARTS.Part_Name_en).toString();
-                    if (getdataPartList.get(position).get(TB_5_PARTS.Maintenance_Guide_En) == null){
+                    if (getdataPartList.get(position).get(TB_5_PARTS.Maintenance_Guide_En) == null) {
                         maintenance = "  ";
-                    }else{
+                    } else {
                         maintenance = getdataPartList.get(position).get(TB_5_PARTS.Maintenance_Guide_En).toString();
                     }
                     if (!getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo).equals("")) {
@@ -594,7 +636,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Part " + part_name + " Maintenance Guide", Toast.LENGTH_SHORT).show();
 
                                 builder_1.show();
-                            }else if(which == 3) {
+                            } else if (which == 3) {
                                 AlertDialog.Builder builder_1 = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
                                 builder_1.setMessage("Delete " + part_name + " ?");
                                 builder_1.setNegativeButton("OK ", new DialogInterface.OnClickListener() {

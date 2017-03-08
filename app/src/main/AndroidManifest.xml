@@ -38,7 +38,7 @@
             android:label="Car" />
         <activity
             android:name=".CM_4_Add_Car"
-            android:label="Car Data"
+            android:label="Add Car Data"
             android:parentActivityName=".CM_3_Car_Recycle" />
         <activity
             android:name=".CM_5_Edit_User"

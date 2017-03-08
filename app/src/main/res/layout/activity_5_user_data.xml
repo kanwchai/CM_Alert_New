@@ -8,6 +8,12 @@
     tools:context=".CM_2_Add_User"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.6"></LinearLayout>
+
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
@@ -18,119 +24,164 @@
         android:layout_alignParentRight="false"
         android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="false"
         android:src="@mipmap/ic_user"
         android:layout_weight="1" />
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lin_btnok"
-        android:layout_below="@+id/imageView6"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="1"
-        android:background="@drawable/rounded_edittext"
-        android:orientation="vertical">
+        android:layout_weight="1.6"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                app:srcCompat="@mipmap/ic_user_name"
-                android:layout_margin="5dp" />
-
-            <EditText
-                android:id="@+id/editText"
-                style="@style/StyleTextDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="Name"
-                android:inputType="textPersonName"
-                android:maxLength="30"
-                android:singleLine="true"
-                android:layout_margin="5dp" />
-        </LinearLayout>
+            android:layout_weight="5"></LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/lin_btnok"
+            android:layout_below="@+id/imageView6"
             android:layout_weight="1"
-            android:id="@+id/linBirth"
-            android:clickable="false">
+            android:background="@drawable/rounded_edittext"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageView7"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
-                app:srcCompat="@mipmap/ic_birthday"
-                android:layout_margin="5dp" />
+                android:layout_weight="4.25"></LinearLayout>
 
-            <TextView
-                android:id="@+id/textView1"
-                style="@style/StyleTextDate"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="Birthday"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_margin="5dp"
-                android:clickable="false" />
+                android:layout_weight="3.75">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    app:srcCompat="@mipmap/ic_user_name" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    app:srcCompat="@mipmap/ic_birthday" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    app:srcCompat="@mipmap/ic_licen" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.25"></LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/editText"
+                    style="@style/StyleTextDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Name"
+                    android:inputType="textPersonName"
+                    android:maxLength="30"
+                    android:singleLine="true" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/linBirth"
+                    android:clickable="false">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        style="@style/StyleTextDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Birthday"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:clickable="false" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/linLicense">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/StyleTextDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Expired driver license"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:editable="false"
+                        android:clickable="false" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.25"></LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/linLicense">
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                app:srcCompat="@mipmap/ic_licen"
-                android:layout_margin="5dp" />
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/StyleTextDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="Expired driver license"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:editable="false"
-                android:layout_margin="5dp"
-                android:clickable="false" />
-        </LinearLayout>
+            android:layout_weight="5"></LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.6"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/lin_btnok"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="false"
         android:orientation="horizontal"
-        android:layout_weight="1.65">
+        android:layout_weight="1.5">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -183,5 +234,11 @@
             android:layout_weight="1.25"></LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.6"></LinearLayout>
 
 </LinearLayout>

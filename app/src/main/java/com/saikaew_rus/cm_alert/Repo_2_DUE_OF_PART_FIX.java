@@ -75,6 +75,8 @@ public class Repo_2_DUE_OF_PART_FIX {
                 " WHERE " + TB_5_PARTS.Part_Name_en + " = " + "'" + partName + "'" +
                 " GROUP BY " + TB_5_PARTS.Part_Name_en;
 
+        Log.d("insert_querypart",insertPart);
+
         db.execSQL(insertPart);
         db.close();
     }

@@ -113,7 +113,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         Log.d("reg_car", tb_1_car.car_Register);
         mKilocarText.setText(decimalFormat.format(tb_6_run_data.run_Kilo_End));
 
-        workng.setText("Not Working");
+        workng.setText("Disconnecting");
         workng.setTextColor(Color.RED);
         gifImageView.setBackgroundResource(0);
     }
@@ -138,7 +138,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                     if (mGoogleApiClient != null) {
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
                         mGoogleApiClient = null;
-                        workng.setText("Not Working");
+                        workng.setText("Disconnecting");
                         workng.setTextColor(Color.RED);
                         gifImageView.setBackgroundResource(0);
                         setStopTravel();
@@ -176,7 +176,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                     buildGoogleApiClient();
                     mMap.setMyLocationEnabled(true);
                 }
-                workng.setText("Do Working");
+                workng.setText("Connecting");
                 workng.setTextColor(getResources().getColor(R.color.working));
                 gifImageView.setBackgroundResource(R.drawable.point);
             }

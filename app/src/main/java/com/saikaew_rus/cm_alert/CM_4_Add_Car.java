@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
     Calendar mCalendar;
     TextView mTextDate;
 
-    EditText regis, kilo;
+    EditText regisFront, regisBack, kilo;
 
     TB_1_CAR tb_1_car;
     Repo_1_CAR repo_1_car;
@@ -54,7 +55,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_4_plus_car);
+        setContentView(R.layout.activity_4_add_car);
 
         setLayout();
         setValue();
@@ -81,7 +82,8 @@ public class CM_4_Add_Car extends AppCompatActivity {
 
     public void setLayout() {
         mCalendar = Calendar.getInstance();
-        regis = (EditText) findViewById(R.id.editText4);
+        regisFront = (EditText) findViewById(R.id.editText2);
+        regisBack = (EditText) findViewById(R.id.editText4);
         kilo = (EditText) findViewById(R.id.editText5);
         mTextDate = (TextView) findViewById(R.id.editText6);
         b_enter = (Button) findViewById(R.id.button3);
@@ -115,6 +117,23 @@ public class CM_4_Add_Car extends AppCompatActivity {
     }
 
     public void setEvent() {
+        regisFront.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    regisBack.requestFocus();
+                }
+                return false;
+            }
+        });
+
+        autoProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                kilo.requestFocus();
+            }
+        });
+
         kilo.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -208,17 +227,22 @@ public class CM_4_Add_Car extends AppCompatActivity {
     }
 
     public void chk_input() {
-        if (regis.getText().toString().matches("") ||
+        if (regisBack.getText().toString().matches("") ||
                 kilo.getText().toString().matches("") ||
                 mTextDate.getText().toString().matches("") ||
                 autoProvince.getText().toString().matches("")) {
             a_toast_time.Toast_Time(this, "Please complete the form below.", 1200);
         } else {
-            tb_1_car.car_Register = regis.getText().toString();
+            if (regisFront.getText().toString().isEmpty()) {
+                tb_1_car.car_Register = regisBack.getText().toString();
+            } else {
+                tb_1_car.car_Register = regisFront.getText().toString() + " - " + regisBack.getText().toString();
+
+            }
             tb_1_car.province_Name = autoProvince.getText().toString();
 
-            if (repo_check.chk_Car(regis.getText().toString(), autoProvince.getText().toString()) >= 1) {
-                a_toast_time.Toast_Time(this, "Car Registration " + regis.getText().toString() + " not empty", 1200);
+            if (repo_check.chk_Car(tb_1_car.car_Register, autoProvince.getText().toString()) >= 1) {
+                a_toast_time.Toast_Time(this, "Car registration " + regisBack.getText().toString() + " is duplicate", 1200);
             } else {
                 tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);
                 tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
@@ -246,9 +270,9 @@ public class CM_4_Add_Car extends AppCompatActivity {
         }
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    public static void hideSoftKeyboard(AppCompatActivity appCompatActivity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) appCompatActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(appCompatActivity.getCurrentFocus().getWindowToken(), 0);
     }
 
 }

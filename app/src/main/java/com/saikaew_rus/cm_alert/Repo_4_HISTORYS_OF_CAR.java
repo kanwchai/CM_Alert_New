@@ -162,7 +162,7 @@ public class Repo_4_HISTORYS_OF_CAR {
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> his_car = new HashMap<String, String>();
+                HashMap<String, String> his_car = new HashMap<>();
                 his_car.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
                 his_car.put("chg_date_format", cursor.getString(cursor.getColumnIndex("chg_date_format")));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Date)));
