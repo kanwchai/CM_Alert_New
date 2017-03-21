@@ -14,6 +14,7 @@ public class A_MyDatabase extends SQLiteAssetHelper {
 
     public A_MyDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        setForcedUpgrade(DATABASE_VERSION);
     }
 
 }

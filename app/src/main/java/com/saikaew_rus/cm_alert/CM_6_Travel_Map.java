@@ -38,7 +38,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -55,7 +54,6 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
     Location mLastLocation, locA, locB;
-    Marker mCurrLocationMarker;
 
     TextView workng;
     EditText regCar, mKilocarText;
@@ -124,7 +122,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         switch (view.getId()) {
             case R.id.starttra:
                 if (checked) {
-                    if (mGoogleApiClient == null){
+                    if (mGoogleApiClient == null) {
                         chkTravel();
                         countKilo = 0;
                         locA = null;
@@ -252,14 +250,10 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            // Asking user if explanation is needed
+            // Asking tb_9_user if explanation is needed
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-                //Prompt the user once explanation has been shown
+                //Prompt the tb_9_user once explanation has been shown
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
 
             } else {
@@ -296,9 +290,6 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        if (mCurrLocationMarker != null) {
-            mCurrLocationMarker.remove();
-        }
 
         if (locA == null) {
             locA = mLastLocation;
@@ -310,37 +301,23 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
             if (String.valueOf(locA.distanceTo(locB)) != null) {
                 countKilo += Integer.valueOf((int) locA.distanceTo(locB));
             }
-            locA = mLastLocation;
 
+            locA = mLastLocation;
             if (countKilo >= 100) {
                 mKilocarText.setText(decimalFormat.format(tb_6_run_data.run_Kilo_End));
                 countKilo %= 100;
             }
         }
 
-        //Place current location marker
-//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(latLng);
-//        markerOptions.title("Current Position");
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-//        mCurrLocationMarker = mMap.addMarker(markerOptions);
-
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location tb_9_user
                 .zoom(17)                   // Sets the zoom
-                .bearing(0)                // Sets the orientation of the camera to east
+                .bearing(0)                 // Sets the orientation of the camera to east
                 .tilt(40)                   // Sets the tilt of the camera to 30 degrees
                 .build();
 
-        //move map camera
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-        //stop location updates
-//        if (mGoogleApiClient != null) {
-//            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-//        }
     }
 
     @Override
@@ -371,6 +348,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
 
     private static final String TITLE = "Maintenance Your Car";
     private static final String MESSAGE = "You have parts breakdown!!!";
+
     public void notifiChkkilo() {
         Intent intent = new Intent(getApplicationContext(), CM_7_List_Parts_Recycle.class);
         intent.putExtra(TB_1_CAR.Car_Id, car_id);
@@ -379,10 +357,10 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.iconnew_4_02_60);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
 
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.iconnew_4_02_60)
+                .setSmallIcon(R.mipmap.ic_logo)
                 .setLargeIcon(icon)
                 .setContentTitle(TITLE)
                 .setContentText(MESSAGE)

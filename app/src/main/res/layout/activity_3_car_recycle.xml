@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CM_3_Car_Recycle">
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/round_button"
-        android:src="@drawable/plus_car_10_10_59" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -31,6 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
@@ -51,7 +39,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentStart="false"
                 android:layout_weight="3"
-                android:src="@drawable/icon_people_6_02_60" />
+                android:src="@mipmap/ic_user" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -75,4 +63,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

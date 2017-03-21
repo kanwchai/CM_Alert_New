@@ -15,14 +15,14 @@ import java.util.List;
  * Created by NB_A on 15/2/2560.
  */
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class A_ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
 
-    public ExpandableListAdapter(Context _context, List<String> _listDataHeader, HashMap<String, List<String>> _listDataChild) {
+    public A_ExpandableListAdapter(Context _context, List<String> _listDataHeader, HashMap<String, List<String>> _listDataChild) {
         this._context = _context;
         this._listDataHeader = _listDataHeader;
         this._listDataChild = _listDataChild;

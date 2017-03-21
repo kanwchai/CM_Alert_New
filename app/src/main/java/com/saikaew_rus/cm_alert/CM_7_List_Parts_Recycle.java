@@ -18,19 +18,19 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -43,17 +43,17 @@ import java.util.HashMap;
 public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
     TextView tv_regis, tv_kilo, tv_ex_date, due_date;
-    int car_id, part_id, due_fix_id, due_fix_kilo, due_fix_date, sortPartList;
-    String part_name, due_fix_status, partName, maintenance;
+    int car_id, part_id, due_fix_id, due_fix_kilo, due_fix_date, sortPartList, partId;
+    String part_name, due_fix_status, maintenance;
     String[] new_part, Choice;
     EditText due_kilo, due_date_2, due_kilo_2;
     ImageButton imBtRegis, imBtKilo, imBtExpTax;
+    ImageView icon;
 
     DecimalFormat decimalFormat;
 
-    ArrayList<HashMap<String, String>> getdataPartList;
+    ArrayList<HashMap<String, String>> getdataPartList, partDonHave;
     Intent intent;
-    Button add_part;
     Calendar mCalendar;
     DatePickerDialog mDatePicker;
 
@@ -70,6 +70,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
     A_Repo_Check repo_check;
 
     DatePickerDialog mDatePicker2;
+    FloatingActionButton actionButton;
 
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
@@ -92,7 +93,6 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         tv_regis = (TextView) findViewById(R.id.textView6);
         tv_kilo = (TextView) findViewById(R.id.textView7);
         tv_ex_date = (TextView) findViewById(R.id.textView8);
-        add_part = (Button) findViewById(R.id.button10);
         imBtRegis = (ImageButton) findViewById(R.id.editRegis);
         imBtKilo = (ImageButton) findViewById(R.id.editKilo);
         imBtExpTax = (ImageButton) findViewById(R.id.editTax);
@@ -134,13 +134,20 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                 mCalendar.get(Calendar.MONTH),      // เดือน
                 mCalendar.get(Calendar.DAY_OF_MONTH),// วัน (1-31)
                 false);
+
+        //Create a button to attach the menu:
+        icon = new ImageView(this);
+        icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+        actionButton = new FloatingActionButton.Builder(this)
+                .setPosition(4)
+                .setContentView(icon).build();
+        actionButton.setBackground(getResources().getDrawable(R.drawable.btn_add_part));
     }
 
     public void setEvent() {
         imBtRegis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                editDialog("Setting Registration", "Registration Car : ", tb_1_car.car_Register, 1);
                 dialogRegis("Setting Registration", "Registration Car : ", tb_1_car.car_Register);
             }
         });
@@ -148,7 +155,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         imBtKilo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editDialog("Setting Number Kilo", "Number Kilo : ", String.valueOf(tb_6_run_data.run_Kilo_End), 2);
+                dialogKilo("Setting Number Kilo", "Number Kilo : ", String.valueOf(tb_6_run_data.run_Kilo_End));
             }
         });
 
@@ -160,51 +167,67 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
             }
         });
 
-        add_part.setOnClickListener(new View.OnClickListener() {
+        actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
-                builder.setTitle("Select New Part");
-                new_part = repo_5_parts.getPart_Not(car_id);
-
-                builder.setItems(new_part, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        partName = new_part[which];
-                        repo_2_due_of_part_fix.insert_PartByCar(car_id, partName);
-                        tb_2_due_of_part_fix = repo_2_due_of_part_fix.getDue_FixByMax();
-
-                        tb_4_historys_of_car.fix_Due_Id = tb_2_due_of_part_fix.fix_Due_Id;
-                        tb_4_historys_of_car.car_Id = car_id;
-                        tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
-                        tb_4_historys_of_car.next_Changed_Kilo = tb_6_run_data.run_Kilo_End + tb_2_due_of_part_fix.fix_Due_Kilo;
-
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                        Calendar c = Calendar.getInstance();
-                        tb_4_historys_of_car.changed_Date = df.format(c.getTime());
-                        c.add(Calendar.MONTH, tb_2_due_of_part_fix.fix_Due_Date);
-                        tb_4_historys_of_car.next_Changed_Date = df.format(c.getTime());
-
-                        repo_4_historys_of_car.insert(tb_4_historys_of_car);
-
-                        getPartList(car_id);
-
-                        showToast("Add Part " + partName + " Success");
-                    }
-                });
-                builder.setNegativeButton("Add New Part(if not found)", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intentAddpart = new Intent(getApplicationContext(), CM_9_Add_Parts.class);
-                        intentAddpart.putExtra("car_id", car_id);
-                        startActivity(intentAddpart);
-                    }
-                });
-                builder.create();
-
-                builder.show();
+            public void onClick(View view) {
+                dialog_NewPart();
             }
         });
+    }
+
+    public void dialog_NewPart() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
+        builder.setTitle("Select New Part");
+
+        partDonHave = repo_5_parts.getPart_Not(car_id);
+        new_part = new String[partDonHave.size()];
+
+        for (int i = 0; i < partDonHave.size(); i++) {
+            new_part[i] = partDonHave.get(i).get(TB_5_PARTS.Part_Name_en);
+        }
+
+        builder.setItems(new_part, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("partnothave", partDonHave.get(which).get(TB_5_PARTS.Part_Id) + " +++ "
+                        + partDonHave.get(which).get(TB_5_PARTS.Part_Name_en) + " +++ "
+                        + partDonHave.get(which).get(TB_5_PARTS.Part_Name_th));
+
+                partId = Integer.parseInt(partDonHave.get(which).get(TB_5_PARTS.Part_Id));
+
+                repo_2_due_of_part_fix.insert_PartByCar(car_id, partId);
+                tb_2_due_of_part_fix = repo_2_due_of_part_fix.getDue_FixByMax();
+
+                tb_4_historys_of_car.fix_Due_Id = tb_2_due_of_part_fix.fix_Due_Id;
+                tb_4_historys_of_car.car_Id = car_id;
+                tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
+                tb_4_historys_of_car.next_Changed_Kilo = tb_6_run_data.run_Kilo_End + tb_2_due_of_part_fix.fix_Due_Kilo;
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar c = Calendar.getInstance();
+                tb_4_historys_of_car.changed_Date = df.format(c.getTime());
+                c.add(Calendar.MONTH, tb_2_due_of_part_fix.fix_Due_Date);
+                tb_4_historys_of_car.next_Changed_Date = df.format(c.getTime());
+
+                repo_4_historys_of_car.insert(tb_4_historys_of_car);
+
+                getPartList(car_id);
+
+                showToast("Add Part " + partDonHave.get(which).get(TB_5_PARTS.Part_Name_en) + " Success");
+            }
+        });
+
+        builder.setNegativeButton("Add New Part(if not found)", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intentAddpart = new Intent(getApplicationContext(), CM_9_Add_Parts.class);
+                intentAddpart.putExtra("car_id", car_id);
+                startActivity(intentAddpart);
+            }
+        });
+        builder.create();
+
+        builder.show();
     }
 
     public void getDatacar() {
@@ -304,8 +327,8 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
         dialog.setTitle(titleDialog);
         data.setText(detailTitle);
-        regisFront.setText(detailData.substring(0, detailData.indexOf("-")-1));
-        regisBack.setText(detailData.substring(detailData.indexOf("-")+1));
+        regisFront.setText(detailData.substring(0, detailData.indexOf("-") - 1));
+        regisBack.setText(detailData.substring(detailData.indexOf("-") + 1));
 
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -331,7 +354,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
     }
 
-    public void editDialog(String titleDialog, String detailTitle, final String detailData, final int typeInput) {
+    public void dialogKilo(String titleDialog, String detailTitle, final String detailData) {
         final Dialog dialog = new Dialog(CM_7_List_Parts_Recycle.this);
         dialog.setContentView(R.layout.dialog_custom_edit);
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -344,14 +367,8 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         dialog.setTitle(titleDialog);
         data.setText(detailTitle);
         detail.setText(detailData);
-        if (typeInput == 2) {
-            detail.setInputType(InputType.TYPE_CLASS_NUMBER);
-            detail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
-        } else {
-            detail.setInputType(InputType.TYPE_CLASS_TEXT);
-            detail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
-        }
-        detail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+
+        detail.setFilters(new InputFilter[]{new A_SetMinMaxNumber("1", "500000")});
 
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -359,27 +376,21 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                 if (detail.getText().toString().matches("")) {
                     showToast("Please complete the form below.");
                 } else {
-                    if (typeInput == 2) {
-                        if (Double.parseDouble(detail.getText().toString()) > tb_6_run_data.run_Kilo_End ||
-                                Double.parseDouble(detail.getText().toString()) < tb_6_run_data.run_Kilo_End) {
-                            tb_6_run_data.car_Id = car_id;
-                            tb_6_run_data.run_Kilo_Start = tb_6_run_data.run_Kilo_End;
-                            tb_6_run_data.run_Kilo_End = Double.parseDouble(detail.getText().toString());
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                            Calendar c = Calendar.getInstance();
-                            tb_6_run_data.run_Date_Start = df.format(c.getTime());
-                            tb_6_run_data.run_Date_End = df.format(c.getTime());
-                            repo_6_run_data.insert(tb_6_run_data);
+                    if (Double.parseDouble(detail.getText().toString()) > tb_6_run_data.run_Kilo_End ||
+                            Double.parseDouble(detail.getText().toString()) < tb_6_run_data.run_Kilo_End) {
+                        tb_6_run_data.car_Id = car_id;
+                        tb_6_run_data.run_Kilo_Start = tb_6_run_data.run_Kilo_End;
+                        tb_6_run_data.run_Kilo_End = Double.parseDouble(detail.getText().toString());
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar c = Calendar.getInstance();
+                        tb_6_run_data.run_Date_Start = df.format(c.getTime());
+                        tb_6_run_data.run_Date_End = df.format(c.getTime());
+                        repo_6_run_data.insert(tb_6_run_data);
 
-                            if (repo_check.chkDueKilo(car_id) >= 1) {
-                                notifiChkkilo();
-                            }
-
-                        } else {
-
+                        if (repo_check.chkDueKilo(car_id) >= 1) {
+                            notifiChkkilo();
                         }
-                    } else {
-                        repo_1_car.updateRegis(car_id, detail.getText().toString());
+
                     }
                     getPartList(car_id);
                     onResume();
@@ -387,6 +398,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                 }
             }
         });
+
         bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -407,10 +419,10 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.iconnew_4_02_60);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
 
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.iconnew_4_02_60)
+                .setSmallIcon( R.mipmap.ic_logo)
                 .setLargeIcon(icon)
                 .setContentTitle(TITLE)
                 .setContentText(MESSAGE)
@@ -477,7 +489,6 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
             public ViewHolder(View view) {
                 super(view);
-
                 partName = (TextView) view.findViewById(R.id.partName);
                 partDate = (TextView) view.findViewById(R.id.partDate);
                 partKilo = (TextView) view.findViewById(R.id.partKilo);
@@ -500,6 +511,12 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(CM_7_List_Parts_Recycle_Sub.ViewHolder holder, final int position) {
+            if (position == getPartList_Recy.size() - 1) {
+                actionButton.setBackgroundResource(0);
+            } else {
+                actionButton.setBackgroundResource(R.drawable.btn_add_part);
+            }
+
             DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
             Double aDouble = Double.valueOf((getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.CountKilo)));
 

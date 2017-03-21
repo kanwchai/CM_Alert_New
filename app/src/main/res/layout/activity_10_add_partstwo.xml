@@ -2,11 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,8 +17,8 @@
             android:ems="10"
             android:hint="Term maturity"
             android:inputType="numberDecimal"
-            android:singleLine="true"
-            android:maxLength="6" />
+            android:maxLength="6"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/date_due"
@@ -31,47 +27,47 @@
             android:ems="10"
             android:hint="Lifetime/Monts"
             android:inputType="number"
-            android:singleLine="true"
-            android:maxLength="2" />
+            android:maxLength="2"
+            android:singleLine="true" />
 
         <RadioGroup
+            android:id="@+id/radioManType"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/border_group"
-            android:padding="5dp"
-            android:id="@+id/radioManType">
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Maintenance Type"
-                android:textSize="18dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:textColor="#000000" />
+                android:text="Maintenance Type"
+                android:textColor="#000000"
+                android:textSize="18dp" />
 
             <RadioButton
+                android:id="@+id/modify"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Modify"
-                android:id="@+id/modify"
                 android:layout_marginTop="5dp"
                 android:checked="true"
+                android:text="Modify"
                 android:textColor="#000000" />
 
             <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Repair"
                 android:id="@+id/repair"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
+                android:text="Repair"
                 android:textColor="#000000" />
 
             <RadioButton
+                android:id="@+id/clean"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Clean"
-                android:id="@+id/clean"
                 android:layout_marginTop="5dp"
+                android:text="Clean"
                 android:textColor="#000000" />
 
         </RadioGroup>

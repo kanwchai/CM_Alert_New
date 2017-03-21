@@ -42,15 +42,25 @@ public class Repo_2_DUE_OF_PART_FIX {
 
         if (gas == 1) {
             insertQuery = "INSERT INTO " + TB_2_DUE_OF_PART_FIX.TABLE +
-                    " SELECT null," + TB_3_DUE_OF_PART_STANDART.Part_Id + "," + car_id + "," +
-                    TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                    " SELECT null" +
+                    "," + TB_3_DUE_OF_PART_STANDART.Part_Id +
+                    "," + car_id +
+                    "," + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo +
+                    "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date +
+                    "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                    "," + 1 +
                     " FROM " +
                     "(SELECT * FROM " + TB_3_DUE_OF_PART_STANDART.TABLE + " WHERE " +
                     TB_3_DUE_OF_PART_STANDART.Type_Oil_Id + " = " + oil + ")";
         } else {
             insertQuery = "INSERT INTO " + TB_2_DUE_OF_PART_FIX.TABLE +
-                    " SELECT null," + TB_3_DUE_OF_PART_STANDART.Part_Id + "," + car_id + "," +
-                    TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                    " SELECT null" +
+                    "," + TB_3_DUE_OF_PART_STANDART.Part_Id +
+                    "," + car_id +
+                    "," + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo +
+                    "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date +
+                    "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                    "," + 1 +
                     " FROM " +
                     "(SELECT * FROM " + TB_3_DUE_OF_PART_STANDART.TABLE + " WHERE " +
                     TB_3_DUE_OF_PART_STANDART.Type_Oil_Id + " = " + oil +
@@ -64,18 +74,22 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close();
     }
 
-    public void insert_PartByCar(int car_id, String partName) {
+    public void insert_PartByCar(int car_id, int partId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         String insertPart = "INSERT INTO " + TB_2_DUE_OF_PART_FIX.TABLE +
-                " SELECT null,p." + TB_5_PARTS.Part_Id + "," + car_id + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "," +
-                TB_3_DUE_OF_PART_STANDART.St_Due_Date + "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
-                " FROM " + TB_5_PARTS.TABLE + " p," + TB_3_DUE_OF_PART_STANDART.TABLE + " ds" +
-                " ON p." + TB_5_PARTS.Part_Id + " = " + "ds." + TB_3_DUE_OF_PART_STANDART.Part_Id +
-                " WHERE " + TB_5_PARTS.Part_Name_en + " = " + "'" + partName + "'" +
-                " GROUP BY " + TB_5_PARTS.Part_Name_en;
+                " SELECT null" +
+                "," + TB_5_PARTS.Part_Id +
+                "," + car_id +
+                "," + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo +
+                "," + TB_3_DUE_OF_PART_STANDART.St_Due_Date +
+                "," + TB_3_DUE_OF_PART_STANDART.St_Due_Status +
+                "," + 1 + " FROM " +
+                " (SELECT MAX(ds." + TB_3_DUE_OF_PART_STANDART.St_Due_Kilo + "),* FROM " + TB_5_PARTS.TABLE + " p, " + TB_3_DUE_OF_PART_STANDART.TABLE + " ds " +
+                " ON p." + TB_5_PARTS.Part_Id + " = ds." + TB_5_PARTS.Part_Id +
+                " WHERE p." + TB_5_PARTS.Part_Id + " = " + partId + ")";
 
-        Log.d("insert_querypart",insertPart);
+        Log.d("insert_querypart", insertPart);
 
         db.execSQL(insertPart);
         db.close();

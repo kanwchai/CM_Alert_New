@@ -16,8 +16,10 @@ import com.fourmob.datetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class CM_5_Edit_User extends AppCompatActivity {
 
@@ -31,11 +33,13 @@ public class CM_5_Edit_User extends AppCompatActivity {
     LinearLayout linLayBirth, linLayExpired;
     A_Toast_Time a_toast_time;
 
-    Repo_9_USER repo;
-    TB_9_USER user;
+    Repo_9_USER repo_9_user;
+    TB_9_USER tb_9_user;
 
     Button bSave;
-    Button button1;
+    Button bCancel;
+
+    ArrayList<HashMap<String, String>> dataUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +59,20 @@ public class CM_5_Edit_User extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView8);
         linLayBirth = (LinearLayout) findViewById(R.id.linBirth);
         linLayExpired = (LinearLayout) findViewById(R.id.linLicense);
-        button1 = (Button) findViewById(R.id.button2);
+        bCancel = (Button) findViewById(R.id.button2);
     }
 
     public void setValue() {
         mCalendar = Calendar.getInstance();
-        repo = new Repo_9_USER(this);
-        user = new TB_9_USER();
+        repo_9_user = new Repo_9_USER(this);
+        tb_9_user = new TB_9_USER();
         a_toast_time = new A_Toast_Time();
 
-        user = repo.getFirstUser();
-        mTextName.setText(user.user_Name);
+        dataUser = repo_9_user.getUserList();
+        tb_9_user = repo_9_user.getFirstUser();
+        mTextName.setText(tb_9_user.user_Name);
 
-        if (user.user_Birth != null) {
+        if (tb_9_user.user_Birth != null) {
             //*****************************  Convert Format Date  *****************************//
 
             SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd");
@@ -75,7 +80,7 @@ public class CM_5_Edit_User extends AppCompatActivity {
 
             Date dateBirth = null;
             try {
-                dateBirth = curFormater.parse(user.user_Birth);
+                dateBirth = curFormater.parse(tb_9_user.user_Birth);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -83,7 +88,7 @@ public class CM_5_Edit_User extends AppCompatActivity {
 
             Date dateDue = null;
             try {
-                dateDue = curFormater.parse(user.user_Due_Date_Driving);
+                dateDue = curFormater.parse(tb_9_user.user_Due_Date_Driving);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -110,19 +115,24 @@ public class CM_5_Edit_User extends AppCompatActivity {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.user_Name = mTextName.getText().toString();
+                tb_9_user.user_Name = mTextName.getText().toString();
                 if (mTextName.getText().toString().matches("") ||
                         mTextDate.getText().toString().matches("") ||
                         mTextDate_2.getText().toString().matches("")) {
                     a_toast_time.Toast_Time(getApplicationContext(), "Please complete the form below.", 1200);
                 } else {
-                    repo.update(user);
+                    if (dataUser.size() <= 0) {
+                        repo_9_user.insert(tb_9_user);
+                    } else {
+                        repo_9_user.update(tb_9_user);
+                    }
+
                     finish();
                 }
             }
         });
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -166,7 +176,7 @@ public class CM_5_Edit_User extends AppCompatActivity {
                     mCalendar.set(year, month, day);
                     Date date = mCalendar.getTime();
                     String textDate = dfm.format(date);
-                    user.user_Birth = dfm_insert.format(date);
+                    tb_9_user.user_Birth = dfm_insert.format(date);
                     mTextDate.setText(textDate);
 
                 }
@@ -182,7 +192,7 @@ public class CM_5_Edit_User extends AppCompatActivity {
                     mCalendar.set(year, month, day);
                     Date date = mCalendar.getTime();
                     String textDate = dfm.format(date);
-                    user.user_Due_Date_Driving = dfm_insert.format(date);
+                    tb_9_user.user_Due_Date_Driving = dfm_insert.format(date);
                     mTextDate_2.setText(textDate);
 
                 }

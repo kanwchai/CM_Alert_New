@@ -23,7 +23,7 @@ public class Repo_10_PROVINCES {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_10_PROVINCES.TABLE;
 
-        // TB_10_PROVINCES user = new TB_10_PROVINCES();
+        // TB_10_PROVINCES tb_9_user = new TB_10_PROVINCES();
         ArrayList<HashMap<String, String>> provinceList = new ArrayList<HashMap<String, String>>();
 
         Cursor cursor = db.rawQuery(selectQuery, null);

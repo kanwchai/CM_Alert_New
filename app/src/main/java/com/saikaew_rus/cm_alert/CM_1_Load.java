@@ -7,6 +7,7 @@ import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
@@ -53,10 +54,12 @@ public class CM_1_Load extends AppCompatActivity {
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.iconnew_4_02_60);
+        Uri uriSound = Uri.parse("android.resource://" + getApplication().getPackageName() + "/" + R.raw.car_aleart_pop);
+
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
 
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.iconnew_4_02_60)
+                .setSmallIcon(R.mipmap.ic_logo)
                 .setLargeIcon(icon)
                 .setContentTitle(TITLE)
                 .setContentText(MESSAGE)
@@ -64,6 +67,8 @@ public class CM_1_Load extends AppCompatActivity {
                 .setVibrate(new long[]{500, 1000, 500})
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setSound(uriSound)
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

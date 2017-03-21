@@ -11,10 +11,11 @@
         <item>(กำลังใช้งาน)</item>
     </string-array>
     <string name="reg_car">Registration Car</string>
-    <string name="file">Setting</string>
     <string name="create_new">create_new</string>
-    <string name="open">open</string>
     <string name="title_activity_cm_6__travel__map">Map</string>
     <string name="title_activity_cm_6__test__maps">Map</string>
     <string name="title_activity_a__maps">Map</string>
+    <string name="noti">Notification</string>
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
 </resources>

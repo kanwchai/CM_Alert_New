@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class A_ListAlert extends AppCompatActivity {
-    ExpandableListAdapter listAdapter;
+    A_ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
@@ -30,7 +30,7 @@ public class A_ListAlert extends AppCompatActivity {
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        listAdapter = new A_ExpandableListAdapter(this, listDataHeader, listDataChild);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);

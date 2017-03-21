@@ -138,7 +138,7 @@ public class A_CircularBar extends ProgressBar {
         mBackgroundColorPaint.setStyle(Paint.Style.STROKE);
         mBackgroundColorPaint.setStrokeWidth(mStrokeWidth);
 
-        mTitlePaint.setTextSize(55);
+        mTitlePaint.setTextSize(40);
         mTitlePaint.setStyle(Style.FILL);
         mTitlePaint.setAntiAlias(true);
         mTitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.NORMAL));

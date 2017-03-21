@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by NB_A on 18/10/2559.
@@ -75,31 +74,32 @@ public class Repo_5_PARTS {
 
     }
 
-    public String[] getPart_Not(int carId) {
+    public ArrayList<HashMap<String, String>> getPart_Not(int carId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT " + TB_5_PARTS.Part_Name_en +
-                " FROM " + TB_5_PARTS.TABLE + " p " +
-                " LEFT OUTER JOIN " +
-                "(SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE + " WHERE " + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId + ") df" +
-                " ON " +
-                " p." + TB_5_PARTS.Part_Id + " = " + " df." + TB_2_DUE_OF_PART_FIX.Part_Id +
-                " WHERE " +
-                TB_2_DUE_OF_PART_FIX.Car_Id + " IS NULL GROUP BY p." + TB_5_PARTS.Part_Id;
+        String selectQuery = "SELECT * FROM " + TB_5_PARTS.TABLE +
+                " WHERE " + TB_5_PARTS.TABLE + "." + TB_5_PARTS.Part_Id + " NOT IN " +
+                "(SELECT " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Part_Id + " FROM " + TB_2_DUE_OF_PART_FIX.TABLE +
+                " WHERE " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId + ")";
 
+        ArrayList<HashMap<String, String>> part_Not = new ArrayList<>();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        List<String> getPartName = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
             do {
-                getPartName.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
+                HashMap<String, String> part = new HashMap<>();
+
+                part.put(TB_5_PARTS.Part_Id, String.valueOf(cursor.getInt(cursor.getColumnIndex(TB_5_PARTS.Part_Id))));
+                part.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
+                part.put(TB_5_PARTS.Part_Name_th, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_th)));
+
+                part_Not.add(part);
             } while (cursor.moveToNext());
         }
 
-        String[] partname = getPartName.toArray(new String[getPartName.size()]);
-
         cursor.close();
         db.close();
-        return partname;
+
+        return part_Not;
     }
 
 }

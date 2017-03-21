@@ -31,6 +31,7 @@ public class Repo_1_CAR {
         values.put(TB_1_CAR.Car_Register, car.car_Register);
         values.put(TB_1_CAR.Car_Tax_Date, car.car_Tax_Date);
         values.put(TB_1_CAR.Province_Name, car.province_Name);
+        values.put(TB_1_CAR.Car_Pic, car.car_Pic);
 
         // Inserting Row
         int car_Id = (int) db.insert(TB_1_CAR.TABLE, null, values);
@@ -117,13 +118,14 @@ public class Repo_1_CAR {
                 car.put(TB_1_CAR.Province_Name, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Province_Name)));
                 car.put(TB_1_CAR.Car_Register, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register)));
                 car.put(TB_1_CAR.Car_Tax_Date, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date)));
+                car.put(TB_1_CAR.Car_Pic, cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Pic)));
                 car.put(TB_1_CAR.SetTitle, String.valueOf(Integer.parseInt(String.format("%.0f", totalPercent))));
 
                 if (totalPercent <= 0) {
                     car.put(TB_1_CAR.SetColor, String.valueOf(R.color.LifeTime_0));
-                }else if (totalPercent <= 25) {
+                } else if (totalPercent <= 25) {
                     car.put(TB_1_CAR.SetColor, String.valueOf(R.color.LifeTime_25));
-                }else if (totalPercent <= 50) {
+                } else if (totalPercent <= 50) {
                     car.put(TB_1_CAR.SetColor, String.valueOf(R.color.LifeTime_50));
                 }
 

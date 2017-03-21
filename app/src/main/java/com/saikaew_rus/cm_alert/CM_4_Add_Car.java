@@ -3,6 +3,7 @@ package com.saikaew_rus.cm_alert;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,8 +31,13 @@ public class CM_4_Add_Car extends AppCompatActivity {
     DatePickerDialog mDatePicker;
     Calendar mCalendar;
     TextView mTextDate;
-
+    Button b_enter, b_cancel, color_pink, color_red, color_orange, color_yellow, color_green, color_blue, color_gray;
     EditText regisFront, regisBack, kilo;
+    String[] dataAdap;
+    RadioGroup radioGroup;
+    AutoCompleteTextView autoProvince;
+    LinearLayout linearLayout;
+    ImageView imageCar;
 
     TB_1_CAR tb_1_car;
     Repo_1_CAR repo_1_car;
@@ -44,13 +51,8 @@ public class CM_4_Add_Car extends AppCompatActivity {
     A_Repo_Check repo_check;
 
     SimpleDateFormat sdf;
-    Button b_enter, b_cancel;
-    RadioGroup radioGroup;
-    String[] dataAdap;
-    AutoCompleteTextView autoProvince;
     A_Toast_Time a_toast_time;
     ArrayAdapter dataAdapter;
-    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,14 @@ public class CM_4_Add_Car extends AppCompatActivity {
         autoProvince = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         radioGroup = (RadioGroup) findViewById(R.id.radioOil);
         linearLayout = (LinearLayout) findViewById(R.id.linNumKilo);
+        color_pink = (Button) findViewById(R.id.color_pink);
+        color_pink = (Button) findViewById(R.id.color_red);
+        color_pink = (Button) findViewById(R.id.color_orange);
+        color_pink = (Button) findViewById(R.id.color_yellow);
+        color_pink = (Button) findViewById(R.id.color_green);
+        color_pink = (Button) findViewById(R.id.color_blue);
+        color_pink = (Button) findViewById(R.id.color_pink);
+        imageCar = (ImageView) findViewById(R.id.imageView2);
     }
 
     public void setValue() {
@@ -107,6 +117,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
 
         tb_1_car.type_Gas_Id = 1;
         tb_1_car.type_Oil_Id = 1;
+        tb_1_car.car_Pic = 6;
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         dataAdap = repo_10_provinces.getProvincesList_1();
@@ -117,6 +128,8 @@ public class CM_4_Add_Car extends AppCompatActivity {
     }
 
     public void setEvent() {
+        kilo.setFilters(new InputFilter[]{new A_SetMinMaxNumber("1", "500000")});
+
         regisFront.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -187,6 +200,40 @@ public class CM_4_Add_Car extends AppCompatActivity {
                 false);
     }
 
+    public void chooseColor(View view) {
+        switch (view.getId()) {
+            case R.id.color_pink:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[0]);
+                tb_1_car.car_Pic = 0;
+                break;
+            case R.id.color_red:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[1]);
+                tb_1_car.car_Pic = 1;
+                break;
+            case R.id.color_orange:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[2]);
+                tb_1_car.car_Pic = 2;
+                break;
+            case R.id.color_yellow:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[3]);
+                tb_1_car.car_Pic = 3;
+                break;
+            case R.id.color_green:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[4]);
+                tb_1_car.car_Pic = 4;
+                break;
+            case R.id.color_blue:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[5]);
+                tb_1_car.car_Pic = 5;
+                break;
+            case R.id.color_gray:
+                imageCar.setBackgroundResource(TB_1_CAR.carPic[6]);
+                tb_1_car.car_Pic = 6;
+                break;
+        }
+
+    }
+
     public void onCheckboxClicked(View view) {
         // Is the button now checked?
         boolean checked = ((Checkable) view).isChecked();
@@ -227,10 +274,11 @@ public class CM_4_Add_Car extends AppCompatActivity {
     }
 
     public void chk_input() {
-        if (regisBack.getText().toString().matches("") ||
-                kilo.getText().toString().matches("") ||
-                mTextDate.getText().toString().matches("") ||
-                autoProvince.getText().toString().matches("")) {
+        if (regisFront.getText().toString().matches("")
+                || regisBack.getText().toString().matches("")
+                || kilo.getText().toString().matches("")
+                || mTextDate.getText().toString().matches("")
+                || autoProvince.getText().toString().matches("")) {
             a_toast_time.Toast_Time(this, "Please complete the form below.", 1200);
         } else {
             if (regisFront.getText().toString().isEmpty()) {
@@ -241,7 +289,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
             }
             tb_1_car.province_Name = autoProvince.getText().toString();
 
-            if (repo_check.chk_Car(tb_1_car.car_Register, autoProvince.getText().toString()) >= 1) {
+            if (repo_check.chk_Car(tb_1_car.car_Register, tb_1_car.province_Name) >= 1) {
                 a_toast_time.Toast_Time(this, "Car registration " + regisBack.getText().toString() + " is duplicate", 1200);
             } else {
                 tb_6_run_data.car_Id = repo_1_car.insert(tb_1_car);

@@ -86,9 +86,8 @@
             android:name=".CM_6_Travel_Map"
             android:label="Travel" />
         <activity android:name=".A_ListAlert" />
-        <activity
-            android:name=".A_MapsActivity"
-            android:label="@string/title_activity_a__maps"></activity>
+        <activity android:name=".A_AboutRus" />
+        <activity android:name=".A_Choose_Language"></activity>
     </application>
 
 </manifest>
