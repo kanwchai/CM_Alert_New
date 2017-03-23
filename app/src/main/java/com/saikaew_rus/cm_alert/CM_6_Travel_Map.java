@@ -55,7 +55,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     LocationRequest mLocationRequest;
     Location mLastLocation, locA, locB;
 
-    TextView workng;
+    TextView workng, car_regis, car_kilo;
     EditText regCar, mKilocarText;
     int car_id, countKilo;
     RadioButton btnStop, btnStart;
@@ -69,11 +69,13 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     DecimalFormat decimalFormat;
     SimpleDateFormat sdf;
     A_Repo_Check a_repo_check;
+    RadioButton radioStart, radioStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_6_travel_map);
+        this.setTitle(A_Word_App.title_travel[A_Word_App.language]);
 
         setLayout();
         setValue();
@@ -84,12 +86,16 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void setLayout() {
+        car_regis = (TextView) findViewById(R.id.textView5);
+        car_kilo = (TextView) findViewById(R.id.textviewKilo);
         mKilocarText = (EditText) findViewById(R.id.kilo_car);
         regCar = (EditText) findViewById(R.id.reg_car_tra);
         workng = (TextView) findViewById(R.id.statusRun);
         gifImageView = (GifImageView) findViewById(R.id.gifImage_work);
         btnStop = (RadioButton) findViewById(R.id.stoptra);
         btnStart = (RadioButton) findViewById(R.id.starttra);
+        radioStart = (RadioButton) findViewById(R.id.starttra);
+        radioStop = (RadioButton) findViewById(R.id.stoptra);
     }
 
     public void setValue() {
@@ -111,9 +117,14 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         Log.d("reg_car", tb_1_car.car_Register);
         mKilocarText.setText(decimalFormat.format(tb_6_run_data.run_Kilo_End));
 
-        workng.setText("Disconnecting");
+        workng.setText(A_Word_App.travel_disconnecting[A_Word_App.language]);
         workng.setTextColor(Color.RED);
         gifImageView.setBackgroundResource(0);
+
+        car_regis.setText(A_Word_App.travel_regis_car[A_Word_App.language]);
+        car_kilo.setText(A_Word_App.travel_kilo_car[A_Word_App.language]);
+        radioStart.setText(A_Word_App.travel_start[A_Word_App.language]);
+        radioStop.setText(A_Word_App.travel_stop[A_Word_App.language]);
     }
 
     public void travel_control(View view) {
@@ -136,7 +147,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                     if (mGoogleApiClient != null) {
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
                         mGoogleApiClient = null;
-                        workng.setText("Disconnecting");
+                        workng.setText(A_Word_App.travel_disconnecting[A_Word_App.language]);
                         workng.setTextColor(Color.RED);
                         gifImageView.setBackgroundResource(0);
                         setStopTravel();
@@ -174,7 +185,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                     buildGoogleApiClient();
                     mMap.setMyLocationEnabled(true);
                 }
-                workng.setText("Connecting");
+                workng.setText(A_Word_App.travel_connecting[A_Word_App.language]);
                 workng.setTextColor(getResources().getColor(R.color.working));
                 gifImageView.setBackgroundResource(R.drawable.point);
             }

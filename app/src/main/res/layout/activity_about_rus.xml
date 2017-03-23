@@ -4,99 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.saikaew_rus.cm_alert.A_AboutRus"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.saikaew_rus.cm_alert.A_AboutRus">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.3"
         android:orientation="vertical"></LinearLayout>
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.2"
+        android:layout_weight="1.25"
         android:gravity="center"
         android:text="TextView"
         android:textSize="24sp" />
 
-    <ImageView
-        android:id="@+id/imageView9"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
         android:layout_weight="1"
-        app:srcCompat="@drawable/rmutsb_logo_en" />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.25" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.2"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.25"
+        android:layout_weight="1.3"
         android:orientation="vertical"></LinearLayout>
 
 </LinearLayout>

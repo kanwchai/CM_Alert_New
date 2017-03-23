@@ -8,6 +8,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +51,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
     EditText due_kilo, due_date_2, due_kilo_2;
     ImageButton imBtRegis, imBtKilo, imBtExpTax;
     ImageView icon;
+    LinearLayout linearLayout;
 
     DecimalFormat decimalFormat;
 
@@ -80,6 +83,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_7_list_parts_recycle);
+        this.setTitle(A_Word_App.title_list_part[A_Word_App.language]);
 
         setLayout();
         setValue();
@@ -97,7 +101,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         imBtKilo = (ImageButton) findViewById(R.id.editKilo);
         imBtExpTax = (ImageButton) findViewById(R.id.editTax);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyPart);
-
+        linearLayout = (LinearLayout) findViewById(R.id.linearListPart);
     }
 
     public void setValue() {
@@ -182,8 +186,10 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         partDonHave = repo_5_parts.getPart_Not(car_id);
         new_part = new String[partDonHave.size()];
 
+        String[] partName = {TB_5_PARTS.Part_Name_en, TB_5_PARTS.Part_Name_th};
+
         for (int i = 0; i < partDonHave.size(); i++) {
-            new_part[i] = partDonHave.get(i).get(TB_5_PARTS.Part_Name_en);
+            new_part[i] = partDonHave.get(i).get(partName[A_Word_App.language]);
         }
 
         builder.setItems(new_part, new DialogInterface.OnClickListener() {
@@ -195,21 +201,29 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
                 partId = Integer.parseInt(partDonHave.get(which).get(TB_5_PARTS.Part_Id));
 
-                repo_2_due_of_part_fix.insert_PartByCar(car_id, partId);
-                tb_2_due_of_part_fix = repo_2_due_of_part_fix.getDue_FixByMax();
+                Cursor cursor = repo_2_due_of_part_fix.chkPartId_CarId(partId, car_id);
+                if (cursor.getCount() >= 1) {
+                    tb_2_due_of_part_fix.fix_Due_Id = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
+                    tb_2_due_of_part_fix.fix_Due_Show = 1;
+                    repo_2_due_of_part_fix.update_StatusShow(tb_2_due_of_part_fix);
 
-                tb_4_historys_of_car.fix_Due_Id = tb_2_due_of_part_fix.fix_Due_Id;
-                tb_4_historys_of_car.car_Id = car_id;
-                tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
-                tb_4_historys_of_car.next_Changed_Kilo = tb_6_run_data.run_Kilo_End + tb_2_due_of_part_fix.fix_Due_Kilo;
+                } else {
+                    repo_2_due_of_part_fix.insert_PartByCar(car_id, partId);
+                    tb_2_due_of_part_fix = repo_2_due_of_part_fix.getDue_FixByMax();
 
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar c = Calendar.getInstance();
-                tb_4_historys_of_car.changed_Date = df.format(c.getTime());
-                c.add(Calendar.MONTH, tb_2_due_of_part_fix.fix_Due_Date);
-                tb_4_historys_of_car.next_Changed_Date = df.format(c.getTime());
+                    tb_4_historys_of_car.fix_Due_Id = tb_2_due_of_part_fix.fix_Due_Id;
+                    tb_4_historys_of_car.car_Id = car_id;
+                    tb_4_historys_of_car.changed_Kilo = tb_6_run_data.run_Kilo_End;
+                    tb_4_historys_of_car.next_Changed_Kilo = tb_6_run_data.run_Kilo_End + tb_2_due_of_part_fix.fix_Due_Kilo;
 
-                repo_4_historys_of_car.insert(tb_4_historys_of_car);
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    Calendar c = Calendar.getInstance();
+                    tb_4_historys_of_car.changed_Date = df.format(c.getTime());
+                    c.add(Calendar.MONTH, tb_2_due_of_part_fix.fix_Due_Date);
+                    tb_4_historys_of_car.next_Changed_Date = df.format(c.getTime());
+
+                    repo_4_historys_of_car.insert(tb_4_historys_of_car);
+                }
 
                 getPartList(car_id);
 
@@ -422,7 +436,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
 
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon( R.mipmap.ic_logo)
+                .setSmallIcon(R.mipmap.ic_logo)
                 .setLargeIcon(icon)
                 .setContentTitle(TITLE)
                 .setContentText(MESSAGE)
@@ -512,9 +526,9 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         @Override
         public void onBindViewHolder(CM_7_List_Parts_Recycle_Sub.ViewHolder holder, final int position) {
             if (position == getPartList_Recy.size() - 1) {
-                actionButton.setBackgroundResource(0);
+                actionButton.setPosition(FloatingActionButton.POSITION_RIGHT_CENTER, (FrameLayout.LayoutParams) actionButton.getLayoutParams());
             } else {
-                actionButton.setBackgroundResource(R.drawable.btn_add_part);
+                actionButton.setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT, (FrameLayout.LayoutParams) actionButton.getLayoutParams());
             }
 
             DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
@@ -529,25 +543,25 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    due_fix_id = Integer.valueOf(getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
-                    part_id = Integer.valueOf(getdataPartList.get(position).get(TB_5_PARTS.Part_Id));
-                    part_name = getdataPartList.get(position).get(TB_5_PARTS.Part_Name_en).toString();
-                    if (getdataPartList.get(position).get(TB_5_PARTS.Maintenance_Guide_En) == null) {
+                    due_fix_id = Integer.valueOf(getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
+                    part_id = Integer.valueOf(getPartList_Recy.get(position).get(TB_5_PARTS.Part_Id));
+                    part_name = getPartList_Recy.get(position).get(TB_5_PARTS.Part_Name_en).toString();
+                    if (getPartList_Recy.get(position).get(TB_5_PARTS.Maintenance_Guide_En) == null) {
                         maintenance = "  ";
                     } else {
-                        maintenance = getdataPartList.get(position).get(TB_5_PARTS.Maintenance_Guide_En).toString();
+                        maintenance = getPartList_Recy.get(position).get(TB_5_PARTS.Maintenance_Guide_En).toString();
                     }
-                    if (!getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo).equals("")) {
-                        due_fix_kilo = Integer.valueOf(getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
+                    if (!getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo).equals("")) {
+                        due_fix_kilo = Integer.valueOf(getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo));
                     } else {
                         due_fix_kilo = 0;
                     }
-                    if (!getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date).equals("")) {
-                        due_fix_date = Integer.valueOf(getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
+                    if (!getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date).equals("")) {
+                        due_fix_date = Integer.valueOf(getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Date));
                     } else {
                         due_fix_date = 0;
                     }
-                    due_fix_status = getdataPartList.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
+                    due_fix_status = getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
 
                     showToast("Selected Part : " + part_name);
 
@@ -658,7 +672,10 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                                 builder_1.setMessage("Delete " + part_name + " ?");
                                 builder_1.setNegativeButton("OK ", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        repo_2_due_of_part_fix.delete(due_fix_id);
+                                        tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;
+                                        tb_2_due_of_part_fix.fix_Due_Show = 0;
+
+                                        repo_2_due_of_part_fix.update_StatusShow(tb_2_due_of_part_fix);
                                         Toast.makeText(getApplicationContext(), "Part " + part_name + " is Deleted Success", Toast.LENGTH_SHORT).show();
                                         getPartList(car_id);
                                     }

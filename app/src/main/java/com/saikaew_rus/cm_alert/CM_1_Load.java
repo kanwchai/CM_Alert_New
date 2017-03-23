@@ -13,17 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CM_1_Load extends AppCompatActivity {
 
     TB_9_USER tb_9_user;
     Repo_9_USER repo_9_user;
+    Repo_11_SYSCONFIG repo_11_sysconfig;
 
     ArrayList userList;
 
     Thread splashTread;
 
     A_Repo_Check a_repo_check;
+    HashMap<String, String> dataConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class CM_1_Load extends AppCompatActivity {
         setContentView(R.layout.activity_1_load);
 
         a_repo_check = new A_Repo_Check(this);
+        repo_11_sysconfig = new Repo_11_SYSCONFIG(this);
         chkTotal();
         tb_9_user = new TB_9_USER();
         repo_9_user = new Repo_9_USER(this);
@@ -92,18 +96,26 @@ public class CM_1_Load extends AppCompatActivity {
                     // do nothing
                 }
 
-                if (userList.size() == 0) {
-                    Intent intent = new Intent(CM_1_Load.this, CM_2_Add_User.class);
-                    startActivity(intent);
-                    finish();
+                if (repo_11_sysconfig.chkLang() <= 0) {
+                    intent(A_Choose_Language.class);
                 } else {
-                    Intent intent = new Intent(CM_1_Load.this, CM_3_Car_Recycle.class);
-                    startActivity(intent);
-                    finish();
+                    dataConfig = repo_11_sysconfig.getConfig();
+                    A_Word_App.language = Integer.parseInt(dataConfig.get(TB_11_Sysconfig.Sys_Value));
+                    if (userList.size() == 0) {
+                        intent(CM_2_Add_User.class);
+                    } else {
+                        intent(CM_3_Car_Recycle.class);
+                    }
                 }
             }
         };
         splashTread.start();
+    }
+
+    public void intent(Class aClass) {
+        Intent intent = new Intent(getApplicationContext(), aClass);
+        startActivity(intent);
+        finish();
     }
 }
 

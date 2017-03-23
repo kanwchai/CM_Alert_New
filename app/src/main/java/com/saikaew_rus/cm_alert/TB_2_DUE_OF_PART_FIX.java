@@ -27,4 +27,5 @@ public class TB_2_DUE_OF_PART_FIX {
     public int fix_Due_Kilo;
     public int fix_Due_Date;
     public String fix_Due_Status;
+    public int fix_Due_Show;
 }

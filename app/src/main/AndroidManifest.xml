@@ -84,10 +84,23 @@
 
         <activity
             android:name=".CM_6_Travel_Map"
-            android:label="Travel" />
-        <activity android:name=".A_ListAlert" />
-        <activity android:name=".A_AboutRus" />
-        <activity android:name=".A_Choose_Language"></activity>
+            android:label="Travel"
+            android:parentActivityName=".CM_3_Car_Recycle" />
+        <activity
+            android:name=".A_AboutRus"
+            android:label="About"
+            android:parentActivityName=".CM_3_Car_Recycle" />
+        <activity
+            android:name=".A_Choose_Language"
+            android:label="Choose Language" />
+        <activity
+            android:name=".A_Setting"
+            android:label="Setting"
+            android:parentActivityName=".CM_3_Car_Recycle" />
+        <activity
+            android:name=".A_ListAlert"
+            android:label="Notification"
+            android:parentActivityName=".CM_3_Car_Recycle" />
     </application>
 
 </manifest>

@@ -50,6 +50,7 @@ public class CM_6_Travel extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_6_travel);
+        this.setTitle(A_Word_App.title_travel[A_Word_App.language]);
 
         setLayout();
         setValue();

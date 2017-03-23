@@ -136,7 +136,6 @@ public class Repo_1_CAR {
         cursor.close();
         db.close();
         return carList;
-
     }
 
     public TB_1_CAR getCarById(int Id) {

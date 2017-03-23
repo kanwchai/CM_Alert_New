@@ -58,6 +58,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_4_add_car);
+        this.setTitle(A_Word_App.title_add_car[A_Word_App.language]);
 
         setLayout();
         setValue();
@@ -104,6 +105,8 @@ public class CM_4_Add_Car extends AppCompatActivity {
     }
 
     public void setValue() {
+        b_enter.setText(A_Word_App.add_user_ok[A_Word_App.language]);
+        b_cancel.setText(A_Word_App.add_user_cancel[A_Word_App.language]);
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
         repo_10_provinces = new Repo_10_PROVINCES(this);

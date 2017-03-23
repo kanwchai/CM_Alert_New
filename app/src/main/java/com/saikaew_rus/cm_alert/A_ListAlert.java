@@ -21,6 +21,7 @@ public class A_ListAlert extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_expand_listview);
+        this.setTitle(A_Word_App.title_notification[A_Word_App.language]);
 
         a_repo_check = new A_Repo_Check(this);
 
