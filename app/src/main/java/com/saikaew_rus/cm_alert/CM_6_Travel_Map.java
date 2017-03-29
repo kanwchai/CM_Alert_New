@@ -138,7 +138,6 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                         countKilo = 0;
                         locA = null;
                         locB = null;
-                        setStartTravel();
                     }
                 }
                 break;
@@ -163,6 +162,9 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     public void setStartTravel() {
         tb_6_run_data.run_Kilo_Start = tb_6_run_data.run_Kilo_End;
         tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
+        workng.setText(A_Word_App.travel_connecting[A_Word_App.language]);
+        workng.setTextColor(getResources().getColor(R.color.working));
+        gifImageView.setBackgroundResource(R.drawable.point);
     }
 
     public void setStopTravel() {
@@ -180,14 +182,13 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                     if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         buildGoogleApiClient();
                         mMap.setMyLocationEnabled(true);
+                        setStartTravel();
                     }
                 } else {
                     buildGoogleApiClient();
                     mMap.setMyLocationEnabled(true);
+                    setStartTravel();
                 }
-                workng.setText(A_Word_App.travel_connecting[A_Word_App.language]);
-                workng.setTextColor(getResources().getColor(R.color.working));
-                gifImageView.setBackgroundResource(R.drawable.point);
             }
         }
     }
@@ -197,13 +198,9 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                Toast.makeText(getApplicationContext(),
-                        "This device is supported. Please download google play services", Toast.LENGTH_LONG)
-                        .show();
+                Toast.makeText(getApplicationContext(), "This device is supported. Please download google play services", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getApplicationContext(),
-                        "This device is not supported.", Toast.LENGTH_LONG)
-                        .show();
+                Toast.makeText(getApplicationContext(), "This device is not supported.", Toast.LENGTH_LONG).show();
                 finish();
             }
             return false;
@@ -213,7 +210,6 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
 
     public boolean checkGPS() {
         LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             btnStop.setChecked(true);
             buildAlertMessageNoGps();
@@ -260,13 +256,10 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             // Asking tb_9_user if explanation is needed
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-
                 //Prompt the tb_9_user once explanation has been shown
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
@@ -346,7 +339,6 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                         mMap.setMyLocationEnabled(true);
                     }
                 } else {
-
                     // Permission denied, Disable the functionality that depends on this permission.
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
                 }

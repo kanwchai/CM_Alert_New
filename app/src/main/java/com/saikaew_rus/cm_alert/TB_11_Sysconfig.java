@@ -22,5 +22,5 @@ public class TB_11_Sysconfig {
     public int sys_Id;
     public String sys_Code;
     public String sys_Desc;
-    public int sys_Value;
+    public String sys_Value;
 }

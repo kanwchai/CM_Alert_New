@@ -203,10 +203,8 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
                 Cursor cursor = repo_2_due_of_part_fix.chkPartId_CarId(partId, car_id);
                 if (cursor.getCount() >= 1) {
-                    tb_2_due_of_part_fix.fix_Due_Id = cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
-                    tb_2_due_of_part_fix.fix_Due_Show = 1;
-                    repo_2_due_of_part_fix.update_StatusShow(tb_2_due_of_part_fix);
-
+                    String fix_id = cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Id));
+                    repo_2_due_of_part_fix.update_StatusShow(fix_id, 1);
                 } else {
                     repo_2_due_of_part_fix.insert_PartByCar(car_id, partId);
                     tb_2_due_of_part_fix = repo_2_due_of_part_fix.getDue_FixByMax();
@@ -368,7 +366,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
     }
 
-    public void dialogKilo(String titleDialog, String detailTitle, final String detailData) {
+    public void dialogKilo(String titleDialog, String detailTitle, String detailData) {
         final Dialog dialog = new Dialog(CM_7_List_Parts_Recycle.this);
         dialog.setContentView(R.layout.dialog_custom_edit);
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -649,6 +647,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                                             repo_2_due_of_part_fix.update(tb_2_due_of_part_fix);
 
                                             dialog_2.dismiss();
+                                            getPartList(car_id);
                                         }
                                     }
                                 });
@@ -665,7 +664,6 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                                 builder_1.setTitle(part_name);
                                 builder_1.setMessage(maintenance);
                                 Toast.makeText(getApplicationContext(), "Part " + part_name + " Maintenance Guide", Toast.LENGTH_SHORT).show();
-
                                 builder_1.show();
                             } else if (which == 3) {
                                 AlertDialog.Builder builder_1 = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
@@ -673,9 +671,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                                 builder_1.setNegativeButton("OK ", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;
-                                        tb_2_due_of_part_fix.fix_Due_Show = 0;
-
-                                        repo_2_due_of_part_fix.update_StatusShow(tb_2_due_of_part_fix);
+                                        repo_2_due_of_part_fix.update_StatusShow(String.valueOf(tb_2_due_of_part_fix.fix_Due_Id), 0);
                                         Toast.makeText(getApplicationContext(), "Part " + part_name + " is Deleted Success", Toast.LENGTH_SHORT).show();
                                         getPartList(car_id);
                                     }

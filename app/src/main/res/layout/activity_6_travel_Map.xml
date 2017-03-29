@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".CM_6_Travel_Map">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.1"></LinearLayout>
+        android:layout_weight="2.1"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:id="@+id/data_Travel"
@@ -16,14 +18,14 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:orientation="vertical"
-        android:layout_weight="1.7">
+        android:layout_weight="1.7"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView5"
@@ -40,17 +42,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:editable="false"
+                android:gravity="center_vertical|center_horizontal"
                 android:text="Name"
-                android:textSize="20sp"
-                android:gravity="center_vertical|center_horizontal" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textviewKilo"
@@ -76,20 +78,20 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.1"></LinearLayout>
+        android:layout_weight="2.1"
+        android:orientation="vertical" />
 
     <LinearLayout
         android:id="@+id/btn_switch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/data_Travel"
-        android:orientation="vertical"
-        android:layout_weight="2"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
         <RadioGroup
             android:id="@+id/rdTravel"
@@ -134,23 +136,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.1"></LinearLayout>
+        android:layout_weight="2.1"
+        android:orientation="vertical" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_weight="1">
 
         <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:id="@+id/map" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/statusRun"
@@ -173,9 +175,9 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.1"></LinearLayout>
+        android:layout_weight="2.1"
+        android:orientation="vertical" />
 
 </LinearLayout>

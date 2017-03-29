@@ -79,8 +79,16 @@ public class Repo_2_DUE_OF_PART_FIX {
         String query = "SELECT * FROM " + TB_2_DUE_OF_PART_FIX.TABLE +
                 " WHERE " + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carid +
                 " AND " + TB_2_DUE_OF_PART_FIX.Part_Id + " = " + partid;
+        Log.d("dataforSh", query);
         Cursor cursor = db.rawQuery(query, null);
-        return cursor;
+
+        if (cursor.moveToFirst()) {
+            do {
+                return cursor;
+            } while (cursor.moveToNext());
+        } else {
+            return cursor;
+        }
     }
 
     public void insert_PartByCar(int car_id, int partId) {
@@ -104,14 +112,14 @@ public class Repo_2_DUE_OF_PART_FIX {
         db.close();
     }
 
-    public void update_StatusShow(TB_2_DUE_OF_PART_FIX tb_2_due_of_part_fix) {
+    public void update_StatusShow(String idFixDue, int show) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Show, tb_2_due_of_part_fix.fix_Due_Show);
+        values.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Show, show);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(TB_2_DUE_OF_PART_FIX.TABLE, values, TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "=?", new String[]{String.valueOf(tb_2_due_of_part_fix.fix_Due_Id)});
+        db.update(TB_2_DUE_OF_PART_FIX.TABLE, values, TB_2_DUE_OF_PART_FIX.Fix_Due_Id + "=?", new String[]{idFixDue});
         db.close(); // Closing database connection
     }
 
@@ -176,9 +184,10 @@ public class Repo_2_DUE_OF_PART_FIX {
                 "r." + TB_1_CAR.Car_Id + "= hd." + TB_1_CAR.Car_Id +
                 " AND " +
                 "p." + TB_5_PARTS.Part_Id + "= hd." + TB_5_PARTS.Part_Id +
-                ")" +
+                ") WHERE " + TB_2_DUE_OF_PART_FIX.Fix_Due_Show + " = 1 " +
                 " ORDER BY " + sortPart[sortPartNum];
 
+        Log.d("querygetPart", selectQuery);
         ArrayList<HashMap<String, String>> due_fixList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(carId)});

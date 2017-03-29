@@ -78,8 +78,10 @@ public class Repo_5_PARTS {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TB_5_PARTS.TABLE +
                 " WHERE " + TB_5_PARTS.TABLE + "." + TB_5_PARTS.Part_Id + " NOT IN " +
-                "(SELECT " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Part_Id + " FROM " + TB_2_DUE_OF_PART_FIX.TABLE +
-                " WHERE " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId + ")";
+                "(SELECT " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Part_Id +
+                " FROM " + TB_2_DUE_OF_PART_FIX.TABLE +
+                " WHERE " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Car_Id + " = " + carId +
+                " AND " + TB_2_DUE_OF_PART_FIX.TABLE + "." + TB_2_DUE_OF_PART_FIX.Fix_Due_Show + " = 1)";
 
         ArrayList<HashMap<String, String>> part_Not = new ArrayList<>();
         Cursor cursor = db.rawQuery(selectQuery, null);

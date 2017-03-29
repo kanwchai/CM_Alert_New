@@ -21,6 +21,7 @@ public class A_Word_App {
 
     //Value Config App
     public static int language = 0;
+    public static String timealert = " ";
 
     //Choose Language
     public static final String[] langChooseWord = {"English", "ไทย"};
@@ -66,4 +67,11 @@ public class A_Word_App {
     public static final String[] choice_en = {"Travel", "Maintenance", "History", "Delete"};
     public static final String[] choice_th = {"เดินทาง", "บำรุงรักษา", "ประวัติ", "ลบ"};
     public static String[][] choice_has = new String[][]{choice_en, choice_th};
+
+    //Dialog Show Alert
+    public static final String[] dialog_list_maintenance = {"List of maintenance", "รายการดูแลรักษา"};
+    public static final String[] dialog_driving_licence = {"Driving licence", "ใบขับขี่"};
+    public static final String[] dialog_car = {"Car", "รถยนต์"};
+    public static final String[] dialog_tax_car = {"Tax car", "ภาษีรถยนต์"};
+    public static final String[] dialog_close_alert = {"Do not show 1 day","ปิดการแจ้งเตือน 1 วัน"};
 }

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +26,7 @@ public class A_Repo_Check {
         String selectQuery = "SELECT * FROM " + TB_9_USER.TABLE + " WHERE " + TB_9_USER.User_Due_Date_Driving + " < DATE('now','+30 day')";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
         size = cursor.getCount();
 
         cursor.close();
@@ -37,6 +41,7 @@ public class A_Repo_Check {
         String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE + " WHERE " + TB_1_CAR.Car_Tax_Date + " < DATE('now','+30 day')";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
         size = cursor.getCount();
 
         cursor.close();
@@ -55,6 +60,7 @@ public class A_Repo_Check {
                 " WHERE julianday(" + TB_4_HISTORYS_OF_CAR.Next_Changed_Date + ") - julianday('now') <= 15";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
         size = cursor.getCount();
 
         cursor.close();
@@ -127,6 +133,20 @@ public class A_Repo_Check {
             do {
                 name = cursor.getString(cursor.getColumnIndex(TB_9_USER.User_Name));
                 drivLicense = cursor.getString(cursor.getColumnIndex(TB_9_USER.User_Due_Date_Driving));
+
+                //*****************************  Convert Format Date  *****************************//
+                SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat postFormater = new SimpleDateFormat("dd / MM / yyyy");
+
+                Date exDate = null;
+                try {
+                    exDate = curFormater.parse(drivLicense);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //***************************** End Convert Format Date  *****************************//
+                drivLicense = postFormater.format(exDate);
+
                 dataUser.add("ชื่อ " + name + "    วันหมดอายุใบขับขี่  " + drivLicense);
             } while (cursor.moveToNext());
         }
@@ -150,6 +170,19 @@ public class A_Repo_Check {
                 carRegis = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Register));
                 proVince = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Province_Name));
                 taxDate = cursor.getString(cursor.getColumnIndex(TB_1_CAR.Car_Tax_Date));
+
+                //*****************************  Convert Format Date  *****************************//
+                SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat postFormater = new SimpleDateFormat("dd / MM / yyyy");
+
+                Date exDate = null;
+                try {
+                    exDate = curFormater.parse(taxDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //***************************** End Convert Format Date  *****************************//
+                taxDate = postFormater.format(exDate);
 
                 dataCar.add("เลขทะเบียน " + carRegis + "  " + proVince + "  วันหมดอายุภาษีรถ " + taxDate);
             } while (cursor.moveToNext());

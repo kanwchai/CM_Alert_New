@@ -44,14 +44,9 @@ public class A_ListAlert extends AppCompatActivity {
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(getApplicationContext()
+                        , listDataHeader.get(groupPosition) + " : " + listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition)
+                        , Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -60,9 +55,7 @@ public class A_ListAlert extends AppCompatActivity {
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), listDataHeader.get(groupPosition) + " Expanded", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -70,9 +63,7 @@ public class A_ListAlert extends AppCompatActivity {
         expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), listDataHeader.get(groupPosition) + " Collapsed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -84,17 +75,17 @@ public class A_ListAlert extends AppCompatActivity {
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<>();
 
-        if(a_repo_check.chkDrivingLicense() >= 1){
+        if (a_repo_check.chkDrivingLicense() >= 1) {
             listDataHeader.add("Driving License");
-            listDataChild.put("Driving License",a_repo_check.getDataUser());
+            listDataChild.put("Driving License", a_repo_check.getDataUser());
         }
-        if(a_repo_check.chkTaxCar() >= 1){
+        if (a_repo_check.chkTaxCar() >= 1) {
             listDataHeader.add("Tax Car");
-            listDataChild.put("Tax Car",a_repo_check.getDataCar());
+            listDataChild.put("Tax Car", a_repo_check.getDataCar());
         }
-        if(a_repo_check.chkDueDate() >= 1){
+        if (a_repo_check.chkDueDate() >= 1) {
             listDataHeader.add("Part Broken");
-            listDataChild.put("Part Broken",a_repo_check.getDataTotalPart());
+            listDataChild.put("Part Broken", a_repo_check.getDataTotalPart());
         }
 
     }
