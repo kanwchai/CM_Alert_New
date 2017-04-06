@@ -301,7 +301,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         } else {
             locB = mLastLocation;
             a_toast_time.Toast_Time(this, "Update Location", 1000);
-            tb_6_run_data.run_Kilo_End += locA.distanceTo(locB);
+            tb_6_run_data.run_Kilo_End += locA.distanceTo(locB) / 1000;
             if (String.valueOf(locA.distanceTo(locB)) != null) {
                 countKilo += Integer.valueOf((int) locA.distanceTo(locB));
             }

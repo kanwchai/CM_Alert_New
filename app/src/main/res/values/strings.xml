@@ -18,4 +18,10 @@
     <string name="noti">Notification</string>
     <string name="setting">Setting</string>
     <string name="about">About</string>
+    <string name="title_activity_main_test">MainActivity_test</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

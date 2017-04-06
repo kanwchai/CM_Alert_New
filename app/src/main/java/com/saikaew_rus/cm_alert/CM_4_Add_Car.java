@@ -17,6 +17,7 @@ import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -30,14 +31,16 @@ public class CM_4_Add_Car extends AppCompatActivity {
 
     DatePickerDialog mDatePicker;
     Calendar mCalendar;
-    TextView mTextDate;
-    Button b_enter, b_cancel, color_pink, color_red, color_orange, color_yellow, color_green, color_blue, color_gray;
+    TextView mTextDate, chooseColor;
+    Button b_enter, b_cancel;
     EditText regisFront, regisBack, kilo;
     String[] dataAdap;
     RadioGroup radioGroup;
     AutoCompleteTextView autoProvince;
     LinearLayout linearLayout;
     ImageView imageCar;
+    RadioButton oil_1,oil_2;
+    CheckBox gas_1,gas_2, gas_3;
 
     TB_1_CAR tb_1_car;
     Repo_1_CAR repo_1_car;
@@ -69,7 +72,6 @@ public class CM_4_Add_Car extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-
             SimpleDateFormat dfm = new SimpleDateFormat("dd-MMMM-yyyy");
             SimpleDateFormat dfm_1 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -85,26 +87,38 @@ public class CM_4_Add_Car extends AppCompatActivity {
 
     public void setLayout() {
         mCalendar = Calendar.getInstance();
-        regisFront = (EditText) findViewById(R.id.editText2);
-        regisBack = (EditText) findViewById(R.id.editText4);
-        kilo = (EditText) findViewById(R.id.editText5);
-        mTextDate = (TextView) findViewById(R.id.editText6);
+        chooseColor = (TextView) findViewById(R.id.ac_1);
+        regisFront = (EditText) findViewById(R.id.ac_2);
+        regisBack = (EditText) findViewById(R.id.ac_3);
+        autoProvince = (AutoCompleteTextView) findViewById(R.id.ac_4);
+        kilo = (EditText) findViewById(R.id.ac_5);
+        mTextDate = (TextView) findViewById(R.id.ac_6);
+        oil_1 = (RadioButton) findViewById(R.id.benzine);
+        oil_2 = (RadioButton) findViewById(R.id.diesel);
+        gas_1 = (CheckBox) findViewById(R.id.ngv);
+        gas_2 = (CheckBox) findViewById(R.id.lpg);
+        gas_3 = (CheckBox) findViewById(R.id.hyb);
         b_enter = (Button) findViewById(R.id.button3);
         b_cancel = (Button) findViewById(R.id.button4);
-        autoProvince = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         radioGroup = (RadioGroup) findViewById(R.id.radioOil);
         linearLayout = (LinearLayout) findViewById(R.id.linNumKilo);
-        color_pink = (Button) findViewById(R.id.color_pink);
-        color_pink = (Button) findViewById(R.id.color_red);
-        color_pink = (Button) findViewById(R.id.color_orange);
-        color_pink = (Button) findViewById(R.id.color_yellow);
-        color_pink = (Button) findViewById(R.id.color_green);
-        color_pink = (Button) findViewById(R.id.color_blue);
-        color_pink = (Button) findViewById(R.id.color_pink);
         imageCar = (ImageView) findViewById(R.id.imageView2);
+
     }
 
     public void setValue() {
+        chooseColor.setHint(A_Word_App.add_color[A_Word_App.language]);
+        regisFront.setHint(A_Word_App.add_regis_front[A_Word_App.language]);
+        regisBack.setHint(A_Word_App.add_regis_back[A_Word_App.language]);
+        autoProvince.setHint(A_Word_App.add_province[A_Word_App.language]);
+        kilo.setHint(A_Word_App.add_no_kilo[A_Word_App.language]);
+        mTextDate.setHint(A_Word_App.add_tax[A_Word_App.language]);
+        oil_1.setText(A_Word_App.add_oil_gasso[A_Word_App.language]);
+        oil_2.setText(A_Word_App.add_oil_diesel[A_Word_App.language]);
+        gas_1.setText(A_Word_App.add_gas_ngv[A_Word_App.language]);
+        gas_2.setText(A_Word_App.add_gas_lpg[A_Word_App.language]);
+        gas_3.setText(A_Word_App.add_gas_hyb[A_Word_App.language]);
+
         b_enter.setText(A_Word_App.add_user_ok[A_Word_App.language]);
         b_cancel.setText(A_Word_App.add_user_cancel[A_Word_App.language]);
         repo_1_car = new Repo_1_CAR(this);
@@ -120,7 +134,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
 
         tb_1_car.type_Gas_Id = 1;
         tb_1_car.type_Oil_Id = 1;
-        tb_1_car.car_Pic = 6;
+        tb_1_car.car_Pic = 0;
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         dataAdap = repo_10_provinces.getProvincesList_1();
@@ -229,10 +243,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
                 imageCar.setBackgroundResource(TB_1_CAR.carPic[5]);
                 tb_1_car.car_Pic = 5;
                 break;
-            case R.id.color_gray:
-                imageCar.setBackgroundResource(TB_1_CAR.carPic[6]);
-                tb_1_car.car_Pic = 6;
-                break;
+
         }
 
     }

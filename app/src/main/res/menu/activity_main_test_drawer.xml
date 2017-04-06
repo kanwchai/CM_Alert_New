@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<group android:id="@+id/grp1" android:checkableBehavior="single" >-->
+    <!--<item-->
+    <!--android:id="@+id/nav_manage"-->
+    <!--android:icon="@drawable/ic_menu_manage"-->
+    <!--android:title="Tools"/>-->
+    <!--</group>-->
+
+    <group android:id="@+id/grp1">
+        <item
+            android:id="@+id/nav_time"
+            android:icon="@drawable/ic_alarm_clock_gray"
+            android:title="Tools" />
+    </group>
+
+    <group android:id="@+id/grp2">
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings"
+            android:title="Tools" />
+    </group>
+
+    <group android:id="@+id/grp3">
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ic_user"
+            android:title="Tools" />
+    </group>
+
+    <group android:id="@+id/grp4">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_two_users"
+            android:title="Tools" />
+    </group>
+
+
+</menu>

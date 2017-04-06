@@ -16,7 +16,8 @@ public class TB_11_Sysconfig {
 
     // Set Code
     public static final String Sys_Code_Language = "11";
-    public static final String Sys_Code_Alert = "12";
+    public static final String Sys_Code_Alarm_Time = "12";
+    public static final String Sys_Code_Don_Alert = "13";
 
     //property help us to keep data
     public int sys_Id;

@@ -38,6 +38,8 @@ public class A_Word_App {
     public static final String[] menu_notification = {"Notification", "การแจ้งเตือน"};
     public static final String[] menu_setting = {"Setting", "ตั้งค่า"};
     public static final String[] menu_about = {"About", "จัดทำโดย"};
+    public static final String[] menu_alarm = {"Alert Time", "ตั้งเวลาแจ้งเตือน"};
+    public static final String[] menu_user = {"Data User", "ข้อมูลผู้ใช้"};
 
     //Setting
     public static final String[] setting_lang = {"Language", "ภาษา"};
@@ -74,4 +76,23 @@ public class A_Word_App {
     public static final String[] dialog_car = {"Car", "รถยนต์"};
     public static final String[] dialog_tax_car = {"Tax car", "ภาษีรถยนต์"};
     public static final String[] dialog_close_alert = {"Do not show 1 day","ปิดการแจ้งเตือน 1 วัน"};
+
+    //List Part
+    public static final String[] lp_car_regis = {"Car Registration", "ทะเบียนรถ"};
+    public static final String[] lp_no_kilo = {"No. Kilometer", "เลขกิโลรถยนต์"};
+    public static final String[] lp_exp_tax_date = {"Expiration Date Car Tax", "วันหมดอายุภาษีรถยนต์"};
+
+    //Add Car
+    public static final String[] add_color = {"(Choose Color)", "(เลือกสี)"};
+    public static final String[] add_regis_front = {"Regis Front", "เลขทะเบียนหน้า"};
+    public static final String[] add_regis_back = {"Regis Back", "เลขทะเบียนหลัง"};
+    public static final String[] add_province = {"Province", "จังหวัด"};
+    public static final String[] add_no_kilo = {"Number Kilometers", "เลขกิโลรถยนต์"};
+    public static final String[] add_tax = {"Expired Tax", "วันต่อภาษี"};
+    public static final String[] add_oil_gasso = {"GASOLEAN", "เบนซิน"};
+    public static final String[] add_oil_diesel = {"DIESEL", "ดีเซล"};
+    public static final String[] add_gas_ngv = {"NGV", "เอ็นจีวี"};
+    public static final String[] add_gas_lpg = {"LPG", "แอลพีจี"};
+    public static final String[] add_gas_hyb = {"HYBRID", "ไฮบริด"};
+
 }

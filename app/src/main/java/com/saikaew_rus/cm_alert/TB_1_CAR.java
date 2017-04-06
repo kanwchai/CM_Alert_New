@@ -4,6 +4,8 @@ package com.saikaew_rus.cm_alert;
  * Created by NB_A on 18/10/2559.
  */
 public class TB_1_CAR {
+
+
     // Labels table name
     public static final String TABLE = "CAR";
 
@@ -31,11 +33,12 @@ public class TB_1_CAR {
     public String province_Name;
     public int car_Pic;
 
-    public static final int[] carPic = {R.drawable.car_select_14_03_2560_pink
-            , R.drawable.car_select_14_03_2560_red
-            , R.drawable.car_select_14_03_2560_orange
-            , R.drawable.car_select_14_03_2560_yellow
-            , R.drawable.car_select_14_03_2560_green
-            , R.drawable.car_select_14_03_2560_blue
-            , R.drawable.car_select_14_03_2560_gray};
+    public static final int[] carPic = {R.drawable.car_pink_3_04_60
+            , R.drawable.car_red_3_04_60
+            , R.drawable.car_oren_3_04_60
+            , R.drawable.car_brow_3_04_60
+            , R.drawable.car_green_3_04_60
+            , R.drawable.car_bkue_3_04_60
+    };
+
 }

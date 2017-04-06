@@ -20,7 +20,7 @@ public class A_Check_Dialog_Alert {
     public Cursor getDrivingLicense() {
         HashMap<String, String> data = new HashMap<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT COUNT(" + TB_9_USER.User_Id + ") 'total' FROM " + TB_9_USER.TABLE + " WHERE " + TB_9_USER.User_Due_Date_Driving + " < DATE('now','+30 day')";
+        String selectQuery = "SELECT * FROM " + TB_9_USER.TABLE + " WHERE " + TB_9_USER.User_Due_Date_Driving + " < DATE('now','+30 day')";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
@@ -32,7 +32,7 @@ public class A_Check_Dialog_Alert {
     public Cursor getTaxCar() {
         HashMap<String, String> data = new HashMap<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT COUNT(" + TB_1_CAR.Car_Id + ") 'total' FROM " + TB_1_CAR.TABLE + " WHERE " + TB_1_CAR.Car_Tax_Date + " < DATE('now','+30 day')";
+        String selectQuery = "SELECT * FROM " + TB_1_CAR.TABLE + " WHERE " + TB_1_CAR.Car_Tax_Date + " < DATE('now','+30 day')";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();

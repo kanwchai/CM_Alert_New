@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -35,7 +36,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CM_3_Car_Recycle"
-            android:label="Car" />
+            android:label="Car"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CM_4_Add_Car"
             android:label="Add Car Data"
@@ -100,6 +102,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>

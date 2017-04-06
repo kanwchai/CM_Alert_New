@@ -44,7 +44,7 @@ import java.util.HashMap;
 
 public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
-    TextView tv_regis, tv_kilo, tv_ex_date, due_date;
+    TextView tv_regis, tv_kilo, tv_ex_date, due_date,title_1,title_2,title_3;
     int car_id, part_id, due_fix_id, due_fix_kilo, due_fix_date, sortPartList, partId;
     String part_name, due_fix_status, maintenance;
     String[] new_part, Choice;
@@ -102,9 +102,16 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         imBtExpTax = (ImageButton) findViewById(R.id.editTax);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyPart);
         linearLayout = (LinearLayout) findViewById(R.id.linearListPart);
+        title_1 = (TextView) findViewById(R.id.LPT_1);
+        title_2 = (TextView) findViewById(R.id.LPT_2);
+        title_3 = (TextView) findViewById(R.id.LPT_3);
     }
 
     public void setValue() {
+        title_1.setText(A_Word_App.lp_car_regis[A_Word_App.language]);
+        title_2.setText(A_Word_App.lp_no_kilo[A_Word_App.language]);
+        title_3.setText(A_Word_App.lp_exp_tax_date[A_Word_App.language]);
+
         mCalendar = Calendar.getInstance();
         sortPartList = 2;
         intent = getIntent();

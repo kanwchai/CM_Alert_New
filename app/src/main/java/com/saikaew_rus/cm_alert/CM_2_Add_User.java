@@ -36,7 +36,7 @@ public class CM_2_Add_User extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_2_main);
+        setContentView(R.layout.activity_5_user_data);
         this.setTitle(A_Word_App.title_user[A_Word_App.language]);
 
         setLayout();

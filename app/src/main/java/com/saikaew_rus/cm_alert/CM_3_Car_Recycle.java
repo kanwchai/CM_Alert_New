@@ -8,13 +8,17 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,14 +33,22 @@ import android.widget.TextView;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
-public class CM_3_Car_Recycle extends AppCompatActivity {
+public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Repo_9_USER repo;
-    TB_9_USER user;
+    Repo_9_USER repo_9_user;
+    Repo_11_SYSCONFIG repo_11_sysconfig;
     Repo_1_CAR repo_1_car;
+
+    TB_9_USER tb_9_user;
+    TB_11_Sysconfig tb_11_sysconfig;
+
+    HashMap<String, String> chkSys;
+
     int car_Id;
     ArrayList<HashMap<String, String>> getCarList;
     TextView showName;
@@ -50,17 +62,19 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
 
     ImageView icon;
     FloatingActionButton actionButton;
+    SimpleDateFormat sdf;
 
-    public static String alert_id = "id";
-    public static String alert_name = "name";
-    public static String alert_total = "total";
+    public static final String alert_id = "id";
+    public static final String alert_name = "name";
+    public static final String alert_total = "total";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_3_car_recycle);
+        setContentView(R.layout.activity_main_test);
         this.setTitle(A_Word_App.title_car[A_Word_App.language]);
 
+        setMenu();
         setLayout();
     }
 
@@ -71,11 +85,17 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
     }
 
     public void setValue() {
-        a_toast_time = new A_Toast_Time();
-        repo = new Repo_9_USER(this);
-        user = new TB_9_USER();
+        repo_9_user = new Repo_9_USER(this);
         repo_1_car = new Repo_1_CAR(this);
+        repo_11_sysconfig = new Repo_11_SYSCONFIG(this);
+
         a_check_dialog_alert = new A_Check_Dialog_Alert(this);
+        a_toast_time = new A_Toast_Time();
+
+        tb_9_user = new TB_9_USER();
+        tb_11_sysconfig = new TB_11_Sysconfig();
+
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -95,16 +115,7 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CM_4_Add_Car.class);
-                startActivity(intent);
-            }
-        });
-
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent go1 = new Intent(getApplicationContext(), CM_5_Edit_User.class);
-                startActivity(go1);
+                intentPage(CM_4_Add_Car.class);
             }
         });
     }
@@ -149,7 +160,7 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
 
             TextView title = (TextView) view.findViewById(R.id.titleAlert);
             ListView listAlert = (ListView) view.findViewById(R.id.listAlert);
-            CheckBox donAlert = (CheckBox) view.findViewById(R.id.donAlert);
+            final CheckBox donAlert = (CheckBox) view.findViewById(R.id.donAlert);
             ImageButton cancelAlert = (ImageButton) view.findViewById(R.id.cancelAlert);
 
             title.setText(A_Word_App.dialog_list_maintenance[A_Word_App.language]);
@@ -158,8 +169,28 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
             A_CustomListDialog a_customListDialog = new A_CustomListDialog(this, data);
             listAlert.setAdapter(a_customListDialog);
 
-            final AlertDialog alertDialog = builder.show();
+            donAlert.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tb_11_sysconfig.sys_Code = TB_11_Sysconfig.Sys_Code_Don_Alert;
+                    tb_11_sysconfig.sys_Desc = "Don't Alert";
+                    tb_11_sysconfig.sys_Value = sdf.format(Calendar.getInstance().getTime()).toString();
 
+                    if (donAlert.isChecked()) {
+                        if (repo_11_sysconfig.getConfig(TB_11_Sysconfig.Sys_Code, TB_11_Sysconfig.Sys_Code_Don_Alert).size() > 0) {
+                            repo_11_sysconfig.update(TB_11_Sysconfig.Sys_Code_Don_Alert, tb_11_sysconfig.sys_Value);
+                        } else {
+                            repo_11_sysconfig.insert(tb_11_sysconfig);
+                        }
+                    } else {
+                        repo_11_sysconfig.getConfig(TB_11_Sysconfig.Sys_Code, TB_11_Sysconfig.Sys_Code_Don_Alert).size();
+                        tb_11_sysconfig.sys_Value = "";
+                        repo_11_sysconfig.update(TB_11_Sysconfig.Sys_Code_Don_Alert, tb_11_sysconfig.sys_Value);
+                    }
+                }
+            });
+
+            final AlertDialog alertDialog = builder.show();
             cancelAlert.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -169,34 +200,56 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.sitting_menu, menu);
-
-        menu.findItem(R.id.noti).setTitle(A_Word_App.menu_notification[A_Word_App.language]);
-        menu.findItem(R.id.setting).setTitle(A_Word_App.menu_setting[A_Word_App.language]);
-        menu.findItem(R.id.about).setTitle(A_Word_App.menu_about[A_Word_App.language]);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.noti:
-                intentPage(A_ListAlert.class);
-                return true;
-            case R.id.setting:
-                intentPage(A_Setting.class);
-                return true;
-            case R.id.about:
-                intentPage(A_AboutRus.class);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.sitting_menu, menu);
+//
+//        menu.findItem(R.id.noti).setTitle(A_Word_App.menu_notification[A_Word_App.language]);
+//        menu.findItem(R.id.setting).setTitle(A_Word_App.menu_setting[A_Word_App.language]);
+//        menu.findItem(R.id.about).setTitle(A_Word_App.menu_about[A_Word_App.language]);
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main_activity_test, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.noti:
+//                intentPage(A_ListAlert.class);
+//                return true;
+//            case R.id.setting:
+//                intentPage(A_Setting.class);
+//                return true;
+//            case R.id.about:
+//                intentPage(A_AboutRus.class);
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     public void intentPage(Class aClass) {
         Intent intent = new Intent(getApplication(), aClass);
@@ -209,13 +262,22 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
         setValue();
         setEvent();
         getDatacar();
-        chkDialog();
+
+        String date = sdf.format(Calendar.getInstance().getTime()).toString();
+        int chk = repo_11_sysconfig.getConfig((TB_11_Sysconfig.Sys_Value), "'" + date + "'").size();
+        Log.d("showCheck", String.valueOf(chk));
+
+        if (chk > 0) {
+
+        } else {
+            chkDialog();
+        }
     }
 
     public void getDatacar() {
-        user = repo.getFirstUser();
-        if (repo.getUserList().size() > 0) {
-            showName.setText(user.user_Name);
+        tb_9_user = repo_9_user.getFirstUser();
+        if (repo_9_user.getUserList().size() > 0) {
+            showName.setText(tb_9_user.user_Name);
         }
 
         getCarList = repo_1_car.getCarList();
@@ -351,5 +413,66 @@ public class CM_3_Car_Recycle extends AppCompatActivity {
         }
     }
 
+    public void setMenu() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+
+        // find MenuItem you want to change
+        MenuItem nav_time = menu.findItem(R.id.nav_time);
+        nav_time.setTitle(A_Word_App.menu_alarm[A_Word_App.language]);
+
+        MenuItem nav_setting = menu.findItem(R.id.nav_setting);
+        nav_setting.setTitle(A_Word_App.menu_setting[A_Word_App.language]);
+
+        MenuItem nav_user = menu.findItem(R.id.nav_user);
+        nav_user.setTitle(A_Word_App.menu_user[A_Word_App.language]);
+
+        MenuItem nav_about = menu.findItem(R.id.nav_about);
+        nav_about.setTitle(A_Word_App.menu_about[A_Word_App.language]);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_time) {
+            intentPage(A_Setting.class);
+        } else if (id == R.id.nav_setting) {
+            intentPage(A_Setting.class);
+        } else if (id == R.id.nav_user) {
+            intentPage(CM_5_Edit_User.class);
+        } else if (id == R.id.nav_about) {
+            intentPage(A_AboutRus.class);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }
 

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ public class Repo_11_SYSCONFIG {
                 " WHERE " + TB_11_Sysconfig.Sys_Code + " = " + TB_11_Sysconfig.Sys_Code_Language;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
         i = cursor.getCount();
 
         cursor.close();
@@ -45,19 +47,21 @@ public class Repo_11_SYSCONFIG {
         db.close();
     }
 
-    public void update(int valueLang) {
+    public void update(String code,String value) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(TB_11_Sysconfig.Sys_Value, valueLang);
+        values.put(TB_11_Sysconfig.Sys_Value, value);
 
-        db.update(TB_11_Sysconfig.TABLE, values, TB_11_Sysconfig.Sys_Code + "=" + TB_11_Sysconfig.Sys_Code_Language, null);
+        db.update(TB_11_Sysconfig.TABLE, values, TB_11_Sysconfig.Sys_Code + "=" + code, null);
         db.close();
     }
 
-    public HashMap<String, String> getConfig() {
+    public HashMap<String, String> getConfig(String find, String sysCode) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TB_11_Sysconfig.TABLE;
+        String selectQuery = "SELECT * FROM " + TB_11_Sysconfig.TABLE + " WHERE " + find + " = " + sysCode;
+
+        Log.d("showQuery", selectQuery);
 
         HashMap<String, String> dataConfig = new HashMap<>();
 
@@ -65,11 +69,15 @@ public class Repo_11_SYSCONFIG {
 
         if (cursor.moveToFirst()) {
             do {
-                
                 dataConfig.put(TB_11_Sysconfig.Sys_Id, cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Id)));
                 dataConfig.put(TB_11_Sysconfig.Sys_Code, cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Code)));
                 dataConfig.put(TB_11_Sysconfig.Sys_Desc, cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Desc)));
                 dataConfig.put(TB_11_Sysconfig.Sys_Value, cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Value)));
+
+                Log.d("showDataChk", cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Id))
+                        + " ++ " + cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Code))
+                        + " ++ " + cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Desc))
+                        + " ++ " + cursor.getString(cursor.getColumnIndex(TB_11_Sysconfig.Sys_Value)));
 
             } while (cursor.moveToNext());
         }

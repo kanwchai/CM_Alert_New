@@ -99,7 +99,7 @@ public class CM_1_Load extends AppCompatActivity {
                 if (repo_11_sysconfig.chkLang() <= 0) {
                     intent(A_Choose_Language.class);
                 } else {
-                    dataConfig = repo_11_sysconfig.getConfig();
+                    dataConfig = repo_11_sysconfig.getConfig(TB_11_Sysconfig.Sys_Code,TB_11_Sysconfig.Sys_Code_Language);
                     A_Word_App.language = Integer.parseInt(dataConfig.get(TB_11_Sysconfig.Sys_Value));
                     if (userList.size() == 0) {
                         intent(CM_2_Add_User.class);

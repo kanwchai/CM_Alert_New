@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context="com.saikaew_rus.cm_alert.A_Setting">
 
@@ -35,15 +34,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.5"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2.25"
+                android:layout_weight="3.5"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -56,7 +47,9 @@
                         android:id="@+id/imageView12"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.5" />
+                        android:layout_weight="2"
+                        android:background="@drawable/set_letter_a_inside_a_circle"
+                        android:padding="5dp" />
 
                     <TextView
                         android:id="@+id/textView23"
@@ -71,9 +64,15 @@
                         android:id="@+id/spinnerLang"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1.75" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:orientation="horizontal"></LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,9 +83,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.5"
-                        android:background="@mipmap/ic_alarm"
-                        android:orientation="horizontal"></LinearLayout>
+                        android:layout_weight="2"
+                        android:background="@drawable/set_alarm_clock"
+                        android:orientation="horizontal"
+                        android:padding="5dp" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -101,7 +101,7 @@
                         android:id="@+id/textView25"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="1.75"
                         android:gravity="center"
                         android:text="TextView"
                         android:textSize="18sp" />
