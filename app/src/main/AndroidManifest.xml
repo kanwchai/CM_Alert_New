@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".CM_2_Add_User"
-            android:label="User"
+            android:label="@string/title_user"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CM_3_Car_Recycle"
@@ -45,10 +45,6 @@
         <activity
             android:name=".CM_5_Edit_User"
             android:label="Edit User"
-            android:parentActivityName=".CM_3_Car_Recycle" />
-        <activity
-            android:name=".CM_6_Travel"
-            android:label="Travel"
             android:parentActivityName=".CM_3_Car_Recycle" />
         <activity
             android:name=".CM_6_Travel_Map"

@@ -41,7 +41,7 @@ public class CM_8_History extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_8_history);
-        this.setTitle(A_Word_App.title_maintenance_history[A_Word_App.language]);
+        this.setTitle(R.string.title_maintenance_history);
 
         carRegis = (TextView) findViewById(R.id.car_regis_his);
         button = (ImageButton) findViewById(R.id.bFind);

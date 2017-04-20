@@ -14,9 +14,11 @@ import java.util.List;
  */
 public class Repo_4_HISTORYS_OF_CAR {
     private A_MyDatabase dbHelper;
+    private Context mContext;
 
     public Repo_4_HISTORYS_OF_CAR(Context context) {
         dbHelper = new A_MyDatabase(context);
+        this.mContext = context;
     }
 
     public int insert(TB_4_HISTORYS_OF_CAR his_car) {
@@ -28,10 +30,10 @@ public class Repo_4_HISTORYS_OF_CAR {
         values.put(TB_4_HISTORYS_OF_CAR.Car_Id, his_car.car_Id);
         values.put(TB_4_HISTORYS_OF_CAR.Changed_Kilo, his_car.changed_Kilo);
         values.put(TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo, his_car.next_Changed_Kilo);
-        values.put(TB_4_HISTORYS_OF_CAR.Amount_Kilo,his_car.amount_Kilo);
+        values.put(TB_4_HISTORYS_OF_CAR.Amount_Kilo, his_car.amount_Kilo);
         values.put(TB_4_HISTORYS_OF_CAR.Changed_Date, his_car.changed_Date);
         values.put(TB_4_HISTORYS_OF_CAR.Next_Changed_Date, his_car.next_Changed_Date);
-        values.put(TB_4_HISTORYS_OF_CAR.Amount_Date,his_car.amount_Date);
+        values.put(TB_4_HISTORYS_OF_CAR.Amount_Date, his_car.amount_Date);
 
         // Inserting Row
         long his_id = db.insert(TB_4_HISTORYS_OF_CAR.TABLE, null, values);
@@ -51,7 +53,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                 TB_6_RUN_DATA.Run_Kilo_End + "+" + TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo + "," +
                 "NULL," +
                 "DATE('now')," +
-                "DATE('now','+'||" + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + "||' MONTH')" +","+
+                "DATE('now','+'||" + TB_2_DUE_OF_PART_FIX.Fix_Due_Date + "||' MONTH')" + "," +
                 "NULL" +
                 " FROM " +
                 TB_1_CAR.TABLE + " c," +
@@ -131,7 +133,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         String selectQuery = "";
 
         if (part_name.matches("")) {
-            selectQuery = "SELECT strftime('%d/%m/%Y',"+TB_4_HISTORYS_OF_CAR.Changed_Date+") chg_date_format,* FROM " +
+            selectQuery = "SELECT strftime('%d/%m/%Y'," + TB_4_HISTORYS_OF_CAR.Changed_Date + ") chg_date_format,* FROM " +
                     TB_4_HISTORYS_OF_CAR.TABLE + " h," +
                     TB_2_DUE_OF_PART_FIX.TABLE + " df," +
                     TB_5_PARTS.TABLE + " p" +
@@ -142,7 +144,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                     " WHERE " +
                     "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id;
         } else {
-            selectQuery = "SELECT strftime('%d/%m/%Y',"+TB_4_HISTORYS_OF_CAR.Changed_Date+") chg_date_format,* FROM " +
+            selectQuery = "SELECT strftime('%d/%m/%Y'," + TB_4_HISTORYS_OF_CAR.Changed_Date + ") chg_date_format,* FROM " +
                     TB_4_HISTORYS_OF_CAR.TABLE + " h," +
                     TB_2_DUE_OF_PART_FIX.TABLE + " df," +
                     TB_5_PARTS.TABLE + " p" +
@@ -153,7 +155,7 @@ public class Repo_4_HISTORYS_OF_CAR {
                     " WHERE " +
                     "h." + TB_4_HISTORYS_OF_CAR.Car_Id + " = " + car_id +
                     " AND " +
-                    "p." + TB_5_PARTS.Part_Name_en + " LIKE " + "'%" + part_name + "%'";
+                    "p." + mContext.getResources().getString(R.string.TB_Part_Name) + " LIKE " + "'%" + part_name + "%'";
         }
 
         ArrayList<HashMap<String, String>> his_carList = new ArrayList<HashMap<String, String>>();
@@ -163,7 +165,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> his_car = new HashMap<>();
-                his_car.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
+                his_car.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(mContext.getResources().getString(R.string.TB_Part_Name))));
                 his_car.put("chg_date_format", cursor.getString(cursor.getColumnIndex("chg_date_format")));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Date, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Date)));
                 his_car.put(TB_4_HISTORYS_OF_CAR.Changed_Kilo, cursor.getString(cursor.getColumnIndex(TB_4_HISTORYS_OF_CAR.Changed_Kilo)));
@@ -199,7 +201,7 @@ public class Repo_4_HISTORYS_OF_CAR {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                labels.add(cursor.getString(cursor.getColumnIndex(TB_5_PARTS.Part_Name_en)));
+                labels.add(cursor.getString(cursor.getColumnIndex(mContext.getResources().getString(R.string.TB_Part_Name))));
             } while (cursor.moveToNext());
         }
 

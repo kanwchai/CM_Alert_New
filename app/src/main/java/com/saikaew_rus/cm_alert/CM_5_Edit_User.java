@@ -45,7 +45,7 @@ public class CM_5_Edit_User extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_5_user_data);
-        this.setTitle(A_Word_App.title_edit_user[A_Word_App.language]);
+        this.setTitle(R.string.title_edit_user);
 
         setLayout();
         setValue();
@@ -69,17 +69,9 @@ public class CM_5_Edit_User extends AppCompatActivity {
         tb_9_user = new TB_9_USER();
         a_toast_time = new A_Toast_Time();
 
-        mTextName.setHint(A_Word_App.add_user_name[A_Word_App.language]);
-        mTextDate.setHint(A_Word_App.add_user_birthday[A_Word_App.language]);
-        mTextDate_2.setHint(A_Word_App.add_user_exp_lincence[A_Word_App.language]);
-        bSave.setText(A_Word_App.add_user_ok[A_Word_App.language]);
-        bCancel.setText(A_Word_App.add_user_cancel[A_Word_App.language]);
-
         dataUser = repo_9_user.getUserList();
         tb_9_user = repo_9_user.getFirstUser();
         mTextName.setText(tb_9_user.user_Name);
-        bSave.setText(A_Word_App.add_user_ok[A_Word_App.language]);
-        bCancel.setText(A_Word_App.add_user_cancel[A_Word_App.language]);
 
         if (tb_9_user.user_Birth != null) {
             //*****************************  Convert Format Date  *****************************//

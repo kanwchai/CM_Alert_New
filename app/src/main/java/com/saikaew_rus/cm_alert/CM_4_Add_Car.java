@@ -61,7 +61,7 @@ public class CM_4_Add_Car extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_4_add_car);
-        this.setTitle(A_Word_App.title_add_car[A_Word_App.language]);
+        this.setTitle(R.string.title_add_car);
 
         setLayout();
         setValue();
@@ -107,20 +107,6 @@ public class CM_4_Add_Car extends AppCompatActivity {
     }
 
     public void setValue() {
-        chooseColor.setHint(A_Word_App.add_color[A_Word_App.language]);
-        regisFront.setHint(A_Word_App.add_regis_front[A_Word_App.language]);
-        regisBack.setHint(A_Word_App.add_regis_back[A_Word_App.language]);
-        autoProvince.setHint(A_Word_App.add_province[A_Word_App.language]);
-        kilo.setHint(A_Word_App.add_no_kilo[A_Word_App.language]);
-        mTextDate.setHint(A_Word_App.add_tax[A_Word_App.language]);
-        oil_1.setText(A_Word_App.add_oil_gasso[A_Word_App.language]);
-        oil_2.setText(A_Word_App.add_oil_diesel[A_Word_App.language]);
-        gas_1.setText(A_Word_App.add_gas_ngv[A_Word_App.language]);
-        gas_2.setText(A_Word_App.add_gas_lpg[A_Word_App.language]);
-        gas_3.setText(A_Word_App.add_gas_hyb[A_Word_App.language]);
-
-        b_enter.setText(A_Word_App.add_user_ok[A_Word_App.language]);
-        b_cancel.setText(A_Word_App.add_user_cancel[A_Word_App.language]);
         repo_1_car = new Repo_1_CAR(this);
         repo_6_run_data = new Repo_6_RUN_DATA(this);
         repo_10_provinces = new Repo_10_PROVINCES(this);

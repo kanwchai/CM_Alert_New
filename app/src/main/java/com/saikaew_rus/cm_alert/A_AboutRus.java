@@ -14,7 +14,7 @@ public class A_AboutRus extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_rus);
-        this.setTitle(A_Word_App.title_about[A_Word_App.language]);
+        this.setTitle(R.string.title_about);
 
         setLayout();
         setValue();

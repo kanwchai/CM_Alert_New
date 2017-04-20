@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CM Alert</string>
+    <string name="about_email_1">nunuza002@hotmail.com</string>
+    <string name="about_email_2">kanwchai@hotmail.com</string>
+    <string name="about_name_1">นางสาว ทรายแก้ว เกษมณี</string>
+    <string name="about_name_2">นาย ขวัญชัย ตระกูลสันติชัย</string>
+    <string name="about_title">พัฒนาโดย</string>
+    <string name="about_uni_branch">สาขาวิทยาการคอมพิวเตอร์</string>
+    <string name="about_uni_faculty">คณะวิทยาศาสตร์และเทคโนโลยี</string>
+    <string name="about_uni_name">มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ</string>
+    <string name="add_color">(เลือกสี)</string>
+    <string name="add_gas_hyb">ไฮบริด</string>
+    <string name="add_gas_lpg">แอลพีจี</string>
+    <string name="add_gas_ngv">เอ็นจีวี</string>
+    <string name="add_no_kilo">เลขกิโลรถยนต์</string>
+    <string name="add_oil_diesel">ดีเซล</string>
+    <string name="add_oil_gasso">เบนซิน</string>
+    <string name="add_province">จังหวัด</string>
+    <string name="add_regis_back">เลขทะเบียนหลัง</string>
+    <string name="add_regis_front">เลขทะเบียนหน้า</string>
+    <string name="add_user_birthday">วันเกิด</string>
+    <string name="add_tax">วันต่อภาษี</string>
+    <string name="add_user_cancel">ยกเลิก</string>
+    <string name="add_user_exp_lincence">วันหมดอายุใบขับขี่</string>
+    <string name="add_user_ok">ตกลง</string>
+    <string name="add_user_name">ชื่อ</string>
+    <string name="dialog_car">รถยนต์</string>
+    <string name="dialog_close_alert">ปิดการแจ้งเตือน 1 วัน</string>
+    <string name="dialog_driving_licence">ใบขับขี่</string>
+    <string name="dialog_list_maintenance">รายการดูแลรักษา</string>
+    <string name="dialog_tax_car">ภาษีรถยนต์</string>
+    <string-array name="choice_en">
+        <item>เดินทาง</item>
+        <item>บำรุงรักษา</item>
+        <item>ประวัติ</item>
+        <item>ลบ</item>
+    </string-array>
+    <string-array name="choice_Lis">
+        <item>การดูแลครั้งล่าสุด</item>
+        <item>กำหนดอายุอะไหล่</item>
+        <item>คู่มือการดูแลรักษา</item>
+        <item>ลบ</item>
+    </string-array>
+    <string name="lp_car_regis">ทะเบียนรถ</string>
+    <string name="lp_exp_tax_date">วันหมดอายุภาษีรถยนต์</string>
+    <string name="lp_no_kilo">เลขกิโลรถยนต์</string>
+    <string name="menu_notification">การแจ้งเตือน</string>
+    <string name="menu_setting">ตั้งค่า</string>
+    <string name="menu_about">จัดทำโดย</string>
+    <string name="menu_alarm">ตั้งเวลาแจ้งเตือน</string>
+    <string name="menu_user">ข้อมูลผู้ใช้</string>
+    <string name="setting_alert">เวลาแจ้งเตือน</string>
+    <string name="setting_lang">ภาษา</string>
+    <string name="title_about">เกี่ยวกับ</string>
+    <string name="title_add_car">เพิ่มข้อมูลรถ</string>
+    <string name="title_add_part">เพิ่มอะไหล่รถ</string>
+    <string name="title_car">รถยนต์</string>
+    <string name="title_choose_language">เลือกภาษา</string>
+    <string name="title_edit_user">แก้ไขข้อมูลผู้ใช้</string>
+    <string name="title_list_part">รายการอะไหล่</string>
+    <string name="title_maintenance_history">ประวัติการดูแลรักษา</string>
+    <string name="title_notification">การแจ้งเตือน</string>
+    <string name="title_setting">ตั้งค่า</string>
+    <string name="title_travel">การเดินทาง</string>
+    <string name="title_user">ผู้ใช้</string>
+    <string name="travel_connecting">เชื่อมต่อ</string>
+    <string name="travel_disconnecting">หยุดเชื่อมต่อ</string>
+    <string name="travel_kilo_car">เลขกิโล</string>
+    <string name="travel_regis_car">ทะเบียนรถ</string>
+    <string name="travel_start">เริ่ม</string>
+    <string name="travel_stop">หยุด</string>
+    <string name="lp_PartName">รายการ</string>
+    <string name="lp_RemainDays">วันครบกำหนด</string>
+    <string name="lp_RemainKilo">ระยะครบกำหนด</string>
+    <string name="lp_SelectNewPart">เลือกอะไหล่เพิ่ม</string>
+    <string name="lp_AddNewPart">เพิ่มอะไหล่ที่ไม่พบ</string>
+    <string name="np_PartName">ชื่ออะไหล่</string>
+    <string name="np_Name">ชื่อ</string>
+    <string name="np_Termmaturity">ระยะครบกำหนด</string>
+    <string name="np_Lifetime">อายุการใช้งาน(เดือน)</string>
+    <string name="np_MaintenanceType">ประเภทการดูแลรักษา</string>
+    <string name="np_Modify">เปลี่ยน</string>
+    <string name="np_Repair">ตรวจสอบ</string>
+    <string name="np_Clean">ทำความสะอาด</string>
+    <string name="select_car_regis">เลือกรถทะเบียน</string>
+    <string name="are_you_delete">คุณต้องการลบทะเบียน</string>
+    <string name="delete_success">ถูกลบเรียบร้อยแล้ว</string>
+    <string name="his_ChangedDate">วันที่เปลี่ยน</string>
+    <string name="his_ChangedKilo">ระยะที่เปลี่ยน</string>
+    <string name="lp_SelectedPart">เลือกอะไหล่</string>
+    <string name="lp_Part">อะไหล่</string>
+    <string name="lp_LastMaintenance">การดูแลครั้งล่าสุด</string>
+    <string name="lp_DueDate">วันครบกำหนด</string>
+    <string name="lp_DueKilometre">ระยะครบกำหนด</string>
+    <string name="lp_Save">บันทึก</string>
+    <string name="lp_delete">ลบ</string>
+    <string name="TB_Part_Name">Part_Name_Th</string>
+</resources>

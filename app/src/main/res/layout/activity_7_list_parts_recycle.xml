@@ -33,7 +33,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Car Registration"
+                android:text="@string/lp_car_regis"
                 android:textSize="15dp" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="No. Kilometer"
+                android:text="@string/lp_no_kilo"
                 android:textSize="15dp" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Expiration Date Car Tax"
+                android:text="@string/lp_exp_tax_date"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -158,7 +158,7 @@
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="sortPart"
-            android:text="Part Name"
+            android:text="@string/lp_PartName"
             android:textColor="#ffffff"
             android:textSize="12dp" />
 
@@ -170,7 +170,7 @@
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="sortPart"
-            android:text="Remain Days"
+            android:text="@string/lp_RemainDays"
             android:textColor="#ffffff"
             android:textSize="12dp" />
 
@@ -182,7 +182,7 @@
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical|center_horizontal"
             android:onClick="sortPart"
-            android:text="Remain Kilo"
+            android:text="@string/lp_RemainKilo"
             android:textColor="#ffffff"
             android:textSize="12dp" />
 

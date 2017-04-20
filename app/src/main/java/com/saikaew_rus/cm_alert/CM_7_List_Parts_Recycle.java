@@ -44,7 +44,7 @@ import java.util.HashMap;
 
 public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
-    TextView tv_regis, tv_kilo, tv_ex_date, due_date,title_1,title_2,title_3;
+    TextView tv_regis, tv_kilo, tv_ex_date, due_date, title_1, title_2, title_3;
     int car_id, part_id, due_fix_id, due_fix_kilo, due_fix_date, sortPartList, partId;
     String part_name, due_fix_status, maintenance;
     String[] new_part, Choice;
@@ -83,7 +83,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_7_list_parts_recycle);
-        this.setTitle(A_Word_App.title_list_part[A_Word_App.language]);
+        this.setTitle(R.string.title_list_part);
 
         setLayout();
         setValue();
@@ -116,7 +116,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
         sortPartList = 2;
         intent = getIntent();
         car_id = intent.getIntExtra(TB_1_CAR.Car_Id, 0);
-        Choice = new String[]{"Specify Last Maintenance", "Set Maturity", "Maintenance Guide", "Delete"};
+        Choice = getResources().getStringArray(R.array.choice_Lis);
 
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -188,7 +188,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
 
     public void dialog_NewPart() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
-        builder.setTitle("Select New Part");
+        builder.setTitle(R.string.lp_SelectNewPart);
 
         partDonHave = repo_5_parts.getPart_Not(car_id);
         new_part = new String[partDonHave.size()];
@@ -236,7 +236,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Add New Part(if not found)", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.lp_AddNewPart, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intentAddpart = new Intent(getApplicationContext(), CM_9_Add_Parts.class);
@@ -568,10 +568,10 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                     }
                     due_fix_status = getPartList_Recy.get(position).get(TB_2_DUE_OF_PART_FIX.Fix_Due_Status);
 
-                    showToast("Selected Part : " + part_name);
+                    showToast(mContext.getResources().getString(R.string.lp_SelectedPart) + " : " + part_name);
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
-                    builder.setTitle("Part : " + part_name);
+                    builder.setTitle(mContext.getResources().getString(R.string.lp_Part) + " : " + part_name);
                     builder.setItems(Choice, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -674,7 +674,7 @@ public class CM_7_List_Parts_Recycle extends AppCompatActivity {
                                 builder_1.show();
                             } else if (which == 3) {
                                 AlertDialog.Builder builder_1 = new AlertDialog.Builder(CM_7_List_Parts_Recycle.this);
-                                builder_1.setMessage("Delete " + part_name + " ?");
+                                builder_1.setMessage(mContext.getResources().getString(R.string.lp_delete) + part_name + " ?");
                                 builder_1.setNegativeButton("OK ", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         tb_2_due_of_part_fix.fix_Due_Id = due_fix_id;

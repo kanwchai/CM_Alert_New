@@ -20,7 +20,7 @@ public class CM_9_Add_Parts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_9_add_parts);
-        this.setTitle(A_Word_App.title_add_part[A_Word_App.language]);
+        this.setTitle(R.string.title_add_part);
 
         namepart = (EditText) findViewById(R.id.partName);
 

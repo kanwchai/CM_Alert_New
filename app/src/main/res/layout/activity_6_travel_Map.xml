@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
-                android:text="@string/reg_car"
+                android:text="@string/travel_regis_car"
                 android:textSize="20sp" />
 
             <EditText

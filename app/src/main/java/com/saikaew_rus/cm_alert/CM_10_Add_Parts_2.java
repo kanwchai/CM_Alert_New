@@ -32,7 +32,7 @@ public class CM_10_Add_Parts_2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_10_add_partstwo);
-        this.setTitle(A_Word_App.title_add_part[A_Word_App.language]);
+        this.setTitle(R.string.title_add_part);
 
         final EditText kilo = (EditText) findViewById(R.id.kilo_due);
         final EditText date = (EditText) findViewById(R.id.date_due);

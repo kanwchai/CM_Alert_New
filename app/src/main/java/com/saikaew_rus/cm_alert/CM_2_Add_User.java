@@ -37,7 +37,7 @@ public class CM_2_Add_User extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_5_user_data);
-        this.setTitle(A_Word_App.title_user[A_Word_App.language]);
+        this.setTitle(R.string.title_user);
 
         setLayout();
         setValue();
@@ -59,12 +59,6 @@ public class CM_2_Add_User extends AppCompatActivity {
         repo_9_user = new Repo_9_USER(this);
         tb_9_user = new TB_9_USER();
         a_toast_time = new A_Toast_Time();
-
-        mTextName.setHint(A_Word_App.add_user_name[A_Word_App.language]);
-        mTextDate.setHint(A_Word_App.add_user_birthday[A_Word_App.language]);
-        mTextDate_2.setHint(A_Word_App.add_user_exp_lincence[A_Word_App.language]);
-        bSave.setText(A_Word_App.add_user_ok[A_Word_App.language]);
-        bSkip.setText(A_Word_App.add_user_cancel[A_Word_App.language]);
 
         mDatePicker = DatePickerDialog.newInstance(onDateSetListener,
                 mCalendar.get(Calendar.YEAR),       // ปี

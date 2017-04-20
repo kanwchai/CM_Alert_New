@@ -1,87 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:circular="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linRecycle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_group"
-    android:orientation="horizontal"
-    android:padding="15dp">
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linRecycle"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:layout_margin="10dp"
         android:layout_weight="1.75"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
+        android:background="@drawable/test_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        circular:layout_constraintBottom_toBottomOf="parent"
+        circular:layout_constraintLeft_toLeftOf="parent"
+        circular:layout_constraintRight_toRightOf="parent"
+        circular:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageCar"
-            android:layout_width="match_parent"
-            android:layout_height="60sp"
+            android:layout_width="75dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:background="@drawable/car_select_14_03_2560_gray" />
+            android:background="@drawable/car_red_3_04_60"
+            circular:layout_constraintBottom_toBottomOf="parent"
+            circular:layout_constraintLeft_toLeftOf="parent"
+            circular:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"></LinearLayout>
-    </LinearLayout>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            circular:layout_constraintBottom_toBottomOf="parent"
+            circular:layout_constraintLeft_toRightOf="@+id/imageCar"
+            circular:layout_constraintRight_toLeftOf="@+id/arc_progress"
+            circular:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            circular:layout_constraintHorizontal_bias="0.5">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/car_Register"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="regisCar"
+                android:textColor="@color/ampm_text_color"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                circular:layout_constraintHorizontal_bias="1.0"
+                circular:layout_constraintLeft_toRightOf="@+id/imageCar"
+                circular:layout_constraintRight_toLeftOf="@+id/arc_progress"
+                tools:layout_editor_absoluteY="89dp" />
 
-        <TextView
-            android:id="@+id/car_Register"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="regisCar"
-            android:textColor="@color/ampm_text_color"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/car_Province"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:elevation="1dp"
+                android:gravity="center"
+                android:text="provinceCar"
+                android:textColor="@color/ampm_text_color"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                circular:layout_constraintBottom_toBottomOf="parent"
+                circular:layout_constraintHorizontal_bias="1.0"
+                circular:layout_constraintLeft_toRightOf="@+id/imageCar"
+                circular:layout_constraintRight_toLeftOf="@+id/arc_progress"
+                circular:layout_constraintTop_toBottomOf="@+id/car_Register" />
 
-        <TextView
-            android:id="@+id/car_Province"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:elevation="1dp"
-            android:gravity="center"
-            android:text="provinceCar"
-            android:textColor="@color/ampm_text_color"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.75"
-        android:orientation="horizontal">
+        </LinearLayout>
 
         <com.github.lzyzsd.circleprogress.ArcProgress
             android:id="@+id/arc_progress"
-            android:layout_width="match_parent"
-            android:layout_height="80sp"
+            android:layout_width="64dp"
+            android:layout_height="62dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             circular:arc_bottom_text="Status"
             circular:arc_finished_color="@color/car_red"
             circular:arc_progress="70"
             circular:arc_suffix_text_padding="-5sp"
-            circular:arc_text_size="15sp" />
+            circular:arc_text_size="15sp"
+            circular:layout_constraintRight_toRightOf="parent"
+            circular:layout_constraintTop_toTopOf="parent"
+            circular:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            tools:layout_editor_absoluteY="7dp"
+            tools:layout_editor_absoluteX="227dp" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

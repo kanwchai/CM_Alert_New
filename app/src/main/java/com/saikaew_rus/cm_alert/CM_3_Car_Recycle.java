@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -72,16 +73,16 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_test);
-        this.setTitle(A_Word_App.title_car[A_Word_App.language]);
+        this.setTitle(R.string.title_car);
 
         setMenu();
         setLayout();
     }
 
     public void setLayout() {
-        showName = (TextView) findViewById(R.id.textView4);
+//        showName = (TextView) findViewById(R.id.textView4);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        linearLayout = (LinearLayout) findViewById(R.id.linUser);
+//        linearLayout = (LinearLayout) findViewById(R.id.linUser);
     }
 
     public void setValue() {
@@ -297,7 +298,7 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
         private ArrayList<HashMap<String, String>> getCarList;
         A_Toast_Time a_toast_time;
         int car_Id;
-        String[] Choice = A_Word_App.choice_has[A_Word_App.language];
+        String[] Choice =  getResources().getStringArray(R.array.choice_en);
         Repo_1_CAR repo_1_car;
         String regCar, provCar;
 
@@ -305,7 +306,7 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
         public class ViewHolder extends RecyclerView.ViewHolder {
             public TextView car_Regis;
             public TextView car_Prov;
-            public LinearLayout linearLayout;
+            public ConstraintLayout linearLayout;
             public ImageView imageCar;
             public ArcProgress arcProgress;
 
@@ -314,7 +315,7 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
                 car_Regis = (TextView) view.findViewById(R.id.car_Register);
                 car_Prov = (TextView) view.findViewById(R.id.car_Province);
                 imageCar = (ImageView) view.findViewById(R.id.imageCar);
-                linearLayout = (LinearLayout) view.findViewById(R.id.linRecycle);
+                linearLayout = (ConstraintLayout) view.findViewById(R.id.linRecycle);
                 arcProgress = (ArcProgress) view.findViewById(R.id.arc_progress);
 
                 repo_1_car = new Repo_1_CAR(mContext);
@@ -363,10 +364,10 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
                     regCar = getCarList.get(position).get(TB_1_CAR.Car_Register);
                     provCar = getCarList.get(position).get(TB_1_CAR.Province_Name);
                     car_Id = Integer.parseInt(getCarList.get(position).get(TB_1_CAR.Car_Id));
-                    a_toast_time.Toast_Time(mContext, "Selected Car Registration : " + regCar, 700);
+                    a_toast_time.Toast_Time(mContext, mContext.getResources().getString(R.string.lp_car_regis) + " : " + regCar, 700);
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("Car Registration : " + regCar);
+                    builder.setTitle(mContext.getResources().getString(R.string.lp_car_regis) + " : " + regCar);
                     builder.setItems(Choice, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -378,15 +379,15 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
                                 controlPage(CM_8_History.class);
                             } else if (which == 3) {
                                 AlertDialog.Builder builder_1 = new AlertDialog.Builder(mContext);
-                                builder_1.setMessage("Are sure Delete " + regCar + " ?");
-                                builder_1.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                builder_1.setMessage(mContext.getResources().getString(R.string.are_you_delete) + " " + regCar + " ?");
+                                builder_1.setNegativeButton(R.string.add_user_ok, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         repo_1_car.delete(car_Id);
-                                        a_toast_time.Toast_Time(mContext, "Car No. " + regCar + " is Deleted Success", 800);
+                                        a_toast_time.Toast_Time(mContext, regCar + " " + mContext.getResources().getString(R.string.delete_success), 700);
                                         getDatacar();
                                     }
                                 });
-                                builder_1.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                builder_1.setPositiveButton(R.string.add_user_cancel, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         builder.show();
                                     }

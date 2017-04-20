@@ -1,5 +1,6 @@
 package com.saikaew_rus.cm_alert;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class A_Setting extends AppCompatActivity {
 
@@ -24,12 +26,14 @@ public class A_Setting extends AppCompatActivity {
     HashMap<String, String> alarm;
 
     TimePickerDialog mTimePicker;
+    Configuration config = new Configuration();
+    Locale[] locale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_setting);
-        this.setTitle(A_Word_App.title_setting[A_Word_App.language]);
+        this.setTitle(R.string.title_setting);
 
         setLayout();
         setValue();
@@ -52,7 +56,7 @@ public class A_Setting extends AppCompatActivity {
         textView_Alert.setText(A_Word_App.setting_alert[A_Word_App.language]);
         textView_Time.setText(alarm.get(TB_11_Sysconfig.Sys_Value));
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, A_Word_App.setting_lang_value);
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.setting_lang_value));
         arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         mTimePicker = TimePickerDialog.newInstance(onTimeSetListener,
@@ -67,6 +71,8 @@ public class A_Setting extends AppCompatActivity {
                 mTimePicker.show(getSupportFragmentManager(), "timePicker");
             }
         });
+
+        locale = new Locale[]{Locale.ENGLISH, new Locale("th")};
     }
 
     private TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -83,6 +89,9 @@ public class A_Setting extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                config.locale = locale[i];
+                getResources().updateConfiguration(config, null);
 
                 A_Word_App.language = i;
                 repo_11_sysconfig.update(TB_11_Sysconfig.Sys_Code_Language, String.valueOf(i));
