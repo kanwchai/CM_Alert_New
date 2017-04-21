@@ -96,4 +96,7 @@
     <string name="lp_Save">บันทึก</string>
     <string name="lp_delete">ลบ</string>
     <string name="TB_Part_Name">Part_Name_Th</string>
+    <string name="TB_Part_Maintenance_Guide">Maintenance_Guide_Th</string>
+    <string name="num_Language">1</string>
+    <string name="lp_Please_complete">กรุณากรอกข้อมูลให้ครบถ้วน</string>
 </resources>

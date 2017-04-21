@@ -127,4 +127,7 @@
     <string name="lp_Save">SAVE</string>
     <string name="lp_delete">Delete</string>
     <string name="TB_Part_Name">Part_Name_En</string>
+    <string name="TB_Part_Maintenance_Guide">Maintenance_Guide_En</string>
+    <string name="num_Language">0</string>
+    <string name="lp_Please_complete">Please complete the form below.</string>
 </resources>

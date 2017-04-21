@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,13 +47,10 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
     TB_9_USER tb_9_user;
     TB_11_Sysconfig tb_11_sysconfig;
 
-    HashMap<String, String> chkSys;
-
     int car_Id;
     ArrayList<HashMap<String, String>> getCarList;
     TextView showName;
     A_Toast_Time a_toast_time;
-    LinearLayout linearLayout;
     A_Check_Dialog_Alert a_check_dialog_alert;
 
     RecyclerView mRecyclerView;
@@ -134,21 +130,21 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
             if (drivingLicence.getCount() > 0) {
                 HashMap<String, String> getdata = new HashMap<>();
                 getdata.put(alert_id, "0");
-                getdata.put(alert_name, A_Word_App.dialog_driving_licence[A_Word_App.language]);
+                getdata.put(alert_name, String.valueOf(R.string.dialog_driving_licence));
                 getdata.put(alert_total, String.valueOf(drivingLicence.getCount()));
                 data.add(getdata);
             }
             if (taxCar.getCount() > 0) {
                 HashMap<String, String> getdata = new HashMap<>();
                 getdata.put(alert_id, "1");
-                getdata.put(alert_name, A_Word_App.dialog_tax_car[A_Word_App.language]);
+                getdata.put(alert_name, String.valueOf(R.string.dialog_tax_car));
                 getdata.put(alert_total, String.valueOf(taxCar.getCount()));
                 data.add(getdata);
             }
             if (dataCar.getCount() > 0) {
                 HashMap<String, String> getdata = new HashMap<>();
                 getdata.put(alert_id, "2");
-                getdata.put(alert_name, A_Word_App.dialog_car[A_Word_App.language]);
+                getdata.put(alert_name, String.valueOf(R.string.dialog_car));
                 getdata.put(alert_total, String.valueOf(dataCar.getCount()));
                 data.add(getdata);
             }
@@ -164,8 +160,8 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
             final CheckBox donAlert = (CheckBox) view.findViewById(R.id.donAlert);
             ImageButton cancelAlert = (ImageButton) view.findViewById(R.id.cancelAlert);
 
-            title.setText(A_Word_App.dialog_list_maintenance[A_Word_App.language]);
-            donAlert.setText(A_Word_App.dialog_close_alert[A_Word_App.language]);
+            title.setText(R.string.dialog_list_maintenance);
+            donAlert.setText(R.string.dialog_close_alert);
 
             A_CustomListDialog a_customListDialog = new A_CustomListDialog(this, data);
             listAlert.setAdapter(a_customListDialog);
@@ -200,57 +196,6 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
             });
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.sitting_menu, menu);
-//
-//        menu.findItem(R.id.noti).setTitle(A_Word_App.menu_notification[A_Word_App.language]);
-//        menu.findItem(R.id.setting).setTitle(A_Word_App.menu_setting[A_Word_App.language]);
-//        menu.findItem(R.id.about).setTitle(A_Word_App.menu_about[A_Word_App.language]);
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main_activity_test, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.noti:
-//                intentPage(A_ListAlert.class);
-//                return true;
-//            case R.id.setting:
-//                intentPage(A_Setting.class);
-//                return true;
-//            case R.id.about:
-//                intentPage(A_AboutRus.class);
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     public void intentPage(Class aClass) {
         Intent intent = new Intent(getApplication(), aClass);
@@ -298,7 +243,7 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
         private ArrayList<HashMap<String, String>> getCarList;
         A_Toast_Time a_toast_time;
         int car_Id;
-        String[] Choice =  getResources().getStringArray(R.array.choice_en);
+        String[] Choice = getResources().getStringArray(R.array.choice_en);
         Repo_1_CAR repo_1_car;
         String regCar, provCar;
 
@@ -432,16 +377,16 @@ public class CM_3_Car_Recycle extends AppCompatActivity implements NavigationVie
 
         // find MenuItem you want to change
         MenuItem nav_time = menu.findItem(R.id.nav_time);
-        nav_time.setTitle(A_Word_App.menu_alarm[A_Word_App.language]);
+        nav_time.setTitle(R.string.menu_alarm);
 
         MenuItem nav_setting = menu.findItem(R.id.nav_setting);
-        nav_setting.setTitle(A_Word_App.menu_setting[A_Word_App.language]);
+        nav_setting.setTitle(R.string.menu_setting);
 
         MenuItem nav_user = menu.findItem(R.id.nav_user);
-        nav_user.setTitle(A_Word_App.menu_user[A_Word_App.language]);
+        nav_user.setTitle(R.string.menu_user);
 
         MenuItem nav_about = menu.findItem(R.id.nav_about);
-        nav_about.setTitle(A_Word_App.menu_about[A_Word_App.language]);
+        nav_about.setTitle(R.string.menu_about);
 
     }
 

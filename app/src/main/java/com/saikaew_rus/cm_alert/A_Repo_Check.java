@@ -195,7 +195,7 @@ public class A_Repo_Check {
     }
 
     public List<String> getDataTotalPart() {
-        String carRegis, proVince, totalPart, carData = new String();
+        String carRegis, proVince, totalPart = new String();
         List<String> dataTotalPart = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT COUNT(" + TB_1_CAR.Car_Id + ") '" + TB_1_CAR.TotalPart + "',*" +

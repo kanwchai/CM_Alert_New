@@ -14,9 +14,11 @@ import java.util.HashMap;
  */
 public class Repo_2_DUE_OF_PART_FIX {
     private A_MyDatabase dbHelper;
+    Context mContext;
 
     public Repo_2_DUE_OF_PART_FIX(Context context) {
         dbHelper = new A_MyDatabase(context);
+        this.mContext = context;
     }
 
     public int insert(TB_2_DUE_OF_PART_FIX due_fix) {
@@ -147,11 +149,10 @@ public class Repo_2_DUE_OF_PART_FIX {
 
     public ArrayList<HashMap<String, String>> getFixListByCarId(int carId, int sortPartNum) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] partSearch = {TB_5_PARTS.Part_Name_en, TB_5_PARTS.Part_Name_th};
-        String[] mainSearch = {TB_5_PARTS.Maintenance_Guide_En, TB_5_PARTS.Maintenance_Guide_th};
+        String partSearch = mContext.getResources().getString(R.string.TB_Part_Name);
 
-        String[] sortPart = {partSearch[A_Word_App.language], TB_2_DUE_OF_PART_FIX.CountDate, TB_2_DUE_OF_PART_FIX.CountKilo
-                , partSearch[A_Word_App.language] + " DESC", TB_2_DUE_OF_PART_FIX.CountDate + " DESC", TB_2_DUE_OF_PART_FIX.CountKilo + " DESC"};
+        String[] sortPart = {partSearch, TB_2_DUE_OF_PART_FIX.CountDate, TB_2_DUE_OF_PART_FIX.CountKilo
+                , partSearch + " DESC", TB_2_DUE_OF_PART_FIX.CountDate + " DESC", TB_2_DUE_OF_PART_FIX.CountKilo + " DESC"};
 
         String selectQuery = "SELECT *," +
                 TB_4_HISTORYS_OF_CAR.Next_Changed_Kilo + "-" + TB_6_RUN_DATA.Run_Kilo_End + " " + TB_2_DUE_OF_PART_FIX.CountKilo + "," +
@@ -197,14 +198,14 @@ public class Repo_2_DUE_OF_PART_FIX {
                 HashMap<String, String> due_fix = new HashMap<String, String>();
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Id, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Id)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Part_Id, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Part_Id)));
-                due_fix.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(partSearch[A_Word_App.language])));
+                due_fix.put(TB_5_PARTS.Part_Name_en, cursor.getString(cursor.getColumnIndex(partSearch)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Car_Id, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Car_Id)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Kilo)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Date, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Date)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.Fix_Due_Status, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.Fix_Due_Status)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.CountKilo, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.CountKilo)));
                 due_fix.put(TB_2_DUE_OF_PART_FIX.CountDate, cursor.getString(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.CountDate)));
-                due_fix.put(TB_5_PARTS.Maintenance_Guide_En, cursor.getString(cursor.getColumnIndex(mainSearch[A_Word_App.language])));
+                due_fix.put(TB_5_PARTS.Maintenance_Guide_En, cursor.getString(cursor.getColumnIndex(mContext.getResources().getString(R.string.TB_Part_Maintenance_Guide))));
 
                 if (cursor.getInt(cursor.getColumnIndex(TB_2_DUE_OF_PART_FIX.CountKilo)) <= 0) {
                     due_fix.put(TB_2_DUE_OF_PART_FIX.SetColor, String.valueOf(R.color.LifeTime_0));

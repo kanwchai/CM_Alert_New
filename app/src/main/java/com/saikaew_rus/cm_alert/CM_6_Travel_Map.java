@@ -117,14 +117,9 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
         Log.d("reg_car", tb_1_car.car_Register);
         mKilocarText.setText(decimalFormat.format(tb_6_run_data.run_Kilo_End));
 
-        workng.setText(A_Word_App.travel_disconnecting[A_Word_App.language]);
+        workng.setText(R.string.travel_disconnecting);
         workng.setTextColor(Color.RED);
         gifImageView.setBackgroundResource(0);
-
-        car_regis.setText(A_Word_App.travel_regis_car[A_Word_App.language]);
-        car_kilo.setText(A_Word_App.travel_kilo_car[A_Word_App.language]);
-        radioStart.setText(A_Word_App.travel_start[A_Word_App.language]);
-        radioStop.setText(A_Word_App.travel_stop[A_Word_App.language]);
     }
 
     public void travel_control(View view) {
@@ -146,7 +141,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
                     if (mGoogleApiClient != null) {
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
                         mGoogleApiClient = null;
-                        workng.setText(A_Word_App.travel_disconnecting[A_Word_App.language]);
+                        workng.setText(R.string.travel_disconnecting);
                         workng.setTextColor(Color.RED);
                         gifImageView.setBackgroundResource(0);
                         setStopTravel();
@@ -162,7 +157,7 @@ public class CM_6_Travel_Map extends FragmentActivity implements OnMapReadyCallb
     public void setStartTravel() {
         tb_6_run_data.run_Kilo_Start = tb_6_run_data.run_Kilo_End;
         tb_6_run_data.run_Date_Start = sdf.format(Calendar.getInstance().getTime());
-        workng.setText(A_Word_App.travel_connecting[A_Word_App.language]);
+        workng.setText(R.string.travel_connecting);
         workng.setTextColor(getResources().getColor(R.color.working));
         gifImageView.setBackgroundResource(R.drawable.point);
     }

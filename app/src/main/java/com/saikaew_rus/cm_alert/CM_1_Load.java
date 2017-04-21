@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ public class CM_1_Load extends AppCompatActivity {
         repo_9_user = new Repo_9_USER(this);
         userList = repo_9_user.getUserList();
         startAnimations();
+        Log.d("210460", getResources().getConfiguration().locale.getLanguage());
     }
 
     public void chkTotal() {
@@ -99,8 +101,6 @@ public class CM_1_Load extends AppCompatActivity {
                 if (repo_11_sysconfig.chkLang() <= 0) {
                     intent(A_Choose_Language.class);
                 } else {
-                    dataConfig = repo_11_sysconfig.getConfig(TB_11_Sysconfig.Sys_Code,TB_11_Sysconfig.Sys_Code_Language);
-                    A_Word_App.language = Integer.parseInt(dataConfig.get(TB_11_Sysconfig.Sys_Value));
                     if (userList.size() == 0) {
                         intent(CM_2_Add_User.class);
                     } else {

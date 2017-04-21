@@ -47,7 +47,7 @@ public class A_Word_App {
     public static final String[] setting_alert = {"Alert Time", "เวลาแจ้งเตือน"};
 
     //About
-    public static final int[] about_logo = {R.drawable.rmutsb_logo_en, R.drawable.rmutsb_logo_th};
+    public static final int[] about_logo = {R.drawable.rmutsb_logo, R.drawable.rmutsb_logo};
     public static final String[] about_title = {"Developed By", "พัฒนาโดย"};
     public static final String[] about_uni_name = {"Rajamangala University of Technology Suvarnabhumi", "มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ"};
     public static final String[] about_uni_faculty = {"Faculty of Science and Technology", "คณะวิทยาศาสตร์และเทคโนโลยี"};
@@ -64,11 +64,6 @@ public class A_Word_App {
     public static final String[] travel_stop = {"Stop", "หยุด"};
     public static final String[] travel_connecting = {"Connecting", "เชื่อมต่อ"};
     public static final String[] travel_disconnecting = {"Disconnecting", "หยุดเชื่อมต่อ"};
-
-    //Car Recycle
-    public static final String[] choice_en = {"Travel", "Maintenance", "History", "Delete"};
-    public static final String[] choice_th = {"เดินทาง", "บำรุงรักษา", "ประวัติ", "ลบ"};
-    public static String[][] choice_has = new String[][]{choice_en, choice_th};
 
     //Dialog Show Alert
     public static final String[] dialog_list_maintenance = {"List of maintenance", "รายการดูแลรักษา"};
